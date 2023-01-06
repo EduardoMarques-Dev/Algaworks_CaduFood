@@ -1,10 +1,13 @@
 package com.algaworks.cadufood.domain.service;
 
+import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.model.Cozinha;
 import com.algaworks.cadufood.domain.model.Restaurante;
 import com.algaworks.cadufood.domain.repository.RestauranteRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,6 +39,18 @@ public class RestauranteService {
 		restaurante.setCozinha(cozinha);
 		
 		return restauranteRepository.save(restaurante);
+	}
+
+	public void excluir(Long restauranteId) {
+		try {
+			restauranteRepository.deleteById(restauranteId);
+		} catch (EmptyResultDataAccessException e) {
+			throw new EntidadeNaoEncontradaException(
+					String.format("Não existe um cadastro de cozinha com código %d", restauranteId));
+		} catch (DataIntegrityViolationException e) {
+			throw new EntidadeEmUsoException(
+					String.format("Cozinha de código %d não pode ser removida, pois está em uso", restauranteId));
+		}
 	}
 
 	private Restaurante buscarRestaurante(Long restauranteId) {

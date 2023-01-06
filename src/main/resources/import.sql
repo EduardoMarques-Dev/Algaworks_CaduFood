@@ -1,23 +1,23 @@
-insert into cozinha (id, nome) values (1, 'Tailandesa');
-insert into cozinha (id, nome) values (2, 'Indiana');
+insert into cozinha (id, nome) values (100, 'Tailandesa');
+insert into cozinha (id, nome) values (200, 'Indiana');
 
-insert into restaurante (id, nome, taxa_frete, cozinha_id) values (1, 'Thai Gourmet', 10, 1);
-insert into restaurante (id, nome, taxa_frete, cozinha_id) values (2, 'Thai Delivery', 9.50, 1);
-insert into restaurante (id, nome, taxa_frete, cozinha_id) values (3, 'Tuk Tuk Comida Indiana', 15, 2);
+insert into restaurante (id, nome, taxa_frete, cozinha_id) values (100, 'Thai Gourmet', 10, 100);
+insert into restaurante (id, nome, taxa_frete, cozinha_id) values (200, 'Thai Delivery', 9.50, 100);
+insert into restaurante (id, nome, taxa_frete, cozinha_id) values (300, 'Tuk Tuk Comida Indiana', 15, 200);
 
-insert into estado (id, nome) values (1, 'Minas Gerais');
-insert into estado (id, nome) values (2, 'São Paulo');
-insert into estado (id, nome) values (3, 'Ceará');
+insert into estado (id, nome) values (100, 'Minas Gerais');
+insert into estado (id, nome) values (200, 'São Paulo');
+insert into estado (id, nome) values (300, 'Ceará');
 
-insert into cidade (id, nome, estado_id) values (1, 'Uberlândia', 1);
-insert into cidade (id, nome, estado_id) values (2, 'Belo Horizonte', 1);
-insert into cidade (id, nome, estado_id) values (3, 'São Paulo', 2);
-insert into cidade (id, nome, estado_id) values (4, 'Campinas', 2);
-insert into cidade (id, nome, estado_id) values (5, 'Fortaleza', 3);
+insert into cidade (id, nome, estado_id) values (100, 'Uberlândia', 100);
+insert into cidade (id, nome, estado_id) values (200, 'Belo Horizonte', 100);
+insert into cidade (id, nome, estado_id) values (300, 'São Paulo', 200);
+insert into cidade (id, nome, estado_id) values (400, 'Campinas', 200);
+insert into cidade (id, nome, estado_id) values (500, 'Fortaleza', 300);
 
-insert into forma_pagamento (id, descricao) values (1, 'Cartão de crédito');
-insert into forma_pagamento (id, descricao) values (2, 'Cartão de débito');
-insert into forma_pagamento (id, descricao) values (3, 'Dinheiro');
+insert into forma_pagamento (id, descricao) values (100, 'Cartão de crédito');
+insert into forma_pagamento (id, descricao) values (200, 'Cartão de débito');
+insert into forma_pagamento (id, descricao) values (300, 'Dinheiro');
 
-insert into permissao (id, nome, descricao) values (1, 'CONSULTAR_COZINHAS', 'Permite consultar cozinhas');
-insert into permissao (id, nome, descricao) values (2, 'EDITAR_COZINHAS', 'Permite editar cozinhas');
+insert into permissao (id, nome, descricao) values (100, 'CONSULTAR_COZINHAS', 'Permite consultar cozinhas');
+insert into permissao (id, nome, descricao) values (200, 'EDITAR_COZINHAS', 'Permite editar cozinhas');
