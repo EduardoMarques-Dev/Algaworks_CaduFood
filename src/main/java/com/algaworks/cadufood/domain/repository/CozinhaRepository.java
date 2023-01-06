@@ -1,14 +1,8 @@
 package com.algaworks.cadufood.domain.repository;
 
 import com.algaworks.cadufood.domain.model.Cozinha;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+public interface CozinhaRepository extends JpaRepository<Cozinha, Long> {
 
-public interface CozinhaRepository {
-
-	List<Cozinha> listar();
-	Cozinha buscar(Long id);
-	Cozinha salvar(Cozinha cozinha);
-	void remover(Long id);
-	
 }

@@ -4,33 +4,50 @@ import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.model.Cozinha;
 import com.algaworks.cadufood.domain.repository.CozinhaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-@Service
-public class CadastroCozinhaService {
+import java.util.List;
 
-	@Autowired
+@Service
+@AllArgsConstructor
+public class CozinhaService {
+
 	private CozinhaRepository cozinhaRepository;
+
+
+	public List<Cozinha> listar() {
+		List<Cozinha> cozinhas = cozinhaRepository.findAll();
+		return cozinhas;
+	}
+
+	public Cozinha buscar(Long cozinhaId) {
+		Cozinha cozinha = buscarCozinha(cozinhaId);
+		return cozinha;
+	}
 	
 	public Cozinha salvar(Cozinha cozinha) {
-		return cozinhaRepository.salvar(cozinha);
+		return cozinhaRepository.save(cozinha);
 	}
 	
 	public void excluir(Long cozinhaId) {
 		try {
-			cozinhaRepository.remover(cozinhaId);
-			
+			cozinhaRepository.deleteById(cozinhaId);
 		} catch (EmptyResultDataAccessException e) {
 			throw new EntidadeNaoEncontradaException(
 				String.format("Não existe um cadastro de cozinha com código %d", cozinhaId));
-		
 		} catch (DataIntegrityViolationException e) {
 			throw new EntidadeEmUsoException(
 				String.format("Cozinha de código %d não pode ser removida, pois está em uso", cozinhaId));
 		}
+	}
+
+	public Cozinha buscarCozinha(Long cozinhaId) {
+		return cozinhaRepository.findById(cozinhaId).orElseThrow(
+				() -> new EntidadeNaoEncontradaException(cozinhaId.toString())
+		);
 	}
 	
 }
