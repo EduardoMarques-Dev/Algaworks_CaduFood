@@ -3,12 +3,10 @@ package com.algaworks.cadufood.api.controller;
 import com.algaworks.cadufood.domain.model.Cozinha;
 import com.algaworks.cadufood.domain.service.CozinhaService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -27,6 +25,12 @@ public class CozinhaController {
 	public ResponseEntity<Cozinha> buscar(@PathVariable Long cozinhaId) {
 		Cozinha cozinha = cozinhaService.buscar(cozinhaId);
 		return ResponseEntity.ok(cozinha);
+	}
+
+	@GetMapping("/buscar-por")
+	public ResponseEntity<List<Cozinha>> buscarPor(@RequestParam String nome) {
+		List<Cozinha> cozinhas = cozinhaService.buscarPorNome(nome);
+		return ResponseEntity.ok(cozinhas);
 	}
 
 	@PostMapping

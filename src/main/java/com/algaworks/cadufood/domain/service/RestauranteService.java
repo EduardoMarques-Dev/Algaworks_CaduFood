@@ -11,6 +11,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -27,14 +28,20 @@ public class RestauranteService {
 	}
 
 	public Restaurante buscar(Long restauranteId) {
-		Restaurante restaurante = buscarRestaurante(restauranteId);
+		Restaurante restaurante = buscarRestauranteOuFalhar(restauranteId);
 		return restaurante;
+	}
+
+	public List<Restaurante> buscarPor(BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
+		List<Restaurante> restaurantes = restauranteRepository
+				.findByTaxaFreteBetween(taxaFreteInicial,taxaFreteFinal);
+		return restaurantes;
 	}
 
 
 	public Restaurante salvar(Restaurante restaurante) {
 		Long cozinhaId = restaurante.getCozinha().getId();
-		Cozinha cozinha = cozinhaService.buscarCozinha(cozinhaId);
+		Cozinha cozinha = cozinhaService.buscarCozinhaOuFalhar(cozinhaId);
 		
 		restaurante.setCozinha(cozinha);
 		
@@ -61,7 +68,7 @@ public class RestauranteService {
 		}
 	}
 
-	private Restaurante buscarRestaurante(Long restauranteId) {
+	private Restaurante buscarRestauranteOuFalhar(Long restauranteId) {
 		return restauranteRepository.findById(restauranteId).orElseThrow(
 				() -> new EntidadeNaoEncontradaException(
 						String.format("Não existe cadastro de cozinha com código %d", restauranteId))

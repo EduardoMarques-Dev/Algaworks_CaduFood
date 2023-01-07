@@ -24,8 +24,13 @@ public class CozinhaService {
 	}
 
 	public Cozinha buscar(Long cozinhaId) {
-		Cozinha cozinha = buscarCozinha(cozinhaId);
+		Cozinha cozinha = buscarCozinhaOuFalhar(cozinhaId);
 		return cozinha;
+	}
+
+	public List<Cozinha> buscarPorNome(String nome) {
+		List<Cozinha> cozinhas = cozinhaRepository.findTodasByNomeContaining(nome);
+		return cozinhas;
 	}
 	
 	public Cozinha salvar(Cozinha cozinha) {
@@ -52,7 +57,7 @@ public class CozinhaService {
 		}
 	}
 
-	public Cozinha buscarCozinha(Long cozinhaId) {
+	public Cozinha buscarCozinhaOuFalhar(Long cozinhaId) {
 		return cozinhaRepository.findById(cozinhaId).orElseThrow(
 				() -> new EntidadeNaoEncontradaException(cozinhaId.toString())
 		);

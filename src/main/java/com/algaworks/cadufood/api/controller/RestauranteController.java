@@ -1,7 +1,5 @@
 package com.algaworks.cadufood.api.controller;
 
-import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
-import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.model.Restaurante;
 import com.algaworks.cadufood.domain.service.RestauranteService;
 import lombok.AllArgsConstructor;
@@ -9,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -27,6 +26,13 @@ public class RestauranteController {
 	@GetMapping("/{restauranteId}")
 	public ResponseEntity<Restaurante> buscar(@PathVariable Long restauranteId) {
 		Restaurante restaurante = restauranteService.buscar(restauranteId);
+		return ResponseEntity.ok(restaurante);
+	}
+
+	@GetMapping("/buscar-por")
+	public ResponseEntity<List<Restaurante>> buscarPor(@RequestParam("taxa-frete-inicial") BigDecimal taxaFreteInicial,
+													   @RequestParam("taxa-frete-final") BigDecimal taxaFreteFinal) {
+		List<Restaurante> restaurante = restauranteService.buscarPor(taxaFreteInicial, taxaFreteFinal);
 		return ResponseEntity.ok(restaurante);
 	}
 
