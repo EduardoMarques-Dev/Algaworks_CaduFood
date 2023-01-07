@@ -7,11 +7,13 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -29,16 +31,27 @@ public class RestauranteRepositoryImpl implements RestauranteRepositoryQueries {
                                                  BigDecimal taxaFreteFinal){
         // Inicialização
         CriteriaBuilder builder = manager.getCriteriaBuilder();
-        CriteriaQuery<Restaurante> criteria = builder
-                .createQuery(Restaurante.class);
+        CriteriaQuery<Restaurante> query = builder.createQuery(Restaurante.class);
+        Root<Restaurante> root = query.from(Restaurante.class); // From Restaurante
+        var predicates = new ArrayList<Predicate>();
 
         // Montando a query
-        criteria.from(Restaurante.class); // From Restaurante
+        if (StringUtils.hasLength(nome)){
+            predicates.add(builder.like(root.get("nome"),"%"+nome+"%"));
+        }
+        if (taxaFreteInicial != null){
+            predicates.add(builder.greaterThanOrEqualTo(root.get("taxaFrete"),taxaFreteInicial));
+        }
+        if (taxaFreteFinal != null){
+            predicates.add(builder.lessThanOrEqualTo(root.get("taxaFrete"),taxaFreteFinal));
+        }
 
+        // Converte o ArrayList para Array
+        query.where(predicates.toArray(new Predicate[0]));
 
         // Realizando a consulta
-        TypedQuery<Restaurante> query = manager.createQuery(criteria);
-        return query.getResultList();
+        TypedQuery<Restaurante> queryTipada = manager.createQuery(query);
+        return queryTipada.getResultList();
     }
 
 //    public List<Restaurante> buscarPorNomeEFrete(String nome,
