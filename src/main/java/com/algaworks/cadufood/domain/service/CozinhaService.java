@@ -27,11 +27,6 @@ public class CozinhaService {
 		Cozinha cozinha = buscarCozinhaOuFalhar(cozinhaId);
 		return cozinha;
 	}
-
-	public List<Cozinha> buscarPorNome(String nome) {
-		List<Cozinha> cozinhas = cozinhaRepository.findTodasByNomeContaining(nome);
-		return cozinhas;
-	}
 	
 	public Cozinha salvar(Cozinha cozinha) {
 		return cozinhaRepository.save(cozinha);

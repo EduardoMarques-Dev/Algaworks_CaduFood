@@ -29,10 +29,17 @@ public class RestauranteController {
 		return ResponseEntity.ok(restaurante);
 	}
 
-	@GetMapping("/buscar-por")
-	public ResponseEntity<List<Restaurante>> buscarPor(@RequestParam("taxa-frete-inicial") BigDecimal taxaFreteInicial,
+	@GetMapping("/buscar-por-frete")
+	public ResponseEntity<List<Restaurante>> buscarPorFrete(@RequestParam("taxa-frete-inicial") BigDecimal taxaFreteInicial,
 													   @RequestParam("taxa-frete-final") BigDecimal taxaFreteFinal) {
-		List<Restaurante> restaurante = restauranteService.buscarPor(taxaFreteInicial, taxaFreteFinal);
+		List<Restaurante> restaurante = restauranteService.buscarPorFrete(taxaFreteInicial, taxaFreteFinal);
+		return ResponseEntity.ok(restaurante);
+	}
+
+	@GetMapping("/buscar-por-nome")
+	public ResponseEntity<List<Restaurante>> buscarPorNome(@RequestParam String nome,
+														   @RequestParam(defaultValue = "-1") int quantidade) {
+		List<Restaurante> restaurante = restauranteService.buscarPorNome(nome, quantidade);
 		return ResponseEntity.ok(restaurante);
 	}
 

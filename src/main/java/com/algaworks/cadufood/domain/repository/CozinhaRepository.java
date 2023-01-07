@@ -7,6 +7,4 @@ import java.util.List;
 
 public interface CozinhaRepository extends JpaRepository<Cozinha, Long> {
 
-    List<Cozinha> findTodasByNomeContaining(String nome);
-
 }

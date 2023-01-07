@@ -12,6 +12,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,12 +33,27 @@ public class RestauranteService {
 		return restaurante;
 	}
 
-	public List<Restaurante> buscarPor(BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
+	public List<Restaurante> buscarPorFrete(BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
 		List<Restaurante> restaurantes = restauranteRepository
 				.findByTaxaFreteBetween(taxaFreteInicial,taxaFreteFinal);
 		return restaurantes;
 	}
 
+	public List<Restaurante> buscarPorNome(String nome, int quantidade) {
+		List<Restaurante> restaurantes = new ArrayList<>();
+
+		switch (quantidade){
+			case 1:
+				restaurantes = restauranteRepository.findFirstByNomeContaining(nome);
+				break;
+			case 2:
+				restaurantes = restauranteRepository.findTop2ByNomeContaining(nome);
+				break;
+			default:
+				restaurantes = restauranteRepository.findAllByNomeContaining(nome);
+		}
+		return restaurantes;
+	}
 
 	public Restaurante salvar(Restaurante restaurante) {
 		Long cozinhaId = restaurante.getCozinha().getId();
