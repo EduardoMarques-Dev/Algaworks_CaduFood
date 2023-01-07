@@ -3,9 +3,11 @@ package com.algaworks.cadufood.domain.service;
 import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.model.Cidade;
+import com.algaworks.cadufood.domain.model.Cozinha;
 import com.algaworks.cadufood.domain.model.Estado;
 import com.algaworks.cadufood.domain.repository.CidadeRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,6 @@ public class CidadeService {
 	private CidadeRepository cidadeRepository;
 
 	private EstadoService estadoService;
-
 
 	public List<Cidade> listar() {
 		List<Cidade> cidades = cidadeRepository.findAll();
@@ -38,6 +39,14 @@ public class CidadeService {
 		cidade.setEstado(estado);
 
 		return cidadeRepository.save(cidade);
+	}
+
+	public Cidade atualizar(Long cidadeId, Cidade cidade) {
+		Cidade cidadeAtual = buscar(cidadeId);
+
+		BeanUtils.copyProperties(cidade, cidadeAtual, "id");
+
+		return cidadeRepository.save(cidadeAtual);
 	}
 
 	public void excluir(Long cidadeId) {

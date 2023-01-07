@@ -5,6 +5,7 @@ import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.model.Cozinha;
 import com.algaworks.cadufood.domain.repository.CozinhaRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,6 @@ import java.util.List;
 public class CozinhaService {
 
 	private CozinhaRepository cozinhaRepository;
-
 
 	public List<Cozinha> listar() {
 		List<Cozinha> cozinhas = cozinhaRepository.findAll();
@@ -31,7 +31,15 @@ public class CozinhaService {
 	public Cozinha salvar(Cozinha cozinha) {
 		return cozinhaRepository.save(cozinha);
 	}
-	
+
+	public Cozinha atualizar(Long cozinhaId, Cozinha cozinha) {
+		Cozinha cozinhaAtual = buscar(cozinhaId);
+
+		BeanUtils.copyProperties(cozinha, cozinhaAtual, "id");
+
+		return cozinhaRepository.save(cozinhaAtual);
+	}
+
 	public void excluir(Long cozinhaId) {
 		try {
 			cozinhaRepository.deleteById(cozinhaId);

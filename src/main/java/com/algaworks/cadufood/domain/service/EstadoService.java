@@ -2,9 +2,11 @@ package com.algaworks.cadufood.domain.service;
 
 import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
+import com.algaworks.cadufood.domain.model.Cozinha;
 import com.algaworks.cadufood.domain.model.Estado;
 import com.algaworks.cadufood.domain.repository.EstadoRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -16,7 +18,6 @@ import java.util.List;
 public class EstadoService {
 
 	private EstadoRepository estadoRepository;
-
 
 	public List<Estado> listar() {
 		List<Estado> estados = estadoRepository.findAll();
@@ -31,7 +32,15 @@ public class EstadoService {
 	public Estado salvar(Estado estado) {
 		return estadoRepository.save(estado);
 	}
-	
+
+	public Estado atualizar(Long estadoId, Estado estado) {
+		Estado estadoAtual = buscar(estadoId);
+
+		BeanUtils.copyProperties(estado, estadoAtual, "id");
+
+		return estadoRepository.save(estadoAtual);
+	}
+
 	public void excluir(Long estadoId) {
 		try {
 			estadoRepository.deleteById(estadoId);

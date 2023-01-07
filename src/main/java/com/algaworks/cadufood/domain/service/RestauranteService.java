@@ -6,6 +6,7 @@ import com.algaworks.cadufood.domain.model.Cozinha;
 import com.algaworks.cadufood.domain.model.Restaurante;
 import com.algaworks.cadufood.domain.repository.RestauranteRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,6 @@ public class RestauranteService {
 	private RestauranteRepository restauranteRepository;
 	
 	private CozinhaService cozinhaService;
-
 
 	public List<Restaurante> listar() {
 		List<Restaurante> restaurantes = restauranteRepository.findAll();
@@ -39,6 +39,14 @@ public class RestauranteService {
 		restaurante.setCozinha(cozinha);
 		
 		return restauranteRepository.save(restaurante);
+	}
+
+	public Restaurante atualizar(Long restauranteId, Restaurante restaurante) {
+		Restaurante restauranteAtual = buscar(restauranteId);
+
+		BeanUtils.copyProperties(restaurante, restauranteAtual, "id");
+
+		return restauranteRepository.save(restauranteAtual);
 	}
 
 	public void excluir(Long restauranteId) {
