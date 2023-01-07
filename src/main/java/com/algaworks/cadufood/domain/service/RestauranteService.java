@@ -50,8 +50,14 @@ public class RestauranteService {
 				restaurantes = restauranteRepository.findTop2ByNomeContaining(nome);
 				break;
 			default:
-				restaurantes = restauranteRepository.consultarPorNome(nome);
+				restaurantes = restauranteRepository.buscarPorNome(nome);
 		}
+		return restaurantes;
+	}
+
+	public List<Restaurante> buscarPorNomeEFrete(String nome, BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
+		List<Restaurante> restaurantes = restauranteRepository.
+				buscarPorNomeEFrete(nome,taxaFreteInicial, taxaFreteFinal);
 		return restaurantes;
 	}
 

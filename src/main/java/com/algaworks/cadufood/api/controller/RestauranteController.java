@@ -43,6 +43,14 @@ public class RestauranteController {
 		return ResponseEntity.ok(restaurante);
 	}
 
+	@GetMapping("/buscar-por-nome-e-frete")
+	public ResponseEntity<List<Restaurante>> buscarPorNome(@RequestParam String nome,
+														   @RequestParam("taxa-frete-inicial") BigDecimal taxaFreteInicial,
+														   @RequestParam("taxa-frete-final") BigDecimal taxaFreteFinal) {
+		List<Restaurante> restaurante = restauranteService.buscarPorNomeEFrete(nome, taxaFreteInicial,taxaFreteFinal);
+		return ResponseEntity.ok(restaurante);
+	}
+
 	@PostMapping
 	public ResponseEntity<Restaurante> salvar(@RequestBody Restaurante restaurante) {
 		restaurante = restauranteService.salvar(restaurante);
