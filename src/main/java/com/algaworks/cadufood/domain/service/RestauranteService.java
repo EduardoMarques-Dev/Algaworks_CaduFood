@@ -50,7 +50,7 @@ public class RestauranteService {
 				restaurantes = restauranteRepository.findTop2ByNomeContaining(nome);
 				break;
 			default:
-				restaurantes = restauranteRepository.findAllByNomeContaining(nome);
+				restaurantes = restauranteRepository.consultarPorNome(nome);
 		}
 		return restaurantes;
 	}
