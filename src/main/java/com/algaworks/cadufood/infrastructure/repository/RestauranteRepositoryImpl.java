@@ -1,18 +1,21 @@
 package com.algaworks.cadufood.infrastructure.repository;
 
 import com.algaworks.cadufood.domain.model.Restaurante;
-import jakarta.persistence.Entity;
+import com.algaworks.cadufood.domain.repository.queries.RestauranteRepositoryQueries;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 
 /*
-* Esta classe implementa o repositório de mesmo nome automaticamente
-* por ter o sufixo "Impl"
-*/
+ * Esta classe implementa o repositório de mesmo nome automaticamente
+ * por ter o sufixo "Impl"
+ */
 @Repository
 public class RestauranteRepositoryImpl implements RestauranteRepositoryQueries {
 
@@ -22,14 +25,29 @@ public class RestauranteRepositoryImpl implements RestauranteRepositoryQueries {
     public List<Restaurante> buscarPorNomeEFrete(String nome,
                                                  BigDecimal taxaFreteInicial,
                                                  BigDecimal taxaFreteFinal){
-        var jpql = "from Restaurante where nome like :nome "
-                + "and taxaFrete between :taxaInicial and :taxaFinal";
+        // Responsável por montar a query
+        var jpql = new StringBuilder();
+        // Responsável por atribuir os parâmetros
+        var parametros = new HashMap<String, Object>();
 
-        return manager.createQuery(jpql, Restaurante.class)
-                .setParameter("nome","%" + nome + "%")
-                .setParameter("taxaInicial", taxaFreteInicial)
-                .setParameter("taxaFinal",taxaFreteFinal)
-                .getResultList();
+        jpql.append("from Restaurante where 0=0 ");
+        if (StringUtils.hasLength(nome)){
+            jpql.append("and nome like :nome ");
+            parametros.put("nome", "%" + nome + "%");
+        }
+        if (taxaFreteInicial != null){
+            jpql.append("and taxaFrete >= :taxaInicial ");
+            parametros.put("taxaInicial", taxaFreteInicial);
+        }
+        if (taxaFreteFinal != null){
+            jpql.append("and taxaFrete <= :taxaFinal ");
+            parametros.put("taxaFinal", taxaFreteFinal);
+        }
+
+        // Responsável por criar a consulta
+        TypedQuery<Restaurante> query = manager.createQuery(jpql.toString(), Restaurante.class);
+        parametros.forEach((chave, valor) -> query.setParameter(chave,valor));
+        return query.getResultList();
     }
 
 }

@@ -1,7 +1,7 @@
 package com.algaworks.cadufood.domain.repository;
 
 import com.algaworks.cadufood.domain.model.Restaurante;
-import com.algaworks.cadufood.infrastructure.repository.RestauranteRepositoryQueries;
+import com.algaworks.cadufood.domain.repository.queries.RestauranteRepositoryQueries;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

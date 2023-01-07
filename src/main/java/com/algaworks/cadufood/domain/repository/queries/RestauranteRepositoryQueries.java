@@ -1,4 +1,4 @@
-package com.algaworks.cadufood.infrastructure.repository;
+package com.algaworks.cadufood.domain.repository.queries;
 
 import com.algaworks.cadufood.domain.model.Restaurante;
 
