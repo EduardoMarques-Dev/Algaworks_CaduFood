@@ -61,6 +61,15 @@ public class RestauranteService {
 		return restaurantes;
 	}
 
+	public Restaurante buscarPrimeiro() {
+		Restaurante restaurante = restauranteRepository.
+				buscarPrimeiro().orElseThrow(
+						() -> new EntidadeNaoEncontradaException(
+								String.format("Não existe nenhum restaurante cadastrado"))
+				);
+		return restaurante;
+	}
+
 	public Restaurante salvar(Restaurante restaurante) {
 		Long cozinhaId = restaurante.getCozinha().getId();
 		Cozinha cozinha = cozinhaService.buscarCozinhaOuFalhar(cozinhaId);

@@ -51,6 +51,12 @@ public class RestauranteController {
 		return ResponseEntity.ok(restaurante);
 	}
 
+	@GetMapping("/buscar-primeiro")
+	public ResponseEntity<Restaurante> buscarPrimeiro() {
+		Restaurante restaurante = restauranteService.buscarPrimeiro();
+		return ResponseEntity.ok(restaurante);
+	}
+
 	@PostMapping
 	public ResponseEntity<Restaurante> salvar(@RequestBody Restaurante restaurante) {
 		restaurante = restauranteService.salvar(restaurante);
