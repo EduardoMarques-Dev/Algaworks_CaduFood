@@ -12,7 +12,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,31 +32,12 @@ public class RestauranteService {
 		return restaurante;
 	}
 
-	public List<Restaurante> buscarPorFrete(BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
-		List<Restaurante> restaurantes = restauranteRepository
-				.findByTaxaFreteBetween(taxaFreteInicial,taxaFreteFinal);
-		return restaurantes;
-	}
-
-	public List<Restaurante> buscarPorNome(String nome, int quantidade) {
-		List<Restaurante> restaurantes = new ArrayList<>();
-
-		switch (quantidade){
-			case 1:
-				restaurantes = restauranteRepository.findFirstByNomeContaining(nome);
-				break;
-			case 2:
-				restaurantes = restauranteRepository.findTop2ByNomeContaining(nome);
-				break;
-			default:
-				restaurantes = restauranteRepository.buscarPorNome(nome);
-		}
-		return restaurantes;
-	}
-
-	public List<Restaurante> buscarPorNomeEFrete(String nome, BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
+	public List<Restaurante> buscarCustomizado(String nome,
+											   BigDecimal taxaFreteInicial,
+											   BigDecimal taxaFreteFinal,
+											   Long idCozinha) {
 		List<Restaurante> restaurantes = restauranteRepository.
-				buscarPorNomeEFrete(nome,taxaFreteInicial, taxaFreteFinal);
+				buscarCustomizado(nome,taxaFreteInicial, taxaFreteFinal, idCozinha);
 		return restaurantes;
 	}
 
@@ -105,5 +85,27 @@ public class RestauranteService {
 						String.format("Não existe cadastro de cozinha com código %d", restauranteId))
 		);
 	}
+
+//	public List<Restaurante> buscarPorFrete(BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
+//		List<Restaurante> restaurantes = restauranteRepository
+//				.findByTaxaFreteBetween(taxaFreteInicial,taxaFreteFinal);
+//		return restaurantes;
+//	}
+//
+//	public List<Restaurante> buscarPorNome(String nome, int quantidade) {
+//		List<Restaurante> restaurantes = new ArrayList<>();
+//
+//		switch (quantidade){
+//			case 1:
+//				restaurantes = restauranteRepository.findFirstByNomeContaining(nome);
+//				break;
+//			case 2:
+//				restaurantes = restauranteRepository.findTop2ByNomeContaining(nome);
+//				break;
+//			default:
+//				restaurantes = restauranteRepository.buscarPorNome(nome);
+//		}
+//		return restaurantes;
+//	}
 
 }

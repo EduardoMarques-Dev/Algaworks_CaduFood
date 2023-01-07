@@ -17,8 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
- * Esta classe implementa o repositório de mesmo nome automaticamente
- * por ter o sufixo "Impl"
+ * Para criar qualquer implementação de um repositório
+ * basta criar uma classe com o sufixo "Impl" e
+ * fazê-la implementar o repositório desejado
+ * que o Spring já conecta ambas automaticamente
  */
 @Repository
 public class RestauranteRepositoryImpl implements RestauranteRepositoryQueries {
@@ -26,9 +28,10 @@ public class RestauranteRepositoryImpl implements RestauranteRepositoryQueries {
     @PersistenceContext
     private EntityManager manager;
 
-    public List<Restaurante> buscarPorNomeEFrete(String nome,
-                                                 BigDecimal taxaFreteInicial,
-                                                 BigDecimal taxaFreteFinal){
+    public List<Restaurante> buscarCustomizado(String nome,
+                                               BigDecimal taxaFreteInicial,
+                                               BigDecimal taxaFreteFinal,
+                                               Long idCozinha){
         // Inicialização
         CriteriaBuilder builder = manager.getCriteriaBuilder();
         CriteriaQuery<Restaurante> query = builder.createQuery(Restaurante.class);
@@ -44,6 +47,9 @@ public class RestauranteRepositoryImpl implements RestauranteRepositoryQueries {
         }
         if (taxaFreteFinal != null){
             predicates.add(builder.lessThanOrEqualTo(root.get("taxaFrete"),taxaFreteFinal));
+        }
+        if (idCozinha != null){
+            predicates.add(builder.equal(root.get("cozinha").get("id"), idCozinha));
         }
 
         // Converte o ArrayList para Array

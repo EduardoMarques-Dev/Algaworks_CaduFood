@@ -13,7 +13,8 @@ import java.util.List;
  */
 public interface RestauranteRepositoryQueries {
 
-    List<Restaurante> buscarPorNomeEFrete(String nome,
-                                          BigDecimal taxaFreteInicial,
-                                          BigDecimal taxaFreteFinal);
+    List<Restaurante> buscarCustomizado(String nome,
+                                        BigDecimal taxaFreteInicial,
+                                        BigDecimal taxaFreteFinal,
+                                        Long idCozinha);
 }

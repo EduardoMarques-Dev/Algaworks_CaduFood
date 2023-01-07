@@ -29,25 +29,12 @@ public class RestauranteController {
 		return ResponseEntity.ok(restaurante);
 	}
 
-	@GetMapping("/buscar-por-frete")
-	public ResponseEntity<List<Restaurante>> buscarPorFrete(@RequestParam("taxa-frete-inicial") BigDecimal taxaFreteInicial,
-													   @RequestParam("taxa-frete-final") BigDecimal taxaFreteFinal) {
-		List<Restaurante> restaurante = restauranteService.buscarPorFrete(taxaFreteInicial, taxaFreteFinal);
-		return ResponseEntity.ok(restaurante);
-	}
-
-	@GetMapping("/buscar-por-nome")
-	public ResponseEntity<List<Restaurante>> buscarPorNome(@RequestParam String nome,
-														   @RequestParam(defaultValue = "-1") int quantidade) {
-		List<Restaurante> restaurante = restauranteService.buscarPorNome(nome, quantidade);
-		return ResponseEntity.ok(restaurante);
-	}
-
-	@GetMapping("/buscar-por-nome-e-frete")
-	public ResponseEntity<List<Restaurante>> buscarPorNomeEFrete(@RequestParam(required = false) String nome,
-														   @RequestParam(value = "taxa-frete-inicial", required = false) BigDecimal taxaFreteInicial,
-														   @RequestParam(value = "taxa-frete-final", required = false) BigDecimal taxaFreteFinal) {
-		List<Restaurante> restaurante = restauranteService.buscarPorNomeEFrete(nome, taxaFreteInicial,taxaFreteFinal);
+	@GetMapping("/buscar-por")
+	public ResponseEntity<List<Restaurante>> buscarCustomizado(@RequestParam(required = false) String nome,
+															   @RequestParam(value = "taxa-frete-inicial", required = false) BigDecimal taxaFreteInicial,
+															   @RequestParam(value = "taxa-frete-final", required = false) BigDecimal taxaFreteFinal,
+															   @RequestParam(value = "id-cozinha", required = false) Long idCozinha) {
+		List<Restaurante> restaurante = restauranteService.buscarCustomizado(nome, taxaFreteInicial,taxaFreteFinal, idCozinha);
 		return ResponseEntity.ok(restaurante);
 	}
 
@@ -76,5 +63,19 @@ public class RestauranteController {
 			restauranteService.excluir(restauranteId);
 			return ResponseEntity.noContent().build();
 	}
+
+//	@GetMapping("/buscar-por-frete")
+//	public ResponseEntity<List<Restaurante>> buscarPorFrete(@RequestParam("taxa-frete-inicial") BigDecimal taxaFreteInicial,
+//													   @RequestParam("taxa-frete-final") BigDecimal taxaFreteFinal) {
+//		List<Restaurante> restaurante = restauranteService.buscarPorFrete(taxaFreteInicial, taxaFreteFinal);
+//		return ResponseEntity.ok(restaurante);
+//	}
+//
+//	@GetMapping("/buscar-por-nome")
+//	public ResponseEntity<List<Restaurante>> buscarPorNome(@RequestParam String nome,
+//														   @RequestParam(defaultValue = "-1") int quantidade) {
+//		List<Restaurante> restaurante = restauranteService.buscarPorNome(nome, quantidade);
+//		return ResponseEntity.ok(restaurante);
+//	}
 
 }
