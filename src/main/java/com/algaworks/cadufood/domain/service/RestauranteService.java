@@ -62,7 +62,7 @@ public class RestauranteService {
 	public Restaurante atualizar(Long restauranteId, Restaurante restaurante) {
 		Restaurante restauranteAtual = buscar(restauranteId);
 
-		BeanUtils.copyProperties(restaurante, restauranteAtual, "id", "formasPagamento");
+		BeanUtils.copyProperties(restaurante, restauranteAtual, "id", "formasPagamento","endereco");
 
 		return restauranteRepository.save(restauranteAtual);
 	}
