@@ -1,9 +1,13 @@
 package com.algaworks.cadufood.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @JsonRootName("cozinha")
 @Data
@@ -18,5 +22,9 @@ public class Cozinha {
 	
 	@Column(nullable = false)
 	private String nome;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "cozinha")
+	private List<Restaurante> restaurantes = new ArrayList<>();
 	
 }
