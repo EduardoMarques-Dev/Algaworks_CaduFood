@@ -21,3 +21,5 @@ insert into forma_pagamento (id, descricao) values (300, 'Dinheiro');
 
 insert into permissao (id, nome, descricao) values (100, 'CONSULTAR_COZINHAS', 'Permite consultar cozinhas');
 insert into permissao (id, nome, descricao) values (200, 'EDITAR_COZINHAS', 'Permite editar cozinhas');
+
+insert into restaurante_forma_pagamento(restaurante_id, forma_pagamento_id) values (100, 100),(100,200),(100,300),(200,300),(300,200),(300,300);
