@@ -1,7 +1,5 @@
 package com.algaworks.cadufood.api.controller;
 
-import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
-import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.model.Cidade;
 import com.algaworks.cadufood.domain.service.CidadeService;
 import lombok.AllArgsConstructor;

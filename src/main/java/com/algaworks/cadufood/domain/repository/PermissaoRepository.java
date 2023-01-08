@@ -1,8 +1,8 @@
 package com.algaworks.cadufood.domain.repository;
 
 import com.algaworks.cadufood.domain.model.Permissao;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.algaworks.cadufood.domain.repository.util.norepositorybean.CustomJpaRepository;
 
-public interface PermissaoRepository extends JpaRepository<Permissao, Long> {
+public interface PermissaoRepository extends CustomJpaRepository<Permissao, Long> {
 
 }

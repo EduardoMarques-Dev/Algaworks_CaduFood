@@ -1,6 +1,6 @@
 package com.algaworks.cadufood.infrastructure.repository;
 
-import com.algaworks.cadufood.domain.repository.CustomJpaRepository;
+import com.algaworks.cadufood.domain.repository.util.norepositorybean.CustomJpaRepository;
 import jakarta.persistence.EntityManager;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;

@@ -32,12 +32,12 @@ public class RestauranteService {
 		return restaurante;
 	}
 
-	public List<Restaurante> buscarCustomizado(String nome,
-											   BigDecimal taxaFreteInicial,
-											   BigDecimal taxaFreteFinal,
-											   Long idCozinha) {
+	public List<Restaurante> buscarPersonalizado(String nome,
+												 BigDecimal taxaFreteInicial,
+												 BigDecimal taxaFreteFinal,
+												 Long idCozinha) {
 		List<Restaurante> restaurantes = restauranteRepository.
-				buscarCustomizado(nome,taxaFreteInicial, taxaFreteFinal, idCozinha);
+				buscarPersonalizado(nome,taxaFreteInicial, taxaFreteFinal, idCozinha);
 		return restaurantes;
 	}
 

@@ -1,7 +1,7 @@
 package com.algaworks.cadufood.infrastructure.repository;
 
 import com.algaworks.cadufood.domain.model.Restaurante;
-import com.algaworks.cadufood.domain.repository.queries.RestauranteRepositoryQueries;
+import com.algaworks.cadufood.domain.repository.util.interfacequeries.RestauranteRepositoryQueries;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -28,10 +28,10 @@ public class RestauranteRepositoryImpl implements RestauranteRepositoryQueries {
     @PersistenceContext
     private EntityManager manager;
 
-    public List<Restaurante> buscarCustomizado(String nome,
-                                               BigDecimal taxaFreteInicial,
-                                               BigDecimal taxaFreteFinal,
-                                               Long idCozinha){
+    public List<Restaurante> buscarPersonalizado(String nome,
+                                                 BigDecimal taxaFreteInicial,
+                                                 BigDecimal taxaFreteFinal,
+                                                 Long idCozinha){
         // Inicialização
         CriteriaBuilder builder = manager.getCriteriaBuilder();
         CriteriaQuery<Restaurante> query = builder.createQuery(Restaurante.class);

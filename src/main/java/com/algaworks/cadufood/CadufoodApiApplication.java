@@ -1,6 +1,5 @@
 package com.algaworks.cadufood;
 
-import com.algaworks.cadufood.domain.repository.CustomJpaRepository;
 import com.algaworks.cadufood.infrastructure.repository.CustomJpaRepositoryImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

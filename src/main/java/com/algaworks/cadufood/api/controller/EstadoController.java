@@ -1,11 +1,8 @@
 package com.algaworks.cadufood.api.controller;
 
-import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
-import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.model.Estado;
 import com.algaworks.cadufood.domain.service.EstadoService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

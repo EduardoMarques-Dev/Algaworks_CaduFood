@@ -30,11 +30,11 @@ public class RestauranteController {
 	}
 
 	@GetMapping("/buscar-por")
-	public ResponseEntity<List<Restaurante>> buscarCustomizado(@RequestParam(required = false) String nome,
-															   @RequestParam(value = "taxa-frete-inicial", required = false) BigDecimal taxaFreteInicial,
-															   @RequestParam(value = "taxa-frete-final", required = false) BigDecimal taxaFreteFinal,
-															   @RequestParam(value = "id-cozinha", required = false) Long idCozinha) {
-		List<Restaurante> restaurante = restauranteService.buscarCustomizado(nome, taxaFreteInicial,taxaFreteFinal, idCozinha);
+	public ResponseEntity<List<Restaurante>> buscarPersonalizado(@RequestParam(required = false) String nome,
+																 @RequestParam(value = "taxa-frete-inicial", required = false) BigDecimal taxaFreteInicial,
+																 @RequestParam(value = "taxa-frete-final", required = false) BigDecimal taxaFreteFinal,
+																 @RequestParam(value = "id-cozinha", required = false) Long idCozinha) {
+		List<Restaurante> restaurante = restauranteService.buscarPersonalizado(nome, taxaFreteInicial,taxaFreteFinal, idCozinha);
 		return ResponseEntity.ok(restaurante);
 	}
 

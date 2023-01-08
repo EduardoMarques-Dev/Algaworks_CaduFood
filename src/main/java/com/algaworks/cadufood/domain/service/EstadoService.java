@@ -2,7 +2,6 @@ package com.algaworks.cadufood.domain.service;
 
 import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
-import com.algaworks.cadufood.domain.model.Cozinha;
 import com.algaworks.cadufood.domain.model.Estado;
 import com.algaworks.cadufood.domain.repository.EstadoRepository;
 import lombok.AllArgsConstructor;

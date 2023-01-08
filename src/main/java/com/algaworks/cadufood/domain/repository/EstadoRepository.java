@@ -1,8 +1,8 @@
 package com.algaworks.cadufood.domain.repository;
 
 import com.algaworks.cadufood.domain.model.Estado;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.algaworks.cadufood.domain.repository.util.norepositorybean.CustomJpaRepository;
 
-public interface EstadoRepository extends JpaRepository<Estado, Long> {
+public interface EstadoRepository extends CustomJpaRepository<Estado, Long> {
 	
 }

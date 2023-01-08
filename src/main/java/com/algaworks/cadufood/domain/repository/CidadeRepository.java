@@ -1,8 +1,8 @@
 package com.algaworks.cadufood.domain.repository;
 
 import com.algaworks.cadufood.domain.model.Cidade;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.algaworks.cadufood.domain.repository.util.norepositorybean.CustomJpaRepository;
 
-public interface CidadeRepository extends JpaRepository<Cidade, Long> {
+public interface CidadeRepository extends CustomJpaRepository<Cidade, Long> {
 
 }

@@ -1,8 +1,8 @@
 package com.algaworks.cadufood.domain.repository;
 
 import com.algaworks.cadufood.domain.model.FormaPagamento;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.algaworks.cadufood.domain.repository.util.norepositorybean.CustomJpaRepository;
 
-public interface FormaPagamentoRepository extends JpaRepository<FormaPagamento, Long> {
+public interface FormaPagamentoRepository extends CustomJpaRepository<FormaPagamento, Long> {
 
 }
