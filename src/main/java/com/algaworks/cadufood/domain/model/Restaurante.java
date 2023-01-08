@@ -29,15 +29,6 @@ public class Restaurante {
 			nullable = false)
 	private BigDecimal taxaFrete;
 
-	@ManyToOne
-	@JoinColumn(name = "cozinha_id",
-			nullable = false)
-	private Cozinha cozinha;
-
-	@JsonIgnore
-	@Embedded
-	private Endereco endereco;
-
 	@Column(columnDefinition = "timestamp(0)",
 			nullable = false)
 	@CreationTimestamp()
@@ -47,6 +38,15 @@ public class Restaurante {
 			nullable = false)
 	@UpdateTimestamp
 	private LocalDateTime dataAtualizacao;
+
+	@JsonIgnore
+	@Embedded
+	private Endereco endereco;
+
+	@ManyToOne
+	@JoinColumn(name = "cozinha_id",
+			nullable = false)
+	private Cozinha cozinha;
 
 	@JsonIgnore
 	@ManyToMany
