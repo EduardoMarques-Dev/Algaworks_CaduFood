@@ -48,6 +48,9 @@ public class Restaurante {
 			nullable = false)
 	private Cozinha cozinha;
 
+	@OneToMany(mappedBy = "restaurante")
+	private List<Produto> produto;
+
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "restaurante_forma_pagamento",
