@@ -4,8 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,16 +25,28 @@ public class Restaurante {
 	@Column(nullable = false)
 	private String nome;
 
-	@Column(name = "taxa_frete", nullable = false)
+	@Column(name = "taxa_frete",
+			nullable = false)
 	private BigDecimal taxaFrete;
 
 	@ManyToOne
-	@JoinColumn(name = "cozinha_id", nullable = false)
+	@JoinColumn(name = "cozinha_id",
+			nullable = false)
 	private Cozinha cozinha;
 
 	@JsonIgnore
 	@Embedded
 	private Endereco endereco;
+
+	@Column(columnDefinition = "timestamp(0)",
+			nullable = false)
+	@CreationTimestamp()
+	private LocalDateTime dataCadastro;
+
+	@Column(columnDefinition = "timestamp(0)",
+			nullable = false)
+	@UpdateTimestamp
+	private LocalDateTime dataAtualizacao;
 
 	@JsonIgnore
 	@ManyToMany
