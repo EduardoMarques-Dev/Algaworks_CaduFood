@@ -45,6 +45,7 @@ public class Restaurante {
 	@Embedded
 	private Endereco endereco;
 
+	@JsonIgnoreProperties(value = "nome", allowGetters = true)
 	@ManyToOne
 	@JoinColumn(name = "cozinha_id",
 			nullable = false)
