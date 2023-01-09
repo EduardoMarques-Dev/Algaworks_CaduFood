@@ -3,11 +3,7 @@ package com.algaworks.cadufood.domain.repository;
 import com.algaworks.cadufood.domain.model.Restaurante;
 import com.algaworks.cadufood.domain.repository.util.interfacequeries.RestauranteRepositoryQueries;
 import com.algaworks.cadufood.domain.repository.util.norepositorybean.CustomJpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import java.math.BigDecimal;
-import java.util.List;
 
 // CLASSE DE EXEMPLO
 @Repository

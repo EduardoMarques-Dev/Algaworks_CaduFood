@@ -1,5 +1,7 @@
 package com.algaworks.cadufood.api.controller;
 
+import com.algaworks.cadufood.api.model.RestauranteDto;
+import com.algaworks.cadufood.api.model.mapper.RestauranteMapper;
 import com.algaworks.cadufood.domain.model.Restaurante;
 import com.algaworks.cadufood.domain.service.RestauranteService;
 import lombok.AllArgsConstructor;
@@ -18,20 +20,22 @@ public class RestauranteController {
 
 	private RestauranteService restauranteService;
 
+	private RestauranteMapper mapper;
+
 
 	@GetMapping
-	public List<Restaurante> listar() {
-		return restauranteService.listar();
+	public List<RestauranteDto> listar() {
+		return mapper.toDtoCollection(restauranteService.listar());
 	}
 
 	@GetMapping("/{idRestaurante}")
-	public ResponseEntity<Restaurante> buscar(@PathVariable Long idRestaurante) {
+	public ResponseEntity<RestauranteDto> buscar(@PathVariable Long idRestaurante) {
 		Restaurante restaurante = restauranteService.buscar(idRestaurante);
-		return ResponseEntity.ok(restaurante);
+		return ResponseEntity.ok(mapper.toDto(restaurante));
 	}
 
 	@GetMapping("/buscar-por")
-	public ResponseEntity<List<Restaurante>> buscarPersonalizado(@RequestParam(required = false) String nome,
+	public ResponseEntity<List<RestauranteDto>> buscarPersonalizado(@RequestParam(required = false) String nome,
 																 @RequestParam(value = "taxa-frete-inicial", required = false) BigDecimal taxaFreteInicial,
 																 @RequestParam(value = "taxa-frete-final", required = false) BigDecimal taxaFreteFinal,
 																 @RequestParam(value = "data-cadastro-inicial", required = false) LocalDateTime dataCadastroInicial,
@@ -47,31 +51,31 @@ public class RestauranteController {
 		List<Restaurante> restaurante = restauranteService.buscarPersonalizado(nome, taxaFreteInicial, taxaFreteFinal, dataCadastroInicial, dataCadastroFinal,
 				dataAtualizacaoInicial, dataAtualizacaoFinal, enderecoCep, enderecoLogradouro, enderecoNumero,
 				enderecoBairro, idEnderecoCidade, idCozinha);
-		return ResponseEntity.ok(restaurante);
+		return ResponseEntity.ok(mapper.toDtoCollection(restaurante));
 	}
 
 	@GetMapping("/buscar-primeiro")
-	public ResponseEntity<Restaurante> buscarPrimeiro() {
+	public ResponseEntity<RestauranteDto> buscarPrimeiro() {
 		Restaurante restaurante = restauranteService.buscarPrimeiro();
-		return ResponseEntity.ok(restaurante);
+		return ResponseEntity.ok(mapper.toDto(restaurante));
 	}
 
 	@PostMapping
-	public ResponseEntity<Restaurante> salvar(@RequestBody Restaurante restaurante) {
+	public ResponseEntity<RestauranteDto> salvar(@RequestBody Restaurante restaurante) {
 		restaurante = restauranteService.salvar(restaurante);
 		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(restaurante);
+				.body(mapper.toDto(restaurante));
 	}
 
 	@PutMapping("/{idRestaurante}")
-	public ResponseEntity<?> atualizar(@PathVariable Long idRestaurante,
+	public ResponseEntity<RestauranteDto> atualizar(@PathVariable Long idRestaurante,
 									   @RequestBody Restaurante restaurante) {
 		restaurante = restauranteService.atualizar(idRestaurante, restaurante);
-		return ResponseEntity.ok(restaurante);
+		return ResponseEntity.ok(mapper.toDto(restaurante));
 	}
 
 	@DeleteMapping("/{idRestaurante}")
-	public ResponseEntity<?> excluir(@PathVariable Long idRestaurante) {
+	public ResponseEntity<RestauranteDto> excluir(@PathVariable Long idRestaurante) {
 			restauranteService.excluir(idRestaurante);
 			return ResponseEntity.noContent().build();
 	}
