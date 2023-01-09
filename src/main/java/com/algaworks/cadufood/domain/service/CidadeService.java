@@ -10,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class CidadeService {
 		return cidade;
 	}
 
+	@Transactional
 	public Cidade salvar(Cidade cidade) {
 		Long estadoId = cidade.getEstado().getId();
 		Estado estado = estadoService.buscarEstado(estadoId);
@@ -40,6 +42,7 @@ public class CidadeService {
 		return cidadeRepository.save(cidade);
 	}
 
+	@Transactional
 	public Cidade atualizar(Long cidadeId, Cidade cidade) {
 		Cidade cidadeAtual = buscar(cidadeId);
 
@@ -48,6 +51,7 @@ public class CidadeService {
 		return cidadeRepository.save(cidadeAtual);
 	}
 
+	@Transactional
 	public void excluir(Long cidadeId) {
 		try {
 			cidadeRepository.deleteById(cidadeId);

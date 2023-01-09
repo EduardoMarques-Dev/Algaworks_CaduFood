@@ -10,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -62,6 +63,7 @@ public class RestauranteService {
 		return restaurante;
 	}
 
+	@Transactional
 	public Restaurante salvar(Restaurante restaurante) {
 		Long cozinhaId = restaurante.getCozinha().getId();
 		Cozinha cozinha = cozinhaService.buscarCozinhaOuFalhar(cozinhaId);
@@ -71,6 +73,7 @@ public class RestauranteService {
 		return restauranteRepository.save(restaurante);
 	}
 
+	@Transactional
 	public Restaurante atualizar(Long idRestaurante, Restaurante restaurante) {
 		Restaurante restauranteAtual = buscar(idRestaurante);
 
@@ -80,6 +83,7 @@ public class RestauranteService {
 		return restauranteRepository.save(restauranteAtual);
 	}
 
+	@Transactional
 	public void excluir(Long idRestaurante) {
 		try {
 			restauranteRepository.deleteById(idRestaurante);

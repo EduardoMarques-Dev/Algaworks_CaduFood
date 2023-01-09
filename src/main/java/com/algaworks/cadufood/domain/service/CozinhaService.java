@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,11 +28,12 @@ public class CozinhaService {
 		Cozinha cozinha = buscarCozinhaOuFalhar(cozinhaId);
 		return cozinha;
 	}
-	
+	@Transactional
 	public Cozinha salvar(Cozinha cozinha) {
 		return cozinhaRepository.save(cozinha);
 	}
 
+	@Transactional
 	public Cozinha atualizar(Long cozinhaId, Cozinha cozinha) {
 		Cozinha cozinhaAtual = buscar(cozinhaId);
 
@@ -40,6 +42,7 @@ public class CozinhaService {
 		return cozinhaRepository.save(cozinhaAtual);
 	}
 
+	@Transactional
 	public void excluir(Long cozinhaId) {
 		try {
 			cozinhaRepository.deleteById(cozinhaId);

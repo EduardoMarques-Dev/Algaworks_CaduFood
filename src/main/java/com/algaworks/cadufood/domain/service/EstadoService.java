@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,10 +29,12 @@ public class EstadoService {
 		return estado;
 	}
 
+	@Transactional
 	public Estado salvar(Estado estado) {
 		return estadoRepository.save(estado);
 	}
 
+	@Transactional
 	public Estado atualizar(Long estadoId, Estado estado) {
 		Estado estadoAtual = buscar(estadoId);
 
@@ -40,6 +43,7 @@ public class EstadoService {
 		return estadoRepository.save(estadoAtual);
 	}
 
+	@Transactional
 	public void excluir(Long estadoId) {
 		try {
 			estadoRepository.deleteById(estadoId);
