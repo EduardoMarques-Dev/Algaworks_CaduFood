@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -23,9 +24,9 @@ public class RestauranteController {
 		return restauranteService.listar();
 	}
 
-	@GetMapping("/{restauranteId}")
-	public ResponseEntity<Restaurante> buscar(@PathVariable Long restauranteId) {
-		Restaurante restaurante = restauranteService.buscar(restauranteId);
+	@GetMapping("/{idRestaurante}")
+	public ResponseEntity<Restaurante> buscar(@PathVariable Long idRestaurante) {
+		Restaurante restaurante = restauranteService.buscar(idRestaurante);
 		return ResponseEntity.ok(restaurante);
 	}
 
@@ -33,8 +34,19 @@ public class RestauranteController {
 	public ResponseEntity<List<Restaurante>> buscarPersonalizado(@RequestParam(required = false) String nome,
 																 @RequestParam(value = "taxa-frete-inicial", required = false) BigDecimal taxaFreteInicial,
 																 @RequestParam(value = "taxa-frete-final", required = false) BigDecimal taxaFreteFinal,
+																 @RequestParam(value = "data-cadastro-inicial", required = false) LocalDateTime dataCadastroInicial,
+																 @RequestParam(value = "data-cadastro-final", required = false) LocalDateTime dataCadastroFinal,
+																 @RequestParam(value = "data-atualizacao-inicial", required = false) LocalDateTime dataAtualizacaoInicial,
+																 @RequestParam(value = "taxa-atualizacao-final", required = false) LocalDateTime dataAtualizacaoFinal,
+																 @RequestParam(value = "endereco-cep", required = false) String enderecoCep,
+																 @RequestParam(value = "endereco-logradouro", required = false) String enderecoLogradouro,
+																 @RequestParam(value = "endereco-numero", required = false) String enderecoNumero,
+																 @RequestParam(value = "endereco-bairro", required = false) String enderecoBairro,
+																 @RequestParam(value = "endereco-id-cidade", required = false) Long idEnderecoCidade,
 																 @RequestParam(value = "id-cozinha", required = false) Long idCozinha) {
-		List<Restaurante> restaurante = restauranteService.buscarPersonalizado(nome, taxaFreteInicial,taxaFreteFinal, idCozinha);
+		List<Restaurante> restaurante = restauranteService.buscarPersonalizado(nome, taxaFreteInicial, taxaFreteFinal, dataCadastroInicial, dataCadastroFinal,
+				dataAtualizacaoInicial, dataAtualizacaoFinal, enderecoCep, enderecoLogradouro, enderecoNumero,
+				enderecoBairro, idEnderecoCidade, idCozinha);
 		return ResponseEntity.ok(restaurante);
 	}
 
@@ -51,16 +63,16 @@ public class RestauranteController {
 				.body(restaurante);
 	}
 
-	@PutMapping("/{restauranteId}")
-	public ResponseEntity<?> atualizar(@PathVariable Long restauranteId,
+	@PutMapping("/{idRestaurante}")
+	public ResponseEntity<?> atualizar(@PathVariable Long idRestaurante,
 									   @RequestBody Restaurante restaurante) {
-		restaurante = restauranteService.atualizar(restauranteId, restaurante);
+		restaurante = restauranteService.atualizar(idRestaurante, restaurante);
 		return ResponseEntity.ok(restaurante);
 	}
 
-	@DeleteMapping("/{restauranteId}")
-	public ResponseEntity<?> excluir(@PathVariable Long restauranteId) {
-			restauranteService.excluir(restauranteId);
+	@DeleteMapping("/{idRestaurante}")
+	public ResponseEntity<?> excluir(@PathVariable Long idRestaurante) {
+			restauranteService.excluir(idRestaurante);
 			return ResponseEntity.noContent().build();
 	}
 

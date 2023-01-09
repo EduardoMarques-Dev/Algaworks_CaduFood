@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,15 @@ public class RestauranteRepositoryImpl implements RestauranteRepositoryQueries {
     public List<Restaurante> buscarPersonalizado(String nome,
                                                  BigDecimal taxaFreteInicial,
                                                  BigDecimal taxaFreteFinal,
+                                                 LocalDateTime dataCadastroInicial,
+                                                 LocalDateTime dataCadastroFinal,
+                                                 LocalDateTime dataAtualizacaoInicial,
+                                                 LocalDateTime dataAtualizacaoFinal,
+                                                 String enderecoCep,
+                                                 String enderecoLogradouro,
+                                                 String enderecoNumero,
+                                                 String enderecoBairro,
+                                                 Long idEnderecoCidade,
                                                  Long idCozinha){
         // Inicialização
         CriteriaBuilder builder = manager.getCriteriaBuilder();
@@ -48,12 +58,41 @@ public class RestauranteRepositoryImpl implements RestauranteRepositoryQueries {
         if (taxaFreteFinal != null){
             predicates.add(builder.lessThanOrEqualTo(root.get("taxaFrete"),taxaFreteFinal));
         }
+        if (dataCadastroInicial != null){
+            predicates.add(builder.greaterThanOrEqualTo(root.get("dataCadastro"),dataCadastroInicial));
+        }
+        if (dataCadastroFinal != null){
+            predicates.add(builder.lessThanOrEqualTo(root.get("dataCadastro"),dataCadastroFinal));
+        }
+        if (dataAtualizacaoInicial != null){
+            predicates.add(builder.greaterThanOrEqualTo(root.get("dataAtualizacao"),dataAtualizacaoInicial));
+        }
+        if (dataAtualizacaoFinal != null){
+            predicates.add(builder.lessThanOrEqualTo(root.get("dataAtualizacao"),dataAtualizacaoFinal));
+        }
+        if (StringUtils.hasLength(enderecoCep)){
+            predicates.add(builder.like(root.get("endereco").get("cep"),"%"+enderecoCep+"%"));
+        }
+        if (StringUtils.hasLength(enderecoLogradouro)){
+            predicates.add(builder.like(root.get("endereco").get("logradouro"),"%"+enderecoLogradouro+"%"));
+        }
+        if (StringUtils.hasLength(enderecoNumero)){
+            predicates.add(builder.like(root.get("endereco").get("numero"),"%"+enderecoNumero+"%"));
+        }
+        if (StringUtils.hasLength(enderecoBairro)){
+            predicates.add(builder.like(root.get("endereco").get("bairro"),"%"+enderecoBairro+"%"));
+        }
+        if (idEnderecoCidade != null){
+            predicates.add(builder.equal(root.get("endereco").get("cidade").get("id"),idEnderecoCidade));
+        }
         if (idCozinha != null){
             predicates.add(builder.equal(root.get("cozinha").get("id"), idCozinha));
         }
 
         // Converte o ArrayList para Array
-        query.where(predicates.toArray(new Predicate[0]));
+        if (!predicates.isEmpty()){
+            query.where(predicates.toArray(new Predicate[0]));
+        }
 
         // Realizando a consulta
         TypedQuery<Restaurante> queryTipada = manager.createQuery(query);

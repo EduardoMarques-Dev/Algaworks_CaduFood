@@ -1,15 +1,17 @@
 package com.algaworks.cadufood.domain.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
+import org.hibernate.Hibernate;
 
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+import java.util.Objects;
+
+@Getter
+@Setter
+@RequiredArgsConstructor
 @Entity
 public class Cidade {
 
-	@EqualsAndHashCode.Include
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

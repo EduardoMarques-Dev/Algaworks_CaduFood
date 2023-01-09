@@ -1,9 +1,12 @@
 package com.algaworks.cadufood.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -12,12 +15,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Getter
+@Setter
+@RequiredArgsConstructor
 @Entity
 public class Restaurante {
 
-	@EqualsAndHashCode.Include
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -39,7 +42,6 @@ public class Restaurante {
 	@UpdateTimestamp
 	private LocalDateTime dataAtualizacao;
 
-	@JsonIgnore
 	@Embedded
 	private Endereco endereco;
 
@@ -48,7 +50,9 @@ public class Restaurante {
 			nullable = false)
 	private Cozinha cozinha;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "restaurante")
+	@ToString.Exclude
 	private List<Produto> produto;
 
 	@JsonIgnore
@@ -56,6 +60,7 @@ public class Restaurante {
 	@JoinTable(name = "restaurante_forma_pagamento",
 			joinColumns = @JoinColumn(name = "restaurante_id"),
 			inverseJoinColumns = @JoinColumn(name = "forma_pagamento_id"))
+	@ToString.Exclude
 	private List<FormaPagamento> formasPagamento = new ArrayList<>();
 
 }

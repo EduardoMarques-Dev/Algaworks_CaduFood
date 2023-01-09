@@ -12,6 +12,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -27,17 +28,28 @@ public class RestauranteService {
 		return restaurantes;
 	}
 
-	public Restaurante buscar(Long restauranteId) {
-		Restaurante restaurante = buscarRestauranteOuFalhar(restauranteId);
+	public Restaurante buscar(Long idRestaurante) {
+		Restaurante restaurante = buscarRestauranteOuFalhar(idRestaurante);
 		return restaurante;
 	}
 
 	public List<Restaurante> buscarPersonalizado(String nome,
 												 BigDecimal taxaFreteInicial,
 												 BigDecimal taxaFreteFinal,
+												 LocalDateTime dataCadastroInicial,
+												 LocalDateTime dataCadastroFinal,
+												 LocalDateTime dataAtualizacaoInicial,
+												 LocalDateTime dataAtualizacaoFinal,
+												 String enderecoCep,
+												 String enderecoLogradouro,
+												 String enderecoNumero,
+												 String enderecoBairro,
+												 Long idEnderecoCidade,
 												 Long idCozinha) {
 		List<Restaurante> restaurantes = restauranteRepository.
-				buscarPersonalizado(nome,taxaFreteInicial, taxaFreteFinal, idCozinha);
+				buscarPersonalizado(nome, taxaFreteInicial, taxaFreteFinal, dataCadastroInicial, dataCadastroFinal,
+						dataAtualizacaoInicial, dataAtualizacaoFinal, enderecoCep, enderecoLogradouro, enderecoNumero,
+						enderecoBairro, idEnderecoCidade, idCozinha);
 		return restaurantes;
 	}
 
@@ -59,8 +71,8 @@ public class RestauranteService {
 		return restauranteRepository.save(restaurante);
 	}
 
-	public Restaurante atualizar(Long restauranteId, Restaurante restaurante) {
-		Restaurante restauranteAtual = buscar(restauranteId);
+	public Restaurante atualizar(Long idRestaurante, Restaurante restaurante) {
+		Restaurante restauranteAtual = buscar(idRestaurante);
 
 		BeanUtils.copyProperties(restaurante, restauranteAtual,
 				"id", "formasPagamento","endereco","dataCadastro");
@@ -68,22 +80,22 @@ public class RestauranteService {
 		return restauranteRepository.save(restauranteAtual);
 	}
 
-	public void excluir(Long restauranteId) {
+	public void excluir(Long idRestaurante) {
 		try {
-			restauranteRepository.deleteById(restauranteId);
+			restauranteRepository.deleteById(idRestaurante);
 		} catch (EmptyResultDataAccessException e) {
 			throw new EntidadeNaoEncontradaException(
-					String.format("Não existe um cadastro de cozinha com código %d", restauranteId));
+					String.format("Não existe um cadastro de cozinha com código %d", idRestaurante));
 		} catch (DataIntegrityViolationException e) {
 			throw new EntidadeEmUsoException(
-					String.format("Cozinha de código %d não pode ser removida, pois está em uso", restauranteId));
+					String.format("Cozinha de código %d não pode ser removida, pois está em uso", idRestaurante));
 		}
 	}
 
-	private Restaurante buscarRestauranteOuFalhar(Long restauranteId) {
-		return restauranteRepository.findById(restauranteId).orElseThrow(
+	private Restaurante buscarRestauranteOuFalhar(Long idRestaurante) {
+		return restauranteRepository.findById(idRestaurante).orElseThrow(
 				() -> new EntidadeNaoEncontradaException(
-						String.format("Não existe cadastro de cozinha com código %d", restauranteId))
+						String.format("Não existe cadastro de cozinha com código %d", idRestaurante))
 		);
 	}
 
