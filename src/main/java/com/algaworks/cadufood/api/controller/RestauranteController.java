@@ -63,7 +63,8 @@ public class RestauranteController {
 	}
 
 	@PostMapping
-	public ResponseEntity<RestauranteOutput> salvar(@RequestBody Restaurante restaurante) {
+	public ResponseEntity<RestauranteOutput> salvar(@RequestBody RestauranteInput restauranteInput) {
+		Restaurante restaurante = mapper.toDomain(restauranteInput);
 		restaurante = restauranteService.salvar(restaurante);
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(mapper.toOutput(restaurante));

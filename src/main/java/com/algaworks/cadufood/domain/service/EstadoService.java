@@ -1,11 +1,15 @@
 package com.algaworks.cadufood.domain.service;
 
+import com.algaworks.cadufood.api.controller.EstadoController;
+import com.algaworks.cadufood.api.model.input.EstadoInput;
 import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.model.Estado;
 import com.algaworks.cadufood.domain.repository.EstadoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -14,10 +18,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class EstadoService {
 
+	@Autowired
 	private EstadoRepository estadoRepository;
+
+	@Autowired @Lazy
+	private EstadoController estadoController;
 
 	public List<Estado> listar() {
 		List<Estado> estados = estadoRepository.findAll();
@@ -35,10 +42,10 @@ public class EstadoService {
 	}
 
 	@Transactional
-	public Estado atualizar(Long estadoId, Estado estado) {
+	public Estado atualizar(Long estadoId, EstadoInput estadoInput) {
 		Estado estadoAtual = buscar(estadoId);
 
-		BeanUtils.copyProperties(estado, estadoAtual, "id");
+		estadoController.getMapper().updateEntity(estadoInput, estadoAtual);
 
 		return estadoRepository.save(estadoAtual);
 	}

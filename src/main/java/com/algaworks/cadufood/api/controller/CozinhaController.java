@@ -35,7 +35,8 @@ public class CozinhaController {
 	}
 
 	@PostMapping
-	public ResponseEntity<CozinhaOutput> salvar(@RequestBody Cozinha cozinha) {
+	public ResponseEntity<CozinhaOutput> salvar(@RequestBody CozinhaInput cozinhaInput) {
+		Cozinha cozinha = mapper.toDomain(cozinhaInput);
 		cozinha = cozinhaService.salvar(cozinha);
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(mapper.toOutput(cozinha));

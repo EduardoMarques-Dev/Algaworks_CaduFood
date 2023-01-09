@@ -1,8 +1,12 @@
 package com.algaworks.cadufood.api.controller;
 
+import com.algaworks.cadufood.api.mapper.EstadoMapper;
+import com.algaworks.cadufood.api.model.input.EstadoInput;
+import com.algaworks.cadufood.api.model.output.EstadoOutput;
 import com.algaworks.cadufood.domain.model.Estado;
 import com.algaworks.cadufood.domain.service.EstadoService;
-import lombok.AllArgsConstructor;
+import lombok.Getter;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,38 +14,45 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/estados")
-@AllArgsConstructor
 public class EstadoController {
 
 	private EstadoService estadoService;
 
+	@Getter
+	private EstadoMapper mapper;
+
 	@GetMapping
-	public List<Estado> listar() {
-		return estadoService.listar();
+	public List<EstadoOutput> listar() {
+		return mapper.toOutputCollection(estadoService.listar());
 	}
 
 	@GetMapping("/{estadoId}")
-	public ResponseEntity<Estado> buscar(@PathVariable Long estadoId) {
+	public ResponseEntity<EstadoOutput> buscar(@PathVariable Long estadoId) {
 		Estado estado = estadoService.buscar(estadoId);
-		return ResponseEntity.ok(estado);
+		return ResponseEntity.ok(
+				mapper.toOutput(estado));
 	}
 
 	@PostMapping
-	public Estado salvar(@RequestBody Estado estado) {
-		return estadoService.salvar(estado);
+	public ResponseEntity<EstadoOutput> salvar(@RequestBody EstadoInput estadoInput) {
+		Estado estado = mapper.toDomain(estadoInput);
+		estado = estadoService.salvar(estado);
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(mapper.toOutput(estado));
 	}
 
 	@PutMapping("/{estadoId}")
-	public ResponseEntity<Estado> atualizar(@PathVariable Long estadoId,
-											@RequestBody Estado estado) {
-		estado = estadoService.atualizar(estadoId, estado);
-		return ResponseEntity.ok(estado);
+	public ResponseEntity<EstadoOutput> atualizar(@PathVariable Long estadoId,
+												  @RequestBody EstadoInput estadoInput) {
+
+		Estado estado = estadoService.atualizar(estadoId, estadoInput);
+		return ResponseEntity.ok(mapper.toOutput(estado));
 	}
 
 	@DeleteMapping("/{estadoId}")
-	public ResponseEntity<?> excluir(@PathVariable Long estadoId) {
-			estadoService.excluir(estadoId);
-			return ResponseEntity.noContent().build();
+	public ResponseEntity<EstadoOutput> excluir(@PathVariable Long estadoId) {
+		estadoService.excluir(estadoId);
+		return ResponseEntity.noContent().build();
 	}
 
 }
