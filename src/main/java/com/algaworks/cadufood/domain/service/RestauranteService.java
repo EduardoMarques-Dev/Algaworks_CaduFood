@@ -1,12 +1,14 @@
 package com.algaworks.cadufood.domain.service;
 
+import com.algaworks.cadufood.api.controller.RestauranteController;
+import com.algaworks.cadufood.api.model.input.RestauranteInput;
 import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.model.Cozinha;
 import com.algaworks.cadufood.domain.model.Restaurante;
 import com.algaworks.cadufood.domain.repository.RestauranteRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -17,12 +19,16 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class RestauranteService {
 
+	@Autowired
 	private RestauranteRepository restauranteRepository;
-	
+
+	@Autowired
 	private CozinhaService cozinhaService;
+
+	@Autowired @Lazy
+	private RestauranteController restauranteController;
 
 	public List<Restaurante> listar() {
 		List<Restaurante> restaurantes = restauranteRepository.findAll();
@@ -74,11 +80,10 @@ public class RestauranteService {
 	}
 
 	@Transactional
-	public Restaurante atualizar(Long idRestaurante, Restaurante restaurante) {
+	public Restaurante atualizar(Long idRestaurante, RestauranteInput restaurante) {
 		Restaurante restauranteAtual = buscar(idRestaurante);
 
-		BeanUtils.copyProperties(restaurante, restauranteAtual,
-				"id", "formasPagamento","endereco","dataCadastro");
+		restauranteController.getMapper().updateEntity(restaurante,restauranteAtual);
 
 		return restauranteRepository.save(restauranteAtual);
 	}
