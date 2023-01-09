@@ -1,8 +1,12 @@
 package com.algaworks.cadufood.api.controller;
 
+import com.algaworks.cadufood.api.mapper.CozinhaMapper;
+import com.algaworks.cadufood.api.model.input.CozinhaInput;
+import com.algaworks.cadufood.api.model.output.CozinhaOutput;
 import com.algaworks.cadufood.domain.model.Cozinha;
 import com.algaworks.cadufood.domain.service.CozinhaService;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,29 +20,32 @@ public class CozinhaController {
 
 	private CozinhaService cozinhaService;
 
+	@Getter
+	private CozinhaMapper mapper;
+
 	@GetMapping
-	public List<Cozinha> listar() {
-		return cozinhaService.listar();
+	public List<CozinhaOutput> listar() {
+		return mapper.toOutputCollection(cozinhaService.listar());
 	}
 
 	@GetMapping("/{cozinhaId}")
-	public ResponseEntity<Cozinha> buscar(@PathVariable Long cozinhaId) {
+	public ResponseEntity<CozinhaOutput> buscar(@PathVariable Long cozinhaId) {
 		Cozinha cozinha = cozinhaService.buscar(cozinhaId);
-		return ResponseEntity.ok(cozinha);
+		return ResponseEntity.ok(mapper.toOutput(cozinha));
 	}
 
 	@PostMapping
-	public ResponseEntity<Cozinha> salvar(@RequestBody Cozinha cozinha) {
+	public ResponseEntity<CozinhaOutput> salvar(@RequestBody Cozinha cozinha) {
 		cozinha = cozinhaService.salvar(cozinha);
 		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(cozinha);
+				.body(mapper.toOutput(cozinha));
 	}
 
 	@PutMapping("/{cozinhaId}")
-	public ResponseEntity<Cozinha> atualizar(@PathVariable Long cozinhaId,
-											 @RequestBody Cozinha cozinha) {
-		cozinha = cozinhaService.atualizar(cozinhaId, cozinha);
-		return ResponseEntity.ok(cozinha);
+	public ResponseEntity<CozinhaOutput> atualizar(@PathVariable Long cozinhaId,
+												   @RequestBody CozinhaInput cozinhaInput) {
+		Cozinha cozinhaAtual = cozinhaService.atualizar(cozinhaId, cozinhaInput);
+		return ResponseEntity.ok(mapper.toOutput(cozinhaAtual));
 	}
 
 	@DeleteMapping("/{cozinhaId}")

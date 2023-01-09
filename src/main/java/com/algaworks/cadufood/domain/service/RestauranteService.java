@@ -80,10 +80,10 @@ public class RestauranteService {
 	}
 
 	@Transactional
-	public Restaurante atualizar(Long idRestaurante, RestauranteInput restaurante) {
+	public Restaurante atualizar(Long idRestaurante, RestauranteInput restauranteInput) {
 		Restaurante restauranteAtual = buscar(idRestaurante);
 
-		restauranteController.getMapper().updateEntity(restaurante,restauranteAtual);
+		restauranteController.getMapper().updateEntity(restauranteInput,restauranteAtual);
 
 		return restauranteRepository.save(restauranteAtual);
 	}

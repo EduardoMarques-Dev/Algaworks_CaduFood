@@ -1,11 +1,15 @@
 package com.algaworks.cadufood.domain.service;
 
+import com.algaworks.cadufood.api.controller.CozinhaController;
+import com.algaworks.cadufood.api.model.input.CozinhaInput;
 import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.model.Cozinha;
 import com.algaworks.cadufood.domain.repository.CozinhaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -14,10 +18,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class CozinhaService {
 
+	@Autowired
 	private CozinhaRepository cozinhaRepository;
+
+	@Autowired @Lazy
+	private CozinhaController cozinhaController;
+
 
 	public List<Cozinha> listar() {
 		List<Cozinha> cozinhas = cozinhaRepository.findAll();
@@ -34,10 +42,10 @@ public class CozinhaService {
 	}
 
 	@Transactional
-	public Cozinha atualizar(Long cozinhaId, Cozinha cozinha) {
+	public Cozinha atualizar(Long cozinhaId, CozinhaInput cozinhaInput) {
 		Cozinha cozinhaAtual = buscar(cozinhaId);
 
-		BeanUtils.copyProperties(cozinha, cozinhaAtual, "id");
+		cozinhaController.getMapper().updateEntity(cozinhaInput,cozinhaAtual);
 
 		return cozinhaRepository.save(cozinhaAtual);
 	}

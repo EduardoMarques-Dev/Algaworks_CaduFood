@@ -6,6 +6,7 @@ import com.algaworks.cadufood.api.model.output.RestauranteOutput;
 import com.algaworks.cadufood.domain.model.Restaurante;
 import com.algaworks.cadufood.domain.service.RestauranteService;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ public class RestauranteController {
 
 	private RestauranteService restauranteService;
 
+	@Getter
 	private RestauranteMapper mapper;
 
 	@GetMapping
@@ -69,19 +71,15 @@ public class RestauranteController {
 
 	@PutMapping("/{idRestaurante}")
 	public ResponseEntity<RestauranteOutput> atualizar(@PathVariable Long idRestaurante,
-									   @RequestBody RestauranteInput restaurante) {
-		Restaurante	restauranteModelo = restauranteService.atualizar(idRestaurante, restaurante);
-		return ResponseEntity.ok(mapper.toOutput(restauranteModelo));
+									   @RequestBody RestauranteInput restauranteInput) {
+		Restaurante	restauranteAtual = restauranteService.atualizar(idRestaurante, restauranteInput);
+		return ResponseEntity.ok(mapper.toOutput(restauranteAtual));
 	}
 
 	@DeleteMapping("/{idRestaurante}")
 	public ResponseEntity<RestauranteOutput> excluir(@PathVariable Long idRestaurante) {
 			restauranteService.excluir(idRestaurante);
 			return ResponseEntity.noContent().build();
-	}
-
-	public RestauranteMapper getMapper() {
-		return mapper;
 	}
 
 //	@GetMapping("/buscar-por-frete")

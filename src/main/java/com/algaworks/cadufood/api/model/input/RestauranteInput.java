@@ -2,11 +2,13 @@ package com.algaworks.cadufood.api.model.input;
 
 import com.algaworks.cadufood.domain.model.Cozinha;
 import com.algaworks.cadufood.domain.model.Endereco;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.algaworks.cadufood.domain.model.Restaurante;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter

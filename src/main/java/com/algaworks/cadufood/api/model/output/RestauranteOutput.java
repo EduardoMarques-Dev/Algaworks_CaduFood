@@ -30,10 +30,8 @@ public class RestauranteOutput {
 
     private Cozinha cozinha;
 
-    @JsonIgnoreProperties(allowGetters = true)
     private List<Produto> produto;
 
-    @JsonIgnoreProperties(allowGetters = true)
     private List<FormaPagamento> formasPagamento;
 
 }
