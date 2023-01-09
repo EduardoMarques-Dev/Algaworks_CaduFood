@@ -26,18 +26,21 @@ public class RestauranteController {
 	private RestauranteMapper mapper;
 
 	@GetMapping
+	@ResponseStatus(HttpStatus.OK)
 	public List<RestauranteOutput> listar() {
 		return mapper.toOutputCollection(restauranteService.listar());
 	}
 
 	@GetMapping("/{idRestaurante}")
-	public ResponseEntity<RestauranteOutput> buscar(@PathVariable Long idRestaurante) {
+	@ResponseStatus(HttpStatus.OK)
+	public RestauranteOutput buscar(@PathVariable Long idRestaurante) {
 		Restaurante restaurante = restauranteService.buscar(idRestaurante);
-		return ResponseEntity.ok(mapper.toOutput(restaurante));
+		return mapper.toOutput(restaurante);
 	}
 
 	@GetMapping("/buscar-por")
-	public ResponseEntity<List<RestauranteOutput>> buscarPersonalizado(@RequestParam(required = false) String nome,
+	@ResponseStatus(HttpStatus.OK)
+	public List<RestauranteOutput> buscarPersonalizado(@RequestParam(required = false) String nome,
 																	  @RequestParam(value = "taxa-frete-inicial", required = false) BigDecimal taxaFreteInicial,
 																	  @RequestParam(value = "taxa-frete-final", required = false) BigDecimal taxaFreteFinal,
 																	  @RequestParam(value = "data-cadastro-inicial", required = false) LocalDateTime dataCadastroInicial,
@@ -53,34 +56,36 @@ public class RestauranteController {
 		List<Restaurante> restaurante = restauranteService.buscarPersonalizado(nome, taxaFreteInicial, taxaFreteFinal, dataCadastroInicial, dataCadastroFinal,
 				dataAtualizacaoInicial, dataAtualizacaoFinal, enderecoCep, enderecoLogradouro, enderecoNumero,
 				enderecoBairro, idEnderecoCidade, idCozinha);
-		return ResponseEntity.ok(mapper.toOutputCollection(restaurante));
+		return mapper.toOutputCollection(restaurante);
 	}
 
 	@GetMapping("/buscar-primeiro")
-	public ResponseEntity<RestauranteOutput> buscarPrimeiro() {
+	@ResponseStatus(HttpStatus.OK)
+	public RestauranteOutput buscarPrimeiro() {
 		Restaurante restaurante = restauranteService.buscarPrimeiro();
-		return ResponseEntity.ok(mapper.toOutput(restaurante));
+		return mapper.toOutput(restaurante);
 	}
 
 	@PostMapping
-	public ResponseEntity<RestauranteOutput> salvar(@RequestBody RestauranteInput restauranteInput) {
+	@ResponseStatus(HttpStatus.CREATED)
+	public RestauranteOutput salvar(@RequestBody RestauranteInput restauranteInput) {
 		Restaurante restaurante = mapper.toDomain(restauranteInput);
 		restaurante = restauranteService.salvar(restaurante);
-		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(mapper.toOutput(restaurante));
+		return mapper.toOutput(restaurante);
 	}
 
 	@PutMapping("/{idRestaurante}")
-	public ResponseEntity<RestauranteOutput> atualizar(@PathVariable Long idRestaurante,
+	@ResponseStatus(HttpStatus.OK)
+	public RestauranteOutput atualizar(@PathVariable Long idRestaurante,
 									   @RequestBody RestauranteInput restauranteInput) {
 		Restaurante	restauranteAtual = restauranteService.atualizar(idRestaurante, restauranteInput);
-		return ResponseEntity.ok(mapper.toOutput(restauranteAtual));
+		return mapper.toOutput(restauranteAtual);
 	}
 
 	@DeleteMapping("/{idRestaurante}")
-	public ResponseEntity<RestauranteOutput> excluir(@PathVariable Long idRestaurante) {
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void excluir(@PathVariable Long idRestaurante) {
 			restauranteService.excluir(idRestaurante);
-			return ResponseEntity.noContent().build();
 	}
 
 //	@GetMapping("/buscar-por-frete")
