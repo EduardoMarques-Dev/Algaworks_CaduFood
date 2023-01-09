@@ -1,11 +1,7 @@
 package com.algaworks.cadufood.api.mapper;
 
 import com.algaworks.cadufood.api.model.input.CozinhaInput;
-import com.algaworks.cadufood.api.model.input.CozinhaInput;
 import com.algaworks.cadufood.api.model.output.CozinhaOutput;
-import com.algaworks.cadufood.api.model.output.CozinhaOutput;
-import com.algaworks.cadufood.domain.model.Cidade;
-import com.algaworks.cadufood.domain.model.Cozinha;
 import com.algaworks.cadufood.domain.model.Cozinha;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
