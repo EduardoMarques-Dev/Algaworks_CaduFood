@@ -2,12 +2,10 @@ package com.algaworks.cadufood.api.controller;
 
 import com.algaworks.cadufood.api.controller.util.GenericController;
 import com.algaworks.cadufood.api.mapper.CozinhaMapper;
-import com.algaworks.cadufood.api.mapper.util.GenericMapper;
 import com.algaworks.cadufood.api.model.input.CozinhaInput;
 import com.algaworks.cadufood.api.model.output.CozinhaOutput;
 import com.algaworks.cadufood.domain.model.Cozinha;
 import com.algaworks.cadufood.domain.service.CozinhaService;
-import com.algaworks.cadufood.domain.service.util.GenericService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

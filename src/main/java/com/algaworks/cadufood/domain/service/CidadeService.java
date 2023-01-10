@@ -7,7 +7,6 @@ import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.exception.NegocioException;
 import com.algaworks.cadufood.domain.model.Cidade;
 import com.algaworks.cadufood.domain.repository.CidadeRepository;
-import com.algaworks.cadufood.domain.repository.util.norepositorybean.CustomJpaRepository;
 import com.algaworks.cadufood.domain.service.util.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
