@@ -1,11 +1,12 @@
 package com.algaworks.cadufood.domain.service.util;
 
+import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
-import com.algaworks.cadufood.domain.exception.RestauranteNaoEncontradoException;
-import com.algaworks.cadufood.domain.model.Restaurante;
 import com.algaworks.cadufood.domain.model.util.GenericEntity;
 import com.algaworks.cadufood.domain.repository.util.norepositorybean.CustomJpaRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,7 +45,13 @@ public abstract class GenericService<DomainModel extends GenericEntity<DomainMod
 
     @Transactional
     public void excluir(Long idDomainModel) {
-        repository.deleteById(idDomainModel);
+        try{
+            repository.deleteById(idDomainModel);
+        } catch (EmptyResultDataAccessException ex){
+            throw new EntidadeNaoEncontradaException(idDomainModel);
+        } catch (DataIntegrityViolationException ex){
+            throw new EntidadeEmUsoException();
+        }
     }
 
     public DomainModel buscarDomainModelOuFalhar(Long idDomainModel) {

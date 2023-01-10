@@ -59,6 +59,7 @@ public class RestauranteService extends GenericService<Restaurante> {
 						enderecoBairro, enderecoCidadeId, cozinhaId);
 		return restaurantes;
 	}
+
 	@Transactional
 	public Restaurante atualizar(Long idRestaurante, RestauranteInput restauranteInput) {
 		Restaurante restauranteAtual = buscarDomainModelOuFalhar(idRestaurante);
