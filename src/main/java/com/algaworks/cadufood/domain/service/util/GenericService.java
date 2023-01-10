@@ -1,8 +1,8 @@
 package com.algaworks.cadufood.domain.service.util;
 
 import com.algaworks.cadufood.domain.exception.RestauranteNaoEncontradoException;
-import com.algaworks.cadufood.domain.model.util.GenericEntity;
 import com.algaworks.cadufood.domain.model.Restaurante;
+import com.algaworks.cadufood.domain.model.util.GenericEntity;
 import com.algaworks.cadufood.domain.repository.util.norepositorybean.CustomJpaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -55,27 +55,4 @@ public abstract class GenericService<DomainModel extends GenericEntity<DomainMod
         return repository.refresh(repository.saveAndFlush(domainModel));
     }
 
-
-//    
-//    
-//    @Transactional
-//    public DomainModel update(DomainModel updated){
-//        DomainModel dbDomain = get(updated.getId());
-//        dbDomain.update(updated);
-//
-//        return repository.save(dbDomain);
-//    }
-//
-//    @Transactional
-//    public DomainModel create(DomainModel newDomain){
-//        DomainModel dbDomain = newDomain.createNewInstance();
-//        return repository.save(dbDomain);
-//    }
-//
-//    @Transactional
-//    public void delete(Long id){
-//        //check if object with this id exists
-//        get(id);
-//        repository.deleteById(id);
-//    }
 }

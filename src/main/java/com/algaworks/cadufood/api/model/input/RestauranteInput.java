@@ -20,18 +20,4 @@ public class RestauranteInput implements GenericEntity<RestauranteInput> {
 
     private Cozinha cozinha;
 
-    @Override
-    public void update(RestauranteInput source) {
-        this.nome = source.getNome();
-        this.taxaFrete = source.getTaxaFrete();
-        this.endereco = source.getEndereco();
-        this.cozinha = source.getCozinha();
-    }
-
-    @Override
-    public RestauranteInput createNewInstance() {
-        RestauranteInput newInstance = new RestauranteInput();
-        newInstance.update(this);
-        return newInstance;
-    }
 }

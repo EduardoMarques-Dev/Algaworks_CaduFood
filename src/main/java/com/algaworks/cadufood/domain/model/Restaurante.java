@@ -65,22 +65,4 @@ public class Restaurante implements GenericEntity<Restaurante> {
 	@ToString.Exclude
 	private List<FormaPagamento> formasPagamento = new ArrayList<>();
 
-	@Override
-	public void update(Restaurante source) {
-		this.nome = source.getNome();
-		this.taxaFrete = source.getTaxaFrete();
-		this.dataCadastro = source.getDataCadastro();
-		this.dataAtualizacao = source.getDataAtualizacao();
-		this.endereco = source.getEndereco();
-		this.cozinha = source.getCozinha();
-		this.produto = source.getProduto();
-		this.formasPagamento = source.getFormasPagamento();
-	}
-
-	@Override
-	public Restaurante createNewInstance() {
-		Restaurante newInstance = new Restaurante();
-		newInstance.update(this);
-		return newInstance;
-	}
 }

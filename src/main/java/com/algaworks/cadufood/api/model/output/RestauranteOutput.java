@@ -1,7 +1,10 @@
 package com.algaworks.cadufood.api.model.output;
 
+import com.algaworks.cadufood.domain.model.Cozinha;
+import com.algaworks.cadufood.domain.model.Endereco;
+import com.algaworks.cadufood.domain.model.FormaPagamento;
+import com.algaworks.cadufood.domain.model.Produto;
 import com.algaworks.cadufood.domain.model.util.GenericEntity;
-import com.algaworks.cadufood.domain.model.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,22 +34,4 @@ public class RestauranteOutput implements GenericEntity<RestauranteOutput> {
 
     private List<FormaPagamento> formasPagamento;
 
-    @Override
-    public void update(RestauranteOutput source) {
-        this.nome = source.getNome();
-        this.taxaFrete = source.getTaxaFrete();
-        this.dataCadastro = source.getDataCadastro();
-        this.dataAtualizacao = source.getDataAtualizacao();
-        this.endereco = source.getEndereco();
-        this.cozinha = source.getCozinha();
-        this.produto = source.getProduto();
-        this.formasPagamento = source.getFormasPagamento();
-    }
-
-    @Override
-    public RestauranteOutput createNewInstance() {
-        RestauranteOutput newInstance = new RestauranteOutput();
-        newInstance.update(this);
-        return newInstance;
-    }
 }

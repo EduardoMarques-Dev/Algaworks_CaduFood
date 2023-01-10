@@ -9,8 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RestauranteRepository extends
         CustomJpaRepository<Restaurante, Long>,
-        RestauranteRepositoryQueries,
-        org.springframework.data.jpa.repository.JpaRepository<Restaurante, Long> {
+        RestauranteRepositoryQueries {
 
 }
 

@@ -5,7 +5,6 @@ import com.algaworks.cadufood.api.model.input.RestauranteInput;
 import com.algaworks.cadufood.domain.exception.NegocioException;
 import com.algaworks.cadufood.domain.model.Restaurante;
 import com.algaworks.cadufood.domain.repository.RestauranteRepository;
-import com.algaworks.cadufood.domain.repository.util.norepositorybean.CustomJpaRepository;
 import com.algaworks.cadufood.domain.service.util.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -63,63 +62,3 @@ public class RestauranteService extends GenericService<Restaurante> {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//	public Restaurante buscarPrimeiro() {
-//		Restaurante restaurante = restauranteRepository.
-//				buscarPrimeiro().orElseThrow(() -> new RestauranteNaoEncontradoException(Restaurante.class));
-//		return restaurante;
-//	}
-//
-//	public List<Restaurante> listar() {
-//		List<Restaurante> restaurantes = restauranteRepository.findAll();
-//		return restaurantes;
-//	}
-//
-//	public Restaurante buscar(Long idRestaurante) {
-//		Restaurante restaurante = buscarRestauranteOuFalhar(idRestaurante);
-//		return restaurante;
-//	}
-//
-//	@Transactional
-//	public Restaurante salvar(Restaurante restaurante) {
-//		return salvarERecarregar(restaurante);
-//	}
-//
-//	@Transactional
-//	public void excluir(Long idRestaurante) {
-//		try {
-//			restauranteRepository.deleteById(idRestaurante);
-//		} catch (EmptyResultDataAccessException e) {
-//			throw new RestauranteNaoEncontradoException(Restaurante.class, idRestaurante);
-//		} catch (DataIntegrityViolationException e) {
-//			throw new EntidadeEmUsoException(Restaurante.class, idRestaurante);
-//		}
-//	}
-//	private Restaurante buscarRestauranteOuFalhar(Long idRestaurante) {
-//		return restauranteRepository.findById(idRestaurante).orElseThrow(
-//				() -> new RestauranteNaoEncontradoException(Restaurante.class, idRestaurante));
-//	}
-//
-//	@Transactional
-//	private Restaurante salvarERecarregar(Restaurante restaurante) {
-//		return restauranteRepository.refresh(restauranteRepository.saveAndFlush(restaurante));
-//	}

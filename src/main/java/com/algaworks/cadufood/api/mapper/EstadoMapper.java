@@ -1,5 +1,6 @@
 package com.algaworks.cadufood.api.mapper;
 
+import com.algaworks.cadufood.api.mapper.util.GenericMapper;
 import com.algaworks.cadufood.api.model.input.EstadoInput;
 import com.algaworks.cadufood.api.model.output.EstadoOutput;
 import com.algaworks.cadufood.domain.model.Estado;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
-public class EstadoMapper implements EntityMapper<Estado, EstadoInput, EstadoOutput> {
+public class EstadoMapper implements GenericMapper<Estado, EstadoInput, EstadoOutput> {
 
     private ModelMapper modelMapper;
 

@@ -1,73 +1,42 @@
 package com.algaworks.cadufood.domain.service;
 
-import com.algaworks.cadufood.domain.exception.CidadeNaoEncontradaException;
-import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
+import com.algaworks.cadufood.api.controller.CidadeController;
+import com.algaworks.cadufood.api.model.input.CidadeInput;
+import com.algaworks.cadufood.domain.exception.NegocioException;
 import com.algaworks.cadufood.domain.model.Cidade;
-import com.algaworks.cadufood.domain.model.Estado;
 import com.algaworks.cadufood.domain.repository.CidadeRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.BeanUtils;
+import com.algaworks.cadufood.domain.repository.util.norepositorybean.CustomJpaRepository;
+import com.algaworks.cadufood.domain.service.util.GenericService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
-@AllArgsConstructor
-public class CidadeService {
+public class CidadeService extends GenericService<Cidade> {
 
+	@Autowired
 	private CidadeRepository cidadeRepository;
 
-	private EstadoService estadoService;
+	@Autowired @Lazy
+	private CidadeController cidadeController;
 
-	public List<Cidade> listar() {
-		List<Cidade> cidades = cidadeRepository.findAll();
-		return cidades;
-	}
-
-	public Cidade buscar(Long cidadeId) {
-		Cidade cidade = buscarCidade(cidadeId);
-		return cidade;
+	public CidadeService(CustomJpaRepository<Cidade, Long> repository) {
+		super(repository);
 	}
 
 	@Transactional
-	public Cidade salvar(Cidade cidade) {
-		Long estadoId = cidade.getEstado().getId();
-		Estado estado = estadoService.buscarEstado(estadoId);
+	public Cidade atualizar(Long cidadeId, CidadeInput cidadeInput) {
+		Cidade cidadeAtual = buscarDomainModelOuFalhar(cidadeId);
 
-		cidade.setEstado(estado);
+		cidadeController.getMapper().updateEntity(cidadeInput,cidadeAtual);
 
-		return cidadeRepository.save(cidade);
-	}
-
-	@Transactional
-	public Cidade atualizar(Long cidadeId, Cidade cidade) {
-		Cidade cidadeAtual = buscar(cidadeId);
-
-		BeanUtils.copyProperties(cidade, cidadeAtual, "id");
-
-		return cidadeRepository.save(cidadeAtual);
-	}
-
-	@Transactional
-	public void excluir(Long cidadeId) {
-		try {
-			cidadeRepository.deleteById(cidadeId);
-		} catch (EmptyResultDataAccessException e) {
-			throw new CidadeNaoEncontradaException(
-					String.format("Não existe um cadastro de cidade com código %d", cidadeId));
-		} catch (DataIntegrityViolationException e) {
-			throw new EntidadeEmUsoException(
-					String.format("Cidade de código %d não pode ser removida, pois está em uso", cidadeId));
+		try{
+			return salvarERecarregar(cidadeAtual);
+		}catch (DataIntegrityViolationException ex){
+			throw new NegocioException(ex.getMessage());
 		}
-	}
-
-	public Cidade buscarCidade(Long cidadeId) {
-		return cidadeRepository.findById(cidadeId).orElseThrow(
-				() -> new CidadeNaoEncontradaException(cidadeId.toString())
-		);
 	}
 
 }

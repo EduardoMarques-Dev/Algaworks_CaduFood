@@ -1,5 +1,6 @@
 package com.algaworks.cadufood.api.mapper;
 
+import com.algaworks.cadufood.api.mapper.util.GenericMapper;
 import com.algaworks.cadufood.api.model.input.CozinhaInput;
 import com.algaworks.cadufood.api.model.output.CozinhaOutput;
 import com.algaworks.cadufood.domain.model.Cozinha;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
-public class CozinhaMapper implements EntityMapper<Cozinha, CozinhaInput, CozinhaOutput> {
+public class CozinhaMapper implements GenericMapper<Cozinha, CozinhaInput, CozinhaOutput> {
 
     private ModelMapper modelMapper;
 
