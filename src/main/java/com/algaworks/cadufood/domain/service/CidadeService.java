@@ -24,7 +24,7 @@ public class CidadeService extends GenericService<Cidade> {
 	@Autowired @Lazy
 	private CidadeController cidadeController;
 
-	public CidadeService(CustomJpaRepository<Cidade, Long> repository) {
+	public CidadeService(CidadeRepository repository) {
 		super(repository);
 	}
 

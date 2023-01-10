@@ -47,6 +47,7 @@ public abstract class GenericService<DomainModel extends GenericEntity<DomainMod
     public void excluir(Long idDomainModel) {
         try{
             repository.deleteById(idDomainModel);
+            repository.flush();
         } catch (EmptyResultDataAccessException ex){
             throw new EntidadeNaoEncontradaException(idDomainModel);
         } catch (DataIntegrityViolationException ex){

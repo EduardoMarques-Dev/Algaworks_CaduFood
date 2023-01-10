@@ -27,7 +27,7 @@ public class EstadoController extends GenericController<Estado,EstadoInput,Estad
 	@Autowired
 	private EstadoMapper mapper;
 
-	public EstadoController(GenericService<Estado> service, GenericMapper<Estado, EstadoInput, EstadoOutput> mapper) {
+	public EstadoController(EstadoService service, EstadoMapper mapper) {
 		super(service, mapper);
 	}
 

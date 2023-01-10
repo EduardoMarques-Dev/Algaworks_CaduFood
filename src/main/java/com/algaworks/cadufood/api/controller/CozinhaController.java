@@ -24,7 +24,7 @@ public class CozinhaController extends GenericController<Cozinha, CozinhaInput, 
 	@Autowired
 	private CozinhaMapper mapper;
 
-	public CozinhaController(GenericService<Cozinha> service, GenericMapper<Cozinha, CozinhaInput, CozinhaOutput> mapper) {
+	public CozinhaController(CozinhaService service, CozinhaMapper mapper) {
 		super(service, mapper);
 	}
 
