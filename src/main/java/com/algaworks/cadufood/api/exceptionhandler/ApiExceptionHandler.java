@@ -2,7 +2,9 @@ package com.algaworks.cadufood.api.exceptionhandler;
 
 import com.algaworks.cadufood.domain.exception.*;
 import com.fasterxml.jackson.databind.JsonMappingException.Reference;
+import com.fasterxml.jackson.databind.exc.IgnoredPropertyException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import com.fasterxml.jackson.databind.exc.PropertyBindingException;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -87,39 +89,33 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, problem, new HttpHeaders(), statusCode, request);
     }
 
-    // EXCEPTIONS SOBRESCRITAS
+    // EXCEPTIONS DE DESSERIALIZAÇÃO
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
 
         Throwable rootCause = ExceptionUtils.getRootCause(ex);
 
-        if (rootCause instanceof InvalidFormatException){
-            return handleInvalidFormat((InvalidFormatException) rootCause, headers, status, request);
-        }
-
         ProblemType problemType = ProblemType.MENSAGEM_INCOMPREENSIVEL;
         String detail = "O corpo da requisição está inválido. Verifique o erro de sintaxe.";
+
+        if (rootCause instanceof InvalidFormatException invalidEx){
+            String path = JoinPath(invalidEx.getPath());
+
+            detail = String.format("A propriedade '%s' recebeu o valor '%s', "
+                            + "que é de um tipo inválido. Corrija e informe um valor compatível com o tipo %s.",
+                    path, invalidEx.getValue(), invalidEx.getTargetType().getSimpleName());
+
+        } if (rootCause instanceof PropertyBindingException ignoredEx){
+            String path = JoinPath(ignoredEx.getPath());
+
+            detail = String.format("A propriedade '%s' não existe. "
+                    + "Corrija ou remova essa propriedade e tente novamente.", path);
+        }
 
         Problem problem = createProblemBuilder(status, problemType, detail).build();
 
         return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
-    }
-
-    private ResponseEntity<Object> handleInvalidFormat(InvalidFormatException ex,
-                                                       HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-
-        String path = JoinPath(ex.getPath());
-
-        ProblemType problemType = ProblemType.MENSAGEM_INCOMPREENSIVEL;
-        String detail = String.format("A propriedade '%s' recebeu o valor '%s', "
-                        + "que é de um tipo inválido. Corrija e informe um valor compatível com o tipo %s.",
-                path, ex.getValue(), ex.getTargetType().getSimpleName());
-
-        Problem problem = createProblemBuilder(status, problemType, detail)
-                .build();
-
-        return handleExceptionInternal(ex, problem, headers, status, request);
     }
 
     private static String JoinPath(List<Reference> path) {
