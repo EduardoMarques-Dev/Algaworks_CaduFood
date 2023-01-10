@@ -1,13 +1,13 @@
 package com.algaworks.cadufood.api.controller;
 
+import com.algaworks.cadufood.api.controller.util.GenericController;
 import com.algaworks.cadufood.api.mapper.RestauranteMapper;
 import com.algaworks.cadufood.api.model.input.RestauranteInput;
 import com.algaworks.cadufood.api.model.output.RestauranteOutput;
 import com.algaworks.cadufood.domain.model.Restaurante;
 import com.algaworks.cadufood.domain.service.RestauranteService;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -16,23 +16,17 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/restaurantes")
-@AllArgsConstructor
-public class RestauranteController {
+public class RestauranteController extends GenericController<Restaurante,RestauranteInput,RestauranteOutput> {
 
+	@Autowired
 	private RestauranteService restauranteService;
 
 	@Getter
+	@Autowired
 	private RestauranteMapper mapper;
 
-	@GetMapping
-	public List<RestauranteOutput> listar() {
-		return mapper.toOutputCollection(restauranteService.listar());
-	}
-
-	@GetMapping("/{idRestaurante}")
-	public RestauranteOutput buscar(@PathVariable Long idRestaurante) {
-		Restaurante restaurante = restauranteService.buscar(idRestaurante);
-		return mapper.toOutput(restaurante);
+	public RestauranteController(RestauranteService service, RestauranteMapper mapper) {
+		super(service, mapper);
 	}
 
 	@GetMapping("/buscar-por")
@@ -55,20 +49,6 @@ public class RestauranteController {
 		return mapper.toOutputCollection(restaurante);
 	}
 
-	@GetMapping("/buscar-primeiro")
-	public RestauranteOutput buscarPrimeiro() {
-		Restaurante restaurante = restauranteService.buscarPrimeiro();
-		return mapper.toOutput(restaurante);
-	}
-
-	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public RestauranteOutput salvar(@RequestBody RestauranteInput restauranteInput) {
-		Restaurante restaurante = mapper.toDomain(restauranteInput);
-		restaurante = restauranteService.salvar(restaurante);
-		return mapper.toOutput(restaurante);
-	}
-
 	@PutMapping("/{idRestaurante}")
 	public RestauranteOutput atualizar(@PathVariable Long idRestaurante,
 									   @RequestBody RestauranteInput restauranteInput) {
@@ -76,24 +56,64 @@ public class RestauranteController {
 		return mapper.toOutput(restauranteAtual);
 	}
 
-	@DeleteMapping("/{idRestaurante}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void excluir(@PathVariable Long idRestaurante) {
-		restauranteService.excluir(idRestaurante);
-	}
+}
 
-//	@GetMapping("/buscar-por-frete")
-//	public ResponseEntity<List<Restaurante>> buscarPorFrete(@RequestParam("taxa-frete-inicial") BigDecimal taxaFreteInicial,
-//													   @RequestParam("taxa-frete-final") BigDecimal taxaFreteFinal) {
-//		List<Restaurante> restaurante = restauranteService.buscarPorFrete(taxaFreteInicial, taxaFreteFinal);
-//		return ResponseEntity.ok(restaurante);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//	@GetMapping
+//	public List<RestauranteOutput> listar() {
+//		return mapper.toOutputCollection(restauranteService.listar());
 //	}
 //
-//	@GetMapping("/buscar-por-nome")
-//	public ResponseEntity<List<Restaurante>> buscarPorNome(@RequestParam String nome,
-//														   @RequestParam(defaultValue = "-1") int quantidade) {
-//		List<Restaurante> restaurante = restauranteService.buscarPorNome(nome, quantidade);
-//		return ResponseEntity.ok(restaurante);
+//	@GetMapping("/{idRestaurante}")
+//	public RestauranteOutput buscar(@PathVariable Long idRestaurante) {
+//		Restaurante restaurante = restauranteService.buscar(idRestaurante);
+//		return mapper.toOutput(restaurante);
+//	}
+//	@GetMapping("/buscar-primeiro")
+//	public RestauranteOutput buscarPrimeiro() {
+//		Restaurante restaurante = restauranteService.buscarPrimeiro();
+//		return mapper.toOutput(restaurante);
+//	}
+//
+//	@PostMapping
+//	@ResponseStatus(HttpStatus.CREATED)
+//	public RestauranteOutput salvar(@RequestBody RestauranteInput restauranteInput) {
+//		Restaurante restaurante = mapper.toDomain(restauranteInput);
+//		restaurante = restauranteService.salvar(restaurante);
+//		return mapper.toOutput(restaurante);
+//	}
+//
+//
+//	@DeleteMapping("/{idRestaurante}")
+//	@ResponseStatus(HttpStatus.NO_CONTENT)
+//	public void excluir(@PathVariable Long idRestaurante) {
+//		restauranteService.excluir(idRestaurante);
 //	}
 
-}

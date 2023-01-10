@@ -1,5 +1,6 @@
 package com.algaworks.cadufood.domain.model;
 
+import com.algaworks.cadufood.domain.model.util.GenericEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -19,7 +20,7 @@ import java.util.List;
 @Setter
 @RequiredArgsConstructor
 @Entity
-public class Restaurante {
+public class Restaurante implements GenericEntity<Restaurante> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,4 +65,22 @@ public class Restaurante {
 	@ToString.Exclude
 	private List<FormaPagamento> formasPagamento = new ArrayList<>();
 
+	@Override
+	public void update(Restaurante source) {
+		this.nome = source.getNome();
+		this.taxaFrete = source.getTaxaFrete();
+		this.dataCadastro = source.getDataCadastro();
+		this.dataAtualizacao = source.getDataAtualizacao();
+		this.endereco = source.getEndereco();
+		this.cozinha = source.getCozinha();
+		this.produto = source.getProduto();
+		this.formasPagamento = source.getFormasPagamento();
+	}
+
+	@Override
+	public Restaurante createNewInstance() {
+		Restaurante newInstance = new Restaurante();
+		newInstance.update(this);
+		return newInstance;
+	}
 }

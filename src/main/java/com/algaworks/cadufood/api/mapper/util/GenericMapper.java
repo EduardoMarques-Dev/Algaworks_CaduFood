@@ -1,10 +1,10 @@
-package com.algaworks.cadufood.api.mapper;
+package com.algaworks.cadufood.api.mapper.util;
 
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 
-public interface EntityMapper<DomainModel, InputModel, OutputModel> {
+public interface GenericMapper<DomainModel, InputModel, OutputModel> {
 
     DomainModel toDomain(InputModel inputModel);
 
