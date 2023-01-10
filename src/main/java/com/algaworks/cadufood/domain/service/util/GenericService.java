@@ -1,5 +1,6 @@
 package com.algaworks.cadufood.domain.service.util;
 
+import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.exception.RestauranteNaoEncontradoException;
 import com.algaworks.cadufood.domain.model.Restaurante;
 import com.algaworks.cadufood.domain.model.util.GenericEntity;
@@ -47,7 +48,9 @@ public abstract class GenericService<DomainModel extends GenericEntity<DomainMod
     }
 
     public DomainModel buscarDomainModelOuFalhar(Long idDomainModel) {
-        return repository.findById(idDomainModel).orElseThrow(null);
+        return repository.findById(idDomainModel).orElseThrow(() -> new EntidadeNaoEncontradaException(
+                idDomainModel
+        ));
     }
 
     @Transactional
