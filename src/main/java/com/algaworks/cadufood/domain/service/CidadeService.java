@@ -1,9 +1,7 @@
 package com.algaworks.cadufood.domain.service;
 
 import com.algaworks.cadufood.domain.exception.CidadeNaoEncontradaException;
-import com.algaworks.cadufood.domain.exception.CozinhaNaoEncontradaException;
 import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
-import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.model.Cidade;
 import com.algaworks.cadufood.domain.model.Estado;
 import com.algaworks.cadufood.domain.repository.CidadeRepository;

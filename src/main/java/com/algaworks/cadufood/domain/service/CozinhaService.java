@@ -4,7 +4,6 @@ import com.algaworks.cadufood.api.controller.CozinhaController;
 import com.algaworks.cadufood.api.model.input.CozinhaInput;
 import com.algaworks.cadufood.domain.exception.CozinhaNaoEncontradaException;
 import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
-import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.model.Cozinha;
 import com.algaworks.cadufood.domain.repository.CozinhaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
