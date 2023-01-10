@@ -2,8 +2,12 @@ package com.algaworks.cadufood.domain.service;
 
 import com.algaworks.cadufood.api.controller.CidadeController;
 import com.algaworks.cadufood.api.model.input.CidadeInput;
+import com.algaworks.cadufood.domain.exception.CidadeNaoEncontradaException;
+import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.exception.NegocioException;
+import com.algaworks.cadufood.domain.exception.RestauranteNaoEncontradoException;
 import com.algaworks.cadufood.domain.model.Cidade;
+import com.algaworks.cadufood.domain.model.Restaurante;
 import com.algaworks.cadufood.domain.repository.CidadeRepository;
 import com.algaworks.cadufood.domain.repository.util.norepositorybean.CustomJpaRepository;
 import com.algaworks.cadufood.domain.service.util.GenericService;
@@ -24,6 +28,15 @@ public class CidadeService extends GenericService<Cidade> {
 
 	public CidadeService(CustomJpaRepository<Cidade, Long> repository) {
 		super(repository);
+	}
+
+	@Override
+	public Cidade buscar(Long idDomainModel) {
+		try{
+			return super.buscar(idDomainModel);
+		}catch (EntidadeNaoEncontradaException ex){
+			throw new CidadeNaoEncontradaException(Cidade.class,idDomainModel);
+		}
 	}
 
 	@Transactional

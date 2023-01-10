@@ -13,6 +13,10 @@ public class EntidadeNaoEncontradaException extends NegocioException {
 	public static final String NAO_EXISTE_CADASTRO_COM_CODIGO
 			= "Não existe registro do objeto %s com código %d";
 
+	public EntidadeNaoEncontradaException() {
+		super("Não existe registro");
+	}
+
 	public EntidadeNaoEncontradaException(String mensagem) {
 		super(mensagem);
 	}

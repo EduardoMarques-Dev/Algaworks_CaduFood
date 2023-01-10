@@ -2,7 +2,9 @@ package com.algaworks.cadufood.domain.service;
 
 import com.algaworks.cadufood.api.controller.RestauranteController;
 import com.algaworks.cadufood.api.model.input.RestauranteInput;
+import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.exception.NegocioException;
+import com.algaworks.cadufood.domain.exception.RestauranteNaoEncontradoException;
 import com.algaworks.cadufood.domain.model.Restaurante;
 import com.algaworks.cadufood.domain.repository.RestauranteRepository;
 import com.algaworks.cadufood.domain.service.util.GenericService;
@@ -29,6 +31,15 @@ public class RestauranteService extends GenericService<Restaurante> {
 		super(repository);
 	}
 
+	@Override
+	public Restaurante buscar(Long idDomainModel) {
+		try{
+			return super.buscar(idDomainModel);
+		}catch (EntidadeNaoEncontradaException ex){
+			throw new RestauranteNaoEncontradoException(Restaurante.class,idDomainModel);
+		}
+	}
+
 	public List<Restaurante> buscarPersonalizado(String nome,
 												 BigDecimal taxaFreteInicial,
 												 BigDecimal taxaFreteFinal,
@@ -40,12 +51,12 @@ public class RestauranteService extends GenericService<Restaurante> {
 												 String enderecoLogradouro,
 												 String enderecoNumero,
 												 String enderecoBairro,
-												 Long idEnderecoCidade,
-												 Long idCozinha) {
+												 Long enderecoCidadeId,
+												 Long cozinhaId) {
 		List<Restaurante> restaurantes = restauranteRepository.
 				buscarPersonalizado(nome, taxaFreteInicial, taxaFreteFinal, dataCadastroInicial, dataCadastroFinal,
 						dataAtualizacaoInicial, dataAtualizacaoFinal, enderecoCep, enderecoLogradouro, enderecoNumero,
-						enderecoBairro, idEnderecoCidade, idCozinha);
+						enderecoBairro, enderecoCidadeId, cozinhaId);
 		return restaurantes;
 	}
 	@Transactional

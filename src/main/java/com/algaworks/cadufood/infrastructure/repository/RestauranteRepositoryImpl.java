@@ -40,8 +40,8 @@ public class RestauranteRepositoryImpl implements RestauranteRepositoryQueries {
                                                  String enderecoLogradouro,
                                                  String enderecoNumero,
                                                  String enderecoBairro,
-                                                 Long idEnderecoCidade,
-                                                 Long idCozinha){
+                                                 Long enderecoCidadeId,
+                                                 Long cozinhaId){
         // Inicialização
         CriteriaBuilder builder = manager.getCriteriaBuilder();
         CriteriaQuery<Restaurante> query = builder.createQuery(Restaurante.class);
@@ -82,11 +82,11 @@ public class RestauranteRepositoryImpl implements RestauranteRepositoryQueries {
         if (StringUtils.hasLength(enderecoBairro)){
             predicates.add(builder.like(root.get("endereco").get("bairro"),"%"+enderecoBairro+"%"));
         }
-        if (idEnderecoCidade != null){
-            predicates.add(builder.equal(root.get("endereco").get("cidade").get("id"),idEnderecoCidade));
+        if (enderecoCidadeId != null){
+            predicates.add(builder.equal(root.get("endereco").get("cidade").get("id"), enderecoCidadeId));
         }
-        if (idCozinha != null){
-            predicates.add(builder.equal(root.get("cozinha").get("id"), idCozinha));
+        if (cozinhaId != null){
+            predicates.add(builder.equal(root.get("cozinha").get("id"), cozinhaId));
         }
 
         // Converte o ArrayList para Array

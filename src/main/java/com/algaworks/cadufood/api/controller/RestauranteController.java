@@ -41,11 +41,11 @@ public class RestauranteController extends GenericController<Restaurante,Restaur
 													   @RequestParam(value = "endereco-logradouro", required = false) String enderecoLogradouro,
 													   @RequestParam(value = "endereco-numero", required = false) String enderecoNumero,
 													   @RequestParam(value = "endereco-bairro", required = false) String enderecoBairro,
-													   @RequestParam(value = "endereco-id-cidade", required = false) Long idEnderecoCidade,
-													   @RequestParam(value = "id-cozinha", required = false) Long idCozinha) {
+													   @RequestParam(value = "endereco-cidade-id", required = false) Long enderecoCidadeId,
+													   @RequestParam(value = "cozinha-id", required = false) Long cozinhaId) {
 		List<Restaurante> restaurante = restauranteService.buscarPersonalizado(nome, taxaFreteInicial, taxaFreteFinal, dataCadastroInicial, dataCadastroFinal,
 				dataAtualizacaoInicial, dataAtualizacaoFinal, enderecoCep, enderecoLogradouro, enderecoNumero,
-				enderecoBairro, idEnderecoCidade, idCozinha);
+				enderecoBairro, enderecoCidadeId, cozinhaId);
 		return mapper.toOutputCollection(restaurante);
 	}
 

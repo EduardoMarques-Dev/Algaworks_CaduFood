@@ -25,6 +25,6 @@ public interface RestauranteRepositoryQueries {
                                           String enderecoLogradouro,
                                           String enderecoNumero,
                                           String enderecoBairro,
-                                          Long idenderecoCidade,
-                                          Long idCozinha);
+                                          Long enderecoCidadeId,
+                                          Long cozinhaId);
 }

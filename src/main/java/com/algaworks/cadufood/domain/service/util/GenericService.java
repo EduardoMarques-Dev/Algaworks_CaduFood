@@ -33,7 +33,7 @@ public abstract class GenericService<DomainModel extends GenericEntity<DomainMod
 
     public DomainModel buscarPrimeiro() {
         DomainModel domainModel = repository.
-                buscarPrimeiro().orElseThrow(() -> new RestauranteNaoEncontradoException(Restaurante.class));
+                buscarPrimeiro().orElseThrow(EntidadeNaoEncontradaException::new);
         return domainModel;
     }
 
