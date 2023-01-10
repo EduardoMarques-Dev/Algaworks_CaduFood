@@ -8,7 +8,6 @@ import com.algaworks.cadufood.domain.service.RestauranteService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -26,33 +25,30 @@ public class RestauranteController {
 	private RestauranteMapper mapper;
 
 	@GetMapping
-	@ResponseStatus(HttpStatus.OK)
 	public List<RestauranteOutput> listar() {
 		return mapper.toOutputCollection(restauranteService.listar());
 	}
 
 	@GetMapping("/{idRestaurante}")
-	@ResponseStatus(HttpStatus.OK)
 	public RestauranteOutput buscar(@PathVariable Long idRestaurante) {
 		Restaurante restaurante = restauranteService.buscar(idRestaurante);
 		return mapper.toOutput(restaurante);
 	}
 
 	@GetMapping("/buscar-por")
-	@ResponseStatus(HttpStatus.OK)
 	public List<RestauranteOutput> buscarPersonalizado(@RequestParam(required = false) String nome,
-																	  @RequestParam(value = "taxa-frete-inicial", required = false) BigDecimal taxaFreteInicial,
-																	  @RequestParam(value = "taxa-frete-final", required = false) BigDecimal taxaFreteFinal,
-																	  @RequestParam(value = "data-cadastro-inicial", required = false) LocalDateTime dataCadastroInicial,
-																	  @RequestParam(value = "data-cadastro-final", required = false) LocalDateTime dataCadastroFinal,
-																	  @RequestParam(value = "data-atualizacao-inicial", required = false) LocalDateTime dataAtualizacaoInicial,
-																	  @RequestParam(value = "taxa-atualizacao-final", required = false) LocalDateTime dataAtualizacaoFinal,
-																	  @RequestParam(value = "endereco-cep", required = false) String enderecoCep,
-																	  @RequestParam(value = "endereco-logradouro", required = false) String enderecoLogradouro,
-																	  @RequestParam(value = "endereco-numero", required = false) String enderecoNumero,
-																	  @RequestParam(value = "endereco-bairro", required = false) String enderecoBairro,
-																	  @RequestParam(value = "endereco-id-cidade", required = false) Long idEnderecoCidade,
-																	  @RequestParam(value = "id-cozinha", required = false) Long idCozinha) {
+													   @RequestParam(value = "taxa-frete-inicial", required = false) BigDecimal taxaFreteInicial,
+													   @RequestParam(value = "taxa-frete-final", required = false) BigDecimal taxaFreteFinal,
+													   @RequestParam(value = "data-cadastro-inicial", required = false) LocalDateTime dataCadastroInicial,
+													   @RequestParam(value = "data-cadastro-final", required = false) LocalDateTime dataCadastroFinal,
+													   @RequestParam(value = "data-atualizacao-inicial", required = false) LocalDateTime dataAtualizacaoInicial,
+													   @RequestParam(value = "taxa-atualizacao-final", required = false) LocalDateTime dataAtualizacaoFinal,
+													   @RequestParam(value = "endereco-cep", required = false) String enderecoCep,
+													   @RequestParam(value = "endereco-logradouro", required = false) String enderecoLogradouro,
+													   @RequestParam(value = "endereco-numero", required = false) String enderecoNumero,
+													   @RequestParam(value = "endereco-bairro", required = false) String enderecoBairro,
+													   @RequestParam(value = "endereco-id-cidade", required = false) Long idEnderecoCidade,
+													   @RequestParam(value = "id-cozinha", required = false) Long idCozinha) {
 		List<Restaurante> restaurante = restauranteService.buscarPersonalizado(nome, taxaFreteInicial, taxaFreteFinal, dataCadastroInicial, dataCadastroFinal,
 				dataAtualizacaoInicial, dataAtualizacaoFinal, enderecoCep, enderecoLogradouro, enderecoNumero,
 				enderecoBairro, idEnderecoCidade, idCozinha);
@@ -60,7 +56,6 @@ public class RestauranteController {
 	}
 
 	@GetMapping("/buscar-primeiro")
-	@ResponseStatus(HttpStatus.OK)
 	public RestauranteOutput buscarPrimeiro() {
 		Restaurante restaurante = restauranteService.buscarPrimeiro();
 		return mapper.toOutput(restaurante);
@@ -75,7 +70,6 @@ public class RestauranteController {
 	}
 
 	@PutMapping("/{idRestaurante}")
-	@ResponseStatus(HttpStatus.OK)
 	public RestauranteOutput atualizar(@PathVariable Long idRestaurante,
 									   @RequestBody RestauranteInput restauranteInput) {
 		Restaurante	restauranteAtual = restauranteService.atualizar(idRestaurante, restauranteInput);
@@ -85,7 +79,7 @@ public class RestauranteController {
 	@DeleteMapping("/{idRestaurante}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void excluir(@PathVariable Long idRestaurante) {
-			restauranteService.excluir(idRestaurante);
+		restauranteService.excluir(idRestaurante);
 	}
 
 //	@GetMapping("/buscar-por-frete")

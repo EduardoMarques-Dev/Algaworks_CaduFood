@@ -2,6 +2,7 @@ package com.algaworks.cadufood.domain.service;
 
 import com.algaworks.cadufood.api.controller.CozinhaController;
 import com.algaworks.cadufood.api.model.input.CozinhaInput;
+import com.algaworks.cadufood.domain.exception.CozinhaNaoEncontradaException;
 import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.model.Cozinha;
@@ -53,7 +54,7 @@ public class CozinhaService {
 		try {
 			cozinhaRepository.deleteById(cozinhaId);
 		} catch (EmptyResultDataAccessException e) {
-			throw new EntidadeNaoEncontradaException(
+			throw new CozinhaNaoEncontradaException(
 				String.format("Não existe um cadastro de cozinha com código %d", cozinhaId));
 		} catch (DataIntegrityViolationException e) {
 			throw new EntidadeEmUsoException(
@@ -63,7 +64,7 @@ public class CozinhaService {
 
 	public Cozinha buscarCozinhaOuFalhar(Long cozinhaId) {
 		return cozinhaRepository.findById(cozinhaId).orElseThrow(
-				() -> new EntidadeNaoEncontradaException(cozinhaId.toString())
+				() -> new CozinhaNaoEncontradaException(cozinhaId.toString())
 		);
 	}
 	

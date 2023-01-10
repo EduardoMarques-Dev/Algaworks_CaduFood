@@ -4,11 +4,13 @@ import com.algaworks.cadufood.domain.repository.util.norepositorybean.CustomJpaR
 import jakarta.persistence.EntityManager;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
 import java.util.Optional;
 
 public class CustomJpaRepositoryImpl<T,ID> extends SimpleJpaRepository<T,ID>
-        implements CustomJpaRepository<T,ID> {
+        implements CustomJpaRepository<T,ID>, Serializable {
 
     private EntityManager manager;
 
@@ -16,6 +18,13 @@ public class CustomJpaRepositoryImpl<T,ID> extends SimpleJpaRepository<T,ID>
         super(entityInformation, entityManager);
 
         this.manager = entityManager;
+    }
+
+    @Override
+    @Transactional
+    public T refresh(T t) {
+        manager.refresh(t);
+        return t;
     }
 
     @Override

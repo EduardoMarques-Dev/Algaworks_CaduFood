@@ -4,6 +4,7 @@ import com.algaworks.cadufood.api.controller.EstadoController;
 import com.algaworks.cadufood.api.model.input.EstadoInput;
 import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
+import com.algaworks.cadufood.domain.exception.EstadoNaoEncontradoException;
 import com.algaworks.cadufood.domain.model.Estado;
 import com.algaworks.cadufood.domain.repository.EstadoRepository;
 import lombok.AllArgsConstructor;
@@ -55,7 +56,7 @@ public class EstadoService {
 		try {
 			estadoRepository.deleteById(estadoId);
 		} catch (EmptyResultDataAccessException e) {
-			throw new EntidadeNaoEncontradaException(
+			throw new EstadoNaoEncontradoException(
 				String.format("Não existe um cadastro de estado com código %d", estadoId));
 		} catch (DataIntegrityViolationException e) {
 			throw new EntidadeEmUsoException(
@@ -66,7 +67,7 @@ public class EstadoService {
 	public Estado buscarEstado(Long estadoId) {
 		return estadoRepository.findById(estadoId)
 				.orElseThrow(() ->
-						new EntidadeNaoEncontradaException(String.format("Não existe cadastro de estado com código %d", estadoId))
+						new EstadoNaoEncontradoException(String.format("Não existe cadastro de estado com código %d", estadoId))
 				);
 	}
 	

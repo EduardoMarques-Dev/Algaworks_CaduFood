@@ -3,8 +3,8 @@ package com.algaworks.cadufood.domain.service;
 import com.algaworks.cadufood.api.controller.RestauranteController;
 import com.algaworks.cadufood.api.model.input.RestauranteInput;
 import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
-import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
-import com.algaworks.cadufood.domain.model.Cozinha;
+import com.algaworks.cadufood.domain.exception.NegocioException;
+import com.algaworks.cadufood.domain.exception.RestauranteNaoEncontradoException;
 import com.algaworks.cadufood.domain.model.Restaurante;
 import com.algaworks.cadufood.domain.repository.RestauranteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,30 +62,26 @@ public class RestauranteService {
 
 	public Restaurante buscarPrimeiro() {
 		Restaurante restaurante = restauranteRepository.
-				buscarPrimeiro().orElseThrow(
-						() -> new EntidadeNaoEncontradaException(
-								String.format("Não existe nenhum restaurante cadastrado"))
-				);
+				buscarPrimeiro().orElseThrow(() -> new RestauranteNaoEncontradoException(Restaurante.class));
 		return restaurante;
 	}
 
 	@Transactional
 	public Restaurante salvar(Restaurante restaurante) {
-		Long cozinhaId = restaurante.getCozinha().getId();
-		Cozinha cozinha = cozinhaService.buscarCozinhaOuFalhar(cozinhaId);
-		
-		restaurante.setCozinha(cozinha);
-		
-		return restauranteRepository.save(restaurante);
+		return salvarERecarregar(restaurante);
 	}
 
 	@Transactional
 	public Restaurante atualizar(Long idRestaurante, RestauranteInput restauranteInput) {
-		Restaurante restauranteAtual = buscar(idRestaurante);
+		Restaurante restauranteAtual = buscarRestauranteOuFalhar(idRestaurante);
 
 		restauranteController.getMapper().updateEntity(restauranteInput,restauranteAtual);
 
-		return restauranteRepository.save(restauranteAtual);
+		try{
+			return salvarERecarregar(restauranteAtual);
+		}catch (DataIntegrityViolationException ex){
+			throw new NegocioException(ex.getMessage());
+		}
 	}
 
 	@Transactional
@@ -93,19 +89,20 @@ public class RestauranteService {
 		try {
 			restauranteRepository.deleteById(idRestaurante);
 		} catch (EmptyResultDataAccessException e) {
-			throw new EntidadeNaoEncontradaException(
-					String.format("Não existe um cadastro de cozinha com código %d", idRestaurante));
+			throw new RestauranteNaoEncontradoException(Restaurante.class, idRestaurante);
 		} catch (DataIntegrityViolationException e) {
-			throw new EntidadeEmUsoException(
-					String.format("Cozinha de código %d não pode ser removida, pois está em uso", idRestaurante));
+			throw new EntidadeEmUsoException(Restaurante.class, idRestaurante);
 		}
 	}
 
 	private Restaurante buscarRestauranteOuFalhar(Long idRestaurante) {
 		return restauranteRepository.findById(idRestaurante).orElseThrow(
-				() -> new EntidadeNaoEncontradaException(
-						String.format("Não existe cadastro de cozinha com código %d", idRestaurante))
-		);
+				() -> new RestauranteNaoEncontradoException(Restaurante.class, idRestaurante));
+	}
+
+	@Transactional
+	private Restaurante salvarERecarregar(Restaurante restaurante) {
+		return restauranteRepository.refresh(restauranteRepository.saveAndFlush(restaurante));
 	}
 
 //	public List<Restaurante> buscarPorFrete(BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
@@ -129,5 +126,4 @@ public class RestauranteService {
 //		}
 //		return restaurantes;
 //	}
-
 }

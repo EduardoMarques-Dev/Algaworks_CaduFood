@@ -1,5 +1,7 @@
 package com.algaworks.cadufood.domain.service;
 
+import com.algaworks.cadufood.domain.exception.CidadeNaoEncontradaException;
+import com.algaworks.cadufood.domain.exception.CozinhaNaoEncontradaException;
 import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.model.Cidade;
@@ -56,7 +58,7 @@ public class CidadeService {
 		try {
 			cidadeRepository.deleteById(cidadeId);
 		} catch (EmptyResultDataAccessException e) {
-			throw new EntidadeNaoEncontradaException(
+			throw new CidadeNaoEncontradaException(
 					String.format("Não existe um cadastro de cidade com código %d", cidadeId));
 		} catch (DataIntegrityViolationException e) {
 			throw new EntidadeEmUsoException(
@@ -66,7 +68,7 @@ public class CidadeService {
 
 	public Cidade buscarCidade(Long cidadeId) {
 		return cidadeRepository.findById(cidadeId).orElseThrow(
-				() -> new EntidadeNaoEncontradaException(cidadeId.toString())
+				() -> new CidadeNaoEncontradaException(cidadeId.toString())
 		);
 	}
 
