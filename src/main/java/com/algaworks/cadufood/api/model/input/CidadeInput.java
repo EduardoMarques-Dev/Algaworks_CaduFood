@@ -1,7 +1,9 @@
 package com.algaworks.cadufood.api.model.input;
 
-import com.algaworks.cadufood.domain.model.Estado;
+import com.algaworks.cadufood.api.model.input.util.IdInput;
 import com.algaworks.cadufood.domain.model.util.GenericEntity;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,8 +11,10 @@ import lombok.Setter;
 @Setter
 public class CidadeInput implements GenericEntity<CidadeInput> {
 
+    @NotBlank
     private String nome;
 
-    private Estado estado;
+    @NotNull
+    private IdInput estado;
 
 }
