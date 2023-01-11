@@ -24,5 +24,4 @@ public class CidadeController extends GenericController<Cidade, CidadeInput, Cid
         super(service, mapper);
     }
 
-
 }
