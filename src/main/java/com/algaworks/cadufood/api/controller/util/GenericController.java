@@ -1,10 +1,14 @@
 package com.algaworks.cadufood.api.controller.util;
 
 import com.algaworks.cadufood.api.mapper.util.GenericMapper;
+import com.algaworks.cadufood.domain.exception.NegocioException;
 import com.algaworks.cadufood.domain.model.util.GenericEntity;
 import com.algaworks.cadufood.domain.service.util.GenericService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,20 +16,20 @@ import java.util.List;
 @AllArgsConstructor
 public abstract class GenericController<
         DomainModel extends GenericEntity<DomainModel>,
-        InputModel extends  GenericEntity<InputModel>,
+        InputModel extends GenericEntity<InputModel>,
         OutputModel extends GenericEntity<OutputModel>> {
 
     private final GenericService<DomainModel> service;
 
-    private final GenericMapper<DomainModel,InputModel,OutputModel> mapper;
+    private final GenericMapper<DomainModel, InputModel, OutputModel> mapper;
 
     @GetMapping
-    public List<OutputModel> listar(){
+    public List<OutputModel> listar() {
         return mapper.toOutputCollection(service.listar());
     }
 
     @GetMapping("/{id}")
-    public OutputModel buscar(@PathVariable Long id){
+    public OutputModel buscar(@PathVariable Long id) {
         DomainModel domainModel = service.buscar(id);
         return mapper.toOutput(domainModel);
     }
@@ -38,15 +42,29 @@ public abstract class GenericController<
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public OutputModel salvar(@RequestBody InputModel inputModel){
+    public OutputModel salvar(@RequestBody @Valid InputModel inputModel) {
         DomainModel domainModel = mapper.toDomain(inputModel);
         domainModel = service.salvar(domainModel);
         return mapper.toOutput(domainModel);
     }
 
+    @Transactional
+    @PutMapping("/{id}")
+    public OutputModel atualizar(@PathVariable Long id,
+                                 @RequestBody @Valid InputModel inputModel) {
+        DomainModel domainModel = service.buscar(id);
+        mapper.updateEntity(inputModel, domainModel);
+
+        try {
+            return mapper.toOutput(service.salvar(domainModel));
+        } catch (DataIntegrityViolationException ex) {
+            throw new NegocioException(ex.getMessage());
+        }
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void excluir(@PathVariable Long id){
+    public void excluir(@PathVariable Long id) {
         service.excluir(id);
     }
 }

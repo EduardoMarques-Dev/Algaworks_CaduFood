@@ -3,6 +3,7 @@ package com.algaworks.cadufood.api.model.input;
 import com.algaworks.cadufood.domain.model.Cozinha;
 import com.algaworks.cadufood.domain.model.Endereco;
 import com.algaworks.cadufood.domain.model.util.GenericEntity;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 @Setter
 public class RestauranteInput implements GenericEntity<RestauranteInput> {
 
+    @NotBlank
     private String nome;
 
     private BigDecimal taxaFrete;

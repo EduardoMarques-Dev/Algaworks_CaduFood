@@ -18,9 +18,6 @@ public class CozinhaService extends GenericService<Cozinha> {
 	@Autowired
 	private CozinhaRepository cozinhaRepository;
 
-	@Autowired @Lazy
-	private CozinhaController cozinhaController;
-
 	public CozinhaService(CozinhaRepository repository) {
 		super(repository);
 	}
@@ -32,15 +29,6 @@ public class CozinhaService extends GenericService<Cozinha> {
 		}catch (EntidadeNaoEncontradaException ex){
 			throw new CozinhaNaoEncontradaException(Cozinha.class,idDomainModel);
 		}
-	}
-
-	@Transactional
-	public Cozinha atualizar(Long cozinhaId, CozinhaInput cozinhaInput) {
-		Cozinha cozinhaAtual = buscar(cozinhaId);
-
-		cozinhaController.getMapper().updateEntity(cozinhaInput,cozinhaAtual);
-
-		return cozinhaRepository.save(cozinhaAtual);
 	}
 
 }

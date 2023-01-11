@@ -18,9 +18,6 @@ public class EstadoService extends GenericService<Estado> {
 	@Autowired
 	private EstadoRepository estadoRepository;
 
-	@Autowired @Lazy
-	private EstadoController estadoController;
-
 	public EstadoService(EstadoRepository repository) {
 		super(repository);
 	}
@@ -32,15 +29,6 @@ public class EstadoService extends GenericService<Estado> {
 		}catch (EntidadeNaoEncontradaException ex){
 			throw new EstadoNaoEncontradoException(Estado.class,idDomainModel);
 		}
-	}
-
-	@Transactional
-	public Estado atualizar(Long estadoId, EstadoInput estadoInput) {
-		Estado estadoAtual = buscar(estadoId);
-
-		estadoController.getMapper().updateEntity(estadoInput, estadoAtual);
-
-		return estadoRepository.save(estadoAtual);
 	}
 
 }

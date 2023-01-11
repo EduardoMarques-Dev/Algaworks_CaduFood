@@ -20,9 +20,6 @@ public class CidadeService extends GenericService<Cidade> {
 	@Autowired
 	private CidadeRepository cidadeRepository;
 
-	@Autowired @Lazy
-	private CidadeController cidadeController;
-
 	public CidadeService(CidadeRepository repository) {
 		super(repository);
 	}
@@ -33,19 +30,6 @@ public class CidadeService extends GenericService<Cidade> {
 			return super.buscar(idDomainModel);
 		}catch (EntidadeNaoEncontradaException ex){
 			throw new CidadeNaoEncontradaException(Cidade.class,idDomainModel);
-		}
-	}
-
-	@Transactional
-	public Cidade atualizar(Long cidadeId, CidadeInput cidadeInput) {
-		Cidade cidadeAtual = buscarDomainModelOuFalhar(cidadeId);
-
-		cidadeController.getMapper().updateEntity(cidadeInput,cidadeAtual);
-
-		try{
-			return salvarERecarregar(cidadeAtual);
-		}catch (DataIntegrityViolationException ex){
-			throw new NegocioException(ex.getMessage());
 		}
 	}
 

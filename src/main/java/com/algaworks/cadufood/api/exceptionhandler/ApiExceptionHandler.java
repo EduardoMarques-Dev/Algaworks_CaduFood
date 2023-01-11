@@ -33,7 +33,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers,
                                                              HttpStatusCode statusCode, WebRequest request) {
         // Pattern RFC 7809
-        if (body == null || body instanceof String){
+        if (body == null || body instanceof String) {
             ProblemType problemType = ProblemType.ERRO_DE_SISTEMA;
             String detail = body != null ?  (String) body : HttpStatus.valueOf(statusCode.value()).getReasonPhrase();
 
@@ -63,7 +63,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     // EXCEPTIONS DE NEGÓCIO
 
     @ExceptionHandler(NegocioException.class)
-    public ResponseEntity<?> handleNegocioException(NegocioException ex, WebRequest request){
+    public ResponseEntity<?> handleNegocioException(NegocioException ex, WebRequest request) {
         HttpStatus statusCode = HttpStatus.BAD_REQUEST;
         ProblemType problemType = ProblemType.ERRO_NEGOCIO;
         String detail = ex.getMessage();
@@ -81,7 +81,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
             RestauranteNaoEncontradoException.class,
             EstadoNaoEncontradoException.class,
             CozinhaNaoEncontradaException.class})
-    public ResponseEntity<?> handleEntidadeNaoEncontradaException(EntidadeNaoEncontradaException ex, WebRequest request){
+    public ResponseEntity<?> handleEntidadeNaoEncontradaException(EntidadeNaoEncontradaException ex, WebRequest request) {
         HttpStatus statusCode = HttpStatus.NOT_FOUND;
         ProblemType problemType = ProblemType.ENTIDADE_NAO_ENCONTRADA;
         String detail = ex.getMessage();
@@ -94,7 +94,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(EntidadeEmUsoException.class)
-    public ResponseEntity<?> handleEntidadeEmUsoException(EntidadeNaoEncontradaException ex, WebRequest request){
+    public ResponseEntity<?> handleEntidadeEmUsoException(EntidadeNaoEncontradaException ex, WebRequest request) {
         HttpStatus statusCode = HttpStatus.CONFLICT;
         ProblemType problemType = ProblemType.ENTIDADE_EM_USO;
         String detail = ex.getMessage();
@@ -115,14 +115,15 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         ProblemType problemType = ProblemType.MENSAGEM_INCOMPREENSIVEL;
         String detail = "O corpo da requisição está inválido. Verifique o erro de sintaxe.";
 
-        if (rootCause instanceof InvalidFormatException invalidEx){
+        if (rootCause instanceof InvalidFormatException invalidEx) {
             String path = JoinPath(invalidEx.getPath());
 
             detail = String.format("A propriedade '%s' recebeu o valor '%s', "
                             + "que é de um tipo inválido. Corrija e informe um valor compatível com o tipo %s.",
                     path, invalidEx.getValue(), invalidEx.getTargetType().getSimpleName());
 
-        } if (rootCause instanceof PropertyBindingException ignoredEx){
+        }
+        if (rootCause instanceof PropertyBindingException ignoredEx) {
             String path = JoinPath(ignoredEx.getPath());
 
             detail = String.format("A propriedade '%s' não existe. "
