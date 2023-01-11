@@ -25,19 +25,19 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
+    public static final String MSG_ERRO_GENERICA_USUARIO_FINAL
+            = "Ocorreu um erro interno inesperado no sistema. Tente novamente e se "
+            + "o problema persistir, entre em contato com o administrador do sistema.";
+
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers,
                                                              HttpStatusCode statusCode, WebRequest request) {
-
         // Pattern RFC 7809
         if (body == null || body instanceof String){
-            body = Problem.builder()
-                    .status(statusCode.value())
-                    .title(HttpStatus.valueOf(statusCode.value()).getReasonPhrase())
-                    .detail( body != null ?
-                            (String) body : HttpStatus.valueOf(statusCode.value()).getReasonPhrase())
-                    .timestamp(LocalDateTime.now())
-                    .build();
+            ProblemType problemType = ProblemType.ERRO_DE_SISTEMA;
+            String detail = body != null ?  (String) body : HttpStatus.valueOf(statusCode.value()).getReasonPhrase();
+
+            body = createProblemBuilder(statusCode, problemType, detail).build();
         }
 
         return super.handleExceptionInternal(ex, body, headers, statusCode, request);
@@ -47,9 +47,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleUncaughtException(Exception ex, WebRequest request) {
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         ProblemType problemType = ProblemType.ERRO_DE_SISTEMA;
-        String detail = "Ocorreu um erro interno inesperado no sistema. "
-                + "Tente novamente e se o problema persistir, entre em contato "
-                + "com o administrador do sistema.";
+        String detail = MSG_ERRO_GENERICA_USUARIO_FINAL;
 
         // Importante colocar o printStackTrace (pelo menos por enquanto, que não estamos
         // fazendo logging) para mostrar a stacktrace no console
@@ -70,7 +68,9 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         ProblemType problemType = ProblemType.ERRO_NEGOCIO;
         String detail = ex.getMessage();
 
-        Problem problem = createProblemBuilder(statusCode, problemType, detail).build();
+        Problem problem = createProblemBuilder(statusCode, problemType, detail)
+                .userMessage(detail)
+                .build();
 
         return handleExceptionInternal(ex, problem, new HttpHeaders(), statusCode, request);
     }
@@ -82,24 +82,26 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
             EstadoNaoEncontradoException.class,
             CozinhaNaoEncontradaException.class})
     public ResponseEntity<?> handleEntidadeNaoEncontradaException(EntidadeNaoEncontradaException ex, WebRequest request){
-
         HttpStatus statusCode = HttpStatus.NOT_FOUND;
         ProblemType problemType = ProblemType.ENTIDADE_NAO_ENCONTRADA;
         String detail = ex.getMessage();
 
-        Problem problem = createProblemBuilder(statusCode, problemType, detail).build();
+        Problem problem = createProblemBuilder(statusCode, problemType, detail)
+                .userMessage(detail)
+                .build();
 
         return handleExceptionInternal(ex, problem, new HttpHeaders(), statusCode, request);
     }
 
     @ExceptionHandler(EntidadeEmUsoException.class)
     public ResponseEntity<?> handleEntidadeEmUsoException(EntidadeNaoEncontradaException ex, WebRequest request){
-
         HttpStatus statusCode = HttpStatus.CONFLICT;
         ProblemType problemType = ProblemType.ENTIDADE_EM_USO;
         String detail = ex.getMessage();
 
-        Problem problem = createProblemBuilder(statusCode, problemType, detail).build();
+        Problem problem = createProblemBuilder(statusCode, problemType, detail)
+                .userMessage(detail)
+                .build();
 
         return handleExceptionInternal(ex, problem, new HttpHeaders(), statusCode, request);
     }
@@ -108,7 +110,6 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-
         Throwable rootCause = ExceptionUtils.getRootCause(ex);
 
         ProblemType problemType = ProblemType.MENSAGEM_INCOMPREENSIVEL;
@@ -174,7 +175,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 .type(problemType.getUri())
                 .title(problemType.getTitle())
                 .detail(detail)
-                .timestamp(LocalDateTime.now());
+                .timestamp(LocalDateTime.now())
+                .userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL);
     }
 
 
