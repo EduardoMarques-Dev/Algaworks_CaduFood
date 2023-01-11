@@ -1,10 +1,7 @@
 package com.algaworks.cadufood.domain.service.util;
 
-import com.algaworks.cadufood.api.model.input.RestauranteInput;
 import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
-import com.algaworks.cadufood.domain.exception.NegocioException;
-import com.algaworks.cadufood.domain.model.Restaurante;
 import com.algaworks.cadufood.domain.model.util.GenericEntity;
 import com.algaworks.cadufood.domain.repository.util.norepositorybean.CustomJpaRepository;
 import lombok.AllArgsConstructor;

@@ -1,7 +1,6 @@
 package com.algaworks.cadufood.domain.model;
 
 import com.algaworks.cadufood.domain.model.util.GenericEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +22,6 @@ public class Cozinha implements GenericEntity<Cozinha> {
 	@Column(nullable = false)
 	private String nome;
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "cozinha")
 	private List<Restaurante> restaurantes = new ArrayList<>();
 

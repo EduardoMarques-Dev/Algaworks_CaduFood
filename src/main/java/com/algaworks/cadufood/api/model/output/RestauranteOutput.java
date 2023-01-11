@@ -1,6 +1,5 @@
 package com.algaworks.cadufood.api.model.output;
 
-import com.algaworks.cadufood.domain.model.Cozinha;
 import com.algaworks.cadufood.domain.model.Endereco;
 import com.algaworks.cadufood.domain.model.FormaPagamento;
 import com.algaworks.cadufood.domain.model.Produto;
@@ -28,7 +27,7 @@ public class RestauranteOutput implements GenericEntity<RestauranteOutput> {
 
     private Endereco endereco;
 
-    private Cozinha cozinha;
+    private CozinhaOutput cozinha;
 
     private List<Produto> produto;
 
