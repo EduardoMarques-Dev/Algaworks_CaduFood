@@ -2,7 +2,6 @@ package com.algaworks.cadufood.api.exceptionhandler;
 
 import com.algaworks.cadufood.domain.exception.*;
 import com.fasterxml.jackson.databind.JsonMappingException.Reference;
-import com.fasterxml.jackson.databind.exc.IgnoredPropertyException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.PropertyBindingException;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -31,23 +30,36 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                                                              HttpStatusCode statusCode, WebRequest request) {
 
         // Pattern RFC 7809
-        if (body == null){
+        if (body == null || body instanceof String){
             body = Problem.builder()
                     .status(statusCode.value())
                     .title(HttpStatus.valueOf(statusCode.value()).getReasonPhrase())
-                    .detail(HttpStatus.valueOf(statusCode.value()).getReasonPhrase())
-                    .timestamp(LocalDateTime.now())
-                    .build();
-        } else if (body instanceof String){
-            body = Problem.builder()
-                    .status(statusCode.value())
-                    .title(HttpStatus.valueOf(statusCode.value()).getReasonPhrase())
-                    .detail((String) body)
+                    .detail( body != null ?
+                            (String) body : HttpStatus.valueOf(statusCode.value()).getReasonPhrase())
                     .timestamp(LocalDateTime.now())
                     .build();
         }
 
         return super.handleExceptionInternal(ex, body, headers, statusCode, request);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> handleUncaughtException(Exception ex, WebRequest request) {
+        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+        ProblemType problemType = ProblemType.ERRO_DE_SISTEMA;
+        String detail = "Ocorreu um erro interno inesperado no sistema. "
+                + "Tente novamente e se o problema persistir, entre em contato "
+                + "com o administrador do sistema.";
+
+        // Importante colocar o printStackTrace (pelo menos por enquanto, que não estamos
+        // fazendo logging) para mostrar a stacktrace no console
+        // Se não fizer isso, você não vai ver a stacktrace de exceptions que seriam importantes
+        // para você, especialmente na fase de desenvolvimento
+        ex.printStackTrace();
+
+        Problem problem = createProblemBuilder(status, problemType, detail).build();
+
+        return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
     }
 
     // EXCEPTIONS DE NEGÓCIO
@@ -127,7 +139,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         ProblemType problemType = ProblemType.PARAMETRO_INVALIDO;
         String detail = String.format("O parâmetro de URL '%s' recebeu o valor '%s'," +
-                "que é um tipo inválido. Corrija e informe um valor compatível com o tipo '%s'",
+                        "que é um tipo inválido. Corrija e informe um valor compatível com o tipo '%s'",
                 ((MethodArgumentTypeMismatchException) ex).getName(), ex.getValue(), ex.getRequiredType().getSimpleName());
 
         Problem problem = createProblemBuilder(status, problemType, detail).build();
