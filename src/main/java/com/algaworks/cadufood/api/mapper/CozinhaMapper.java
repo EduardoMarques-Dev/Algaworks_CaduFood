@@ -2,7 +2,7 @@ package com.algaworks.cadufood.api.mapper;
 
 import com.algaworks.cadufood.api.model.input.CozinhaInput;
 import com.algaworks.cadufood.api.model.output.CozinhaOutput;
-import com.algaworks.cadufood.core.generic.crud.GenericMapper;
+import com.algaworks.cadufood.core.generic.mapper.GenericMapper;
 import com.algaworks.cadufood.domain.model.Cozinha;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,6 +53,11 @@ public class CozinhaMapper implements GenericMapper<Cozinha, CozinhaInput, Cozin
     @Override
     public void updateEntity(CozinhaInput newEntity, Cozinha currentEntity) {
         modelMapper.map(newEntity, currentEntity);
+    }
+
+    @Override
+    public void patchEntity(HashMap<String, Object> fields, Cozinha currentEntity) {
+        modelMapper.map(fields, currentEntity);
     }
 
 }

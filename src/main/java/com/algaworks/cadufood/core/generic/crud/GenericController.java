@@ -1,5 +1,6 @@
 package com.algaworks.cadufood.core.generic.crud;
 
+import com.algaworks.cadufood.core.generic.mapper.GenericMapper;
 import com.algaworks.cadufood.domain.exception.NegocioException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @AllArgsConstructor
@@ -43,11 +45,23 @@ public abstract class GenericController<
     @PutMapping("/{id}")
     public OutputModel atualizar(@PathVariable Long id,
                                  @RequestBody @Valid InputModel inputModel) {
-        DomainModel domainModel = service.buscar(id);
-        mapper.updateEntity(inputModel, domainModel);
-
         try {
-            return mapper.toOutput(service.salvar(domainModel));
+            DomainModel domainModel = service.buscar(id);
+            mapper.updateEntity(inputModel, domainModel);
+            return mapper.toOutput(service.recarregar(domainModel));
+        } catch (DataIntegrityViolationException ex) {
+            throw new NegocioException(ex.getMessage());
+        }
+    }
+
+    @Transactional
+    @PatchMapping("/{id}")
+    public OutputModel atualizarParcial(@PathVariable Long id,
+                                        @RequestBody HashMap<String,Object> fields) {
+        try {
+            DomainModel domainModel = service.buscar(id);
+            mapper.patchEntity(fields, domainModel);
+            return mapper.toOutput(service.recarregar(domainModel));
         } catch (DataIntegrityViolationException ex) {
             throw new NegocioException(ex.getMessage());
         }

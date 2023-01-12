@@ -2,7 +2,7 @@ package com.algaworks.cadufood.api.mapper;
 
 import com.algaworks.cadufood.api.model.input.RestauranteInput;
 import com.algaworks.cadufood.api.model.output.RestauranteOutput;
-import com.algaworks.cadufood.core.generic.crud.GenericMapper;
+import com.algaworks.cadufood.core.generic.mapper.ForeignKeyMapper;
 import com.algaworks.cadufood.domain.model.Cidade;
 import com.algaworks.cadufood.domain.model.Cozinha;
 import com.algaworks.cadufood.domain.model.Restaurante;
@@ -12,13 +12,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 
 @Component
 @AllArgsConstructor
-public class RestauranteMapper implements GenericMapper<Restaurante, RestauranteInput, RestauranteOutput> {
+public class RestauranteMapper implements ForeignKeyMapper<Restaurante, RestauranteInput, RestauranteOutput> {
 
     private ModelMapper modelMapper;
 
@@ -55,13 +56,27 @@ public class RestauranteMapper implements GenericMapper<Restaurante, Restaurante
     public void updateEntity(RestauranteInput newEntity, Restaurante currentEntity) {
         // Para evitar exception onde ao alterar o id da cozinha, o jpa tenta alterar de uma cozinha já carregada
         // o que é proibido
-        currentEntity.setCozinha(new Cozinha());
-
-        if (currentEntity.getEndereco() != null) {
-            currentEntity.getEndereco().setCidade(new Cidade());
-        }
-
+        eraseForeignKey(currentEntity);
         modelMapper.map(newEntity, currentEntity);
     }
 
+    @Override
+    public void patchEntity(HashMap<String, Object> fields, Restaurante currentEntity) {
+        eraseForeignKey(currentEntity);
+        modelMapper.map(fields, currentEntity);
+    }
+
+    @Override
+    public void eraseForeignKey(Restaurante restaurante) {
+        Long cozinhaId = restaurante.getCozinha().getId();
+        restaurante.setCozinha(new Cozinha());
+        restaurante.getCozinha().setId(cozinhaId);
+
+        if (restaurante.getEndereco() != null
+            && restaurante.getEndereco().getCidade() != null){
+            Long cidadeId = restaurante.getEndereco().getCidade().getId();
+            restaurante.getEndereco().setCidade(new Cidade());
+            restaurante.getEndereco().getCidade().setId(cidadeId);
+        }
+    }
 }

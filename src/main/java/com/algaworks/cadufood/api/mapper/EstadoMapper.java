@@ -2,7 +2,7 @@ package com.algaworks.cadufood.api.mapper;
 
 import com.algaworks.cadufood.api.model.input.EstadoInput;
 import com.algaworks.cadufood.api.model.output.EstadoOutput;
-import com.algaworks.cadufood.core.generic.crud.GenericMapper;
+import com.algaworks.cadufood.core.generic.mapper.GenericMapper;
 import com.algaworks.cadufood.domain.model.Estado;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,6 +53,11 @@ public class EstadoMapper implements GenericMapper<Estado, EstadoInput, EstadoOu
     @Override
     public void updateEntity(EstadoInput newEntity, Estado currentEntity) {
         modelMapper.map(newEntity, currentEntity);
+    }
+
+    @Override
+    public void patchEntity(HashMap<String, Object> fields, Estado currentEntity) {
+        modelMapper.map(fields, currentEntity);
     }
 
 }

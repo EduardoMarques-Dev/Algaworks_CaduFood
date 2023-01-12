@@ -1,7 +1,8 @@
-package com.algaworks.cadufood.core.generic.crud;
+package com.algaworks.cadufood.core.generic.mapper;
 
 import org.springframework.data.domain.Page;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface GenericMapper<DomainModel, InputModel, OutputModel> {
@@ -17,5 +18,7 @@ public interface GenericMapper<DomainModel, InputModel, OutputModel> {
     Page<OutputModel> toOutputCollection(Page<DomainModel> domainModelPage);
 
     void updateEntity(InputModel newEntity, DomainModel currentEntity);
+
+    void patchEntity(HashMap<String, Object> fields, DomainModel currentEntity);
 
 }

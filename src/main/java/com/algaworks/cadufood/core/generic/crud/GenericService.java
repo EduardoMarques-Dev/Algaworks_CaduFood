@@ -53,7 +53,13 @@ public abstract class GenericService<DomainModel extends GenericEntity<DomainMod
 
     @Transactional
     private DomainModel salvarERecarregar(DomainModel domainModel) {
-        return repository.refresh(repository.saveAndFlush(domainModel));
+        return recarregar(repository.save(domainModel));
+    }
+
+    @Transactional
+    public DomainModel recarregar(DomainModel domainModel) {
+        repository.flush();
+        return repository.refresh(domainModel);
     }
 
 }

@@ -3,7 +3,7 @@ package com.algaworks.cadufood.api.mapper;
 
 import com.algaworks.cadufood.api.model.input.CidadeInput;
 import com.algaworks.cadufood.api.model.output.CidadeOutput;
-import com.algaworks.cadufood.core.generic.crud.GenericMapper;
+import com.algaworks.cadufood.core.generic.mapper.GenericMapper;
 import com.algaworks.cadufood.domain.model.Cidade;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,6 +53,11 @@ public class CidadeMapper implements GenericMapper<Cidade, CidadeInput, CidadeOu
     @Override
     public void updateEntity(CidadeInput newEntity, Cidade currentEntity) {
         modelMapper.map(newEntity, currentEntity);
+    }
+
+    @Override
+    public void patchEntity(HashMap<String, Object> fields, Cidade currentEntity) {
+        modelMapper.map(fields, currentEntity);
     }
 
 }
