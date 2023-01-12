@@ -37,12 +37,16 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         // Pattern RFC 7809
         if (body == null || body instanceof String) {
             ProblemType problemType = ProblemType.ERRO_DE_SISTEMA;
-            String detail = body != null ?  (String) body : HttpStatus.valueOf(statusCode.value()).getReasonPhrase();
+            String detail = gethandleExceptionDetail(body, statusCode);
 
             body = createProblemBuilder(statusCode, problemType, detail).build();
         }
 
         return super.handleExceptionInternal(ex, body, headers, statusCode, request);
+    }
+
+    private static String gethandleExceptionDetail(Object body, HttpStatusCode statusCode) {
+        return body != null ? (String) body : HttpStatus.valueOf(statusCode.value()).getReasonPhrase();
     }
 
     @ExceptionHandler(Exception.class)
@@ -118,23 +122,37 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         String detail = "O corpo da requisição está inválido. Verifique o erro de sintaxe.";
 
         if (rootCause instanceof InvalidFormatException invalidEx) {
-            String path = JoinPath(invalidEx.getPath());
-
-            detail = String.format("A propriedade '%s' recebeu o valor '%s', "
-                            + "que é de um tipo inválido. Corrija e informe um valor compatível com o tipo %s.",
-                    path, invalidEx.getValue(), invalidEx.getTargetType().getSimpleName());
+            detail = getInvalidFormatDetail(invalidEx);
 
         }
         if (rootCause instanceof PropertyBindingException ignoredEx) {
-            String path = JoinPath(ignoredEx.getPath());
-
-            detail = String.format("A propriedade '%s' não existe. "
-                    + "Corrija ou remova essa propriedade e tente novamente.", path);
+            detail = getPropertyBindingDetail(ignoredEx);
         }
 
         Problem problem = createProblemBuilder(status, problemType, detail).build();
 
         return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
+    }
+
+    private static String getPropertyBindingDetail(PropertyBindingException ignoredEx) {
+        String path = JoinPath(ignoredEx.getPath());
+
+        return String.format("A propriedade '%s' não existe. "
+                + "Corrija ou remova essa propriedade e tente novamente.", path);
+    }
+
+    private static String getInvalidFormatDetail(InvalidFormatException invalidEx) {
+        String path = JoinPath(invalidEx.getPath());
+
+        return String.format("A propriedade '%s' recebeu o valor '%s', "
+                        + "que é de um tipo inválido. Corrija e informe um valor compatível com o tipo %s.",
+                path, invalidEx.getValue(), invalidEx.getTargetType().getSimpleName());
+    }
+
+    private static String JoinPath(List<Reference> path) {
+        return path
+                .stream().map(Reference::getFieldName)
+                .collect(Collectors.joining("."));
     }
 
     // PATH VARIABLE EXCEPTION
@@ -191,12 +209,6 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
 
     // UTILITÁRIOS
-
-    private static String JoinPath(List<Reference> path) {
-        return path
-                .stream().map(Reference::getFieldName)
-                .collect(Collectors.joining("."));
-    }
 
     private Problem.ProblemBuilder createProblemBuilder(HttpStatusCode statusCode, ProblemType problemType, String detail){
         return Problem.builder()

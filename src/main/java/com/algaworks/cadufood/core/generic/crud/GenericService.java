@@ -1,10 +1,8 @@
-package com.algaworks.cadufood.domain.service.util;
+package com.algaworks.cadufood.core.generic.crud;
 
 import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
-import com.algaworks.cadufood.domain.model.util.GenericEntity;
-import com.algaworks.cadufood.domain.repository.util.interfacequeries.ParametrosBusca;
-import com.algaworks.cadufood.domain.repository.util.norepositorybean.CustomJpaRepository;
+import com.algaworks.cadufood.core.generic.ParametrosBusca;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;

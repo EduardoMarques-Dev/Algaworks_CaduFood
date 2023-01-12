@@ -1,4 +1,4 @@
-package com.algaworks.cadufood.domain.repository.util.interfacequeries;
+package com.algaworks.cadufood.core.generic;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Predicate;

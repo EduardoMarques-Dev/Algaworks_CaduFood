@@ -1,4 +1,4 @@
-package com.algaworks.cadufood.api.mapper.util;
+package com.algaworks.cadufood.core.generic.crud;
 
 import org.springframework.data.domain.Page;
 

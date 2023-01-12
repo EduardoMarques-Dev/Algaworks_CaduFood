@@ -1,7 +1,7 @@
 package com.algaworks.cadufood.infrastructure.repository;
 
-import com.algaworks.cadufood.domain.repository.util.interfacequeries.ParametrosBusca;
-import com.algaworks.cadufood.domain.repository.util.norepositorybean.CustomJpaRepository;
+import com.algaworks.cadufood.core.generic.ParametrosBusca;
+import com.algaworks.cadufood.core.generic.crud.CustomJpaRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;

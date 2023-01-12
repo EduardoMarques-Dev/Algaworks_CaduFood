@@ -1,9 +1,6 @@
-package com.algaworks.cadufood.api.controller.util;
+package com.algaworks.cadufood.core.generic.crud;
 
-import com.algaworks.cadufood.api.mapper.util.GenericMapper;
 import com.algaworks.cadufood.domain.exception.NegocioException;
-import com.algaworks.cadufood.domain.model.util.GenericEntity;
-import com.algaworks.cadufood.domain.service.util.GenericService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;

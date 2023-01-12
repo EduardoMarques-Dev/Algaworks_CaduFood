@@ -4,7 +4,7 @@ import com.algaworks.cadufood.domain.exception.CozinhaNaoEncontradaException;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.model.Cozinha;
 import com.algaworks.cadufood.domain.repository.CozinhaRepository;
-import com.algaworks.cadufood.domain.service.util.GenericService;
+import com.algaworks.cadufood.core.generic.crud.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
