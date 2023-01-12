@@ -1,13 +1,11 @@
 package com.algaworks.cadufood.core.generic.crud;
 
+import com.algaworks.cadufood.core.generic.ParametrosBusca;
 import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
-import com.algaworks.cadufood.core.generic.ParametrosBusca;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -21,10 +19,6 @@ public abstract class GenericService<DomainModel extends GenericEntity<DomainMod
         return repository.findAll();
     }
 
-    public Page<DomainModel> getPage(Pageable pageable){
-        return repository.findAll(pageable);
-    }
-
     public DomainModel buscar(Long idDomainModel) {
         return buscarDomainModelOuFalhar(idDomainModel);
     }
@@ -32,11 +26,6 @@ public abstract class GenericService<DomainModel extends GenericEntity<DomainMod
     public List<DomainModel> buscarPersonalizado(ParametrosBusca<DomainModel> parametrosBusca) {
         return repository.
                 buscarPersonalizado(parametrosBusca);
-    }
-
-    public DomainModel buscarPrimeiro() {
-        return repository.
-                buscarPrimeiro().orElseThrow(EntidadeNaoEncontradaException::new);
     }
 
     @Transactional

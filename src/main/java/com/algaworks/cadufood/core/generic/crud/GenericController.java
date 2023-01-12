@@ -31,12 +31,6 @@ public abstract class GenericController<
         return mapper.toOutput(domainModel);
     }
 
-    @GetMapping("/buscar-primeiro")
-    public OutputModel buscarPrimeiro() {
-        DomainModel domainModel = service.buscarPrimeiro();
-        return mapper.toOutput(domainModel);
-    }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public OutputModel salvar(@RequestBody @Valid InputModel inputModel) {

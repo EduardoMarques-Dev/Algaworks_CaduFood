@@ -1,9 +1,9 @@
 package com.algaworks.cadufood.api.controller;
 
-import com.algaworks.cadufood.core.generic.crud.GenericController;
 import com.algaworks.cadufood.api.mapper.CidadeMapper;
 import com.algaworks.cadufood.api.model.input.CidadeInput;
 import com.algaworks.cadufood.api.model.output.CidadeOutput;
+import com.algaworks.cadufood.core.generic.crud.GenericController;
 import com.algaworks.cadufood.domain.model.Cidade;
 import com.algaworks.cadufood.domain.service.CidadeService;
 import org.springframework.beans.factory.annotation.Autowired;

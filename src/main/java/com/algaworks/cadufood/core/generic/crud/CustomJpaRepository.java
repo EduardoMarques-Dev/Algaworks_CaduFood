@@ -6,7 +6,6 @@ import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 /* Anotação que informa ao Spring para não instanciar uma implementação
    Para este repositório
@@ -18,8 +17,5 @@ public interface CustomJpaRepository<T, ID> extends JpaRepository<T, ID> {
     T refresh(T t);
 
     List<T> buscarPersonalizado(ParametrosBusca<T> parametrosBusca);
-
-    Optional<T> buscarPrimeiro();
-
 
 }

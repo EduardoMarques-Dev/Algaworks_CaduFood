@@ -1,8 +1,8 @@
 package com.algaworks.cadufood.api.mapper;
 
-import com.algaworks.cadufood.core.generic.crud.GenericMapper;
 import com.algaworks.cadufood.api.model.input.EstadoInput;
 import com.algaworks.cadufood.api.model.output.EstadoOutput;
+import com.algaworks.cadufood.core.generic.crud.GenericMapper;
 import com.algaworks.cadufood.domain.model.Estado;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;

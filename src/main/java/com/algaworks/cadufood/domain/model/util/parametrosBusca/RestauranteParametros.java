@@ -1,7 +1,7 @@
 package com.algaworks.cadufood.domain.model.util.parametrosBusca;
 
-import com.algaworks.cadufood.domain.model.Restaurante;
 import com.algaworks.cadufood.core.generic.ParametrosBusca;
+import com.algaworks.cadufood.domain.model.Restaurante;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;

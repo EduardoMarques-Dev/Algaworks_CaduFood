@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class CustomJpaRepositoryImpl<T,ID> extends SimpleJpaRepository<T,ID>
         implements CustomJpaRepository<T,ID>, Serializable {
@@ -56,15 +55,4 @@ public class CustomJpaRepositoryImpl<T,ID> extends SimpleJpaRepository<T,ID>
         return queryTipada.getResultList();
     }
 
-
-    @Override
-    public Optional<T> buscarPrimeiro() {
-        var jpql = "from " + getDomainClass().getName();
-
-        T entity = manager.createQuery(jpql, getDomainClass())
-                .setMaxResults(1)
-                .getSingleResult();
-
-        return Optional.ofNullable(entity);
-    }
 }

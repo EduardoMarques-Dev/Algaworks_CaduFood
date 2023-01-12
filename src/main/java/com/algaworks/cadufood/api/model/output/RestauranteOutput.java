@@ -1,10 +1,9 @@
 package com.algaworks.cadufood.api.model.output;
 
+import com.algaworks.cadufood.core.generic.crud.GenericEntity;
 import com.algaworks.cadufood.domain.model.Endereco;
 import com.algaworks.cadufood.domain.model.FormaPagamento;
 import com.algaworks.cadufood.domain.model.Produto;
-import com.algaworks.cadufood.core.generic.crud.GenericEntity;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
