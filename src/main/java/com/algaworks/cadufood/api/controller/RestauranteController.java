@@ -5,6 +5,7 @@ import com.algaworks.cadufood.api.mapper.RestauranteMapper;
 import com.algaworks.cadufood.api.model.input.RestauranteInput;
 import com.algaworks.cadufood.api.model.output.RestauranteOutput;
 import com.algaworks.cadufood.domain.model.Restaurante;
+import com.algaworks.cadufood.domain.model.util.parametrosBusca.RestauranteParametros;
 import com.algaworks.cadufood.domain.service.RestauranteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,9 +45,22 @@ public class RestauranteController extends GenericController<Restaurante, Restau
                                                        @RequestParam(value = "endereco-bairro", required = false) String enderecoBairro,
                                                        @RequestParam(value = "endereco-cidade-id", required = false) Long enderecoCidadeId,
                                                        @RequestParam(value = "cozinha-id", required = false) Long cozinhaId) {
-        List<Restaurante> restaurante = restauranteService.buscarPersonalizado(nome, taxaFreteInicial, taxaFreteFinal, dataCadastroInicial, dataCadastroFinal,
-                dataAtualizacaoInicial, dataAtualizacaoFinal, enderecoCep, enderecoLogradouro, enderecoNumero,
-                enderecoBairro, enderecoCidadeId, cozinhaId);
+        RestauranteParametros restauranteParametros = RestauranteParametros.builder()
+                .nome(nome)
+                .taxaFreteInicial(taxaFreteInicial)
+                .taxaFreteFinal(taxaFreteFinal)
+                .dataCadastroInicial(dataCadastroInicial)
+                .dataCadastroFinal(dataCadastroFinal)
+                .dataAtualizacaoInicial(dataAtualizacaoInicial)
+                .dataAtualizacaoFinal(dataAtualizacaoFinal)
+                .enderecoCep(enderecoCep)
+                .enderecoLogradouro(enderecoLogradouro)
+                .enderecoNumero(enderecoNumero)
+                .enderecoBairro(enderecoBairro)
+                .enderecoCidadeId(enderecoCidadeId)
+                .cozinhaId(cozinhaId)
+                .build();
+        List<Restaurante> restaurante = restauranteService.buscarPersonalizado(restauranteParametros);
         return mapper.toOutputCollection(restaurante);
     }
 

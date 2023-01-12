@@ -3,6 +3,7 @@ package com.algaworks.cadufood.domain.service.util;
 import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.model.util.GenericEntity;
+import com.algaworks.cadufood.domain.repository.util.interfacequeries.ParametrosBusca;
 import com.algaworks.cadufood.domain.repository.util.norepositorybean.CustomJpaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -19,8 +20,7 @@ public abstract class GenericService<DomainModel extends GenericEntity<DomainMod
     private final CustomJpaRepository<DomainModel, Long> repository;
 
     public List<DomainModel> listar() {
-        List<DomainModel> domainModelList = repository.findAll();
-        return domainModelList;
+        return repository.findAll();
     }
 
     public Page<DomainModel> getPage(Pageable pageable){
@@ -28,14 +28,17 @@ public abstract class GenericService<DomainModel extends GenericEntity<DomainMod
     }
 
     public DomainModel buscar(Long idDomainModel) {
-        DomainModel domainModel = buscarDomainModelOuFalhar(idDomainModel);
-        return domainModel;
+        return buscarDomainModelOuFalhar(idDomainModel);
+    }
+
+    public List<DomainModel> buscarPersonalizado(ParametrosBusca<DomainModel> parametrosBusca) {
+        return repository.
+                buscarPersonalizado(parametrosBusca);
     }
 
     public DomainModel buscarPrimeiro() {
-        DomainModel domainModel = repository.
+        return repository.
                 buscarPrimeiro().orElseThrow(EntidadeNaoEncontradaException::new);
-        return domainModel;
     }
 
     @Transactional
