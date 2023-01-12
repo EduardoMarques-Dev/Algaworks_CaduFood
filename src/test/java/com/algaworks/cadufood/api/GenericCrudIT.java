@@ -1,11 +1,10 @@
 package com.algaworks.cadufood.api;
 
-import com.algaworks.cadufood.domain.model.Cozinha;
-import com.algaworks.cadufood.domain.service.CozinhaService;
 import io.restassured.http.ContentType;
+import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -14,7 +13,7 @@ import io.restassured.RestAssured;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class CozinhaIT {
+public class GenericCrudIT {
 
     @LocalServerPort
     private int port;
@@ -31,6 +30,8 @@ public class CozinhaIT {
             .when()
                 .get()
             .then()
+                .body("", Matchers.hasSize(2))
+                .body("nome", Matchers.hasItems("Indiana","Tailandesa"))
                 .statusCode(200);
     }
 
