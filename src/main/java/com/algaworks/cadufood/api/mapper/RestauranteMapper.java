@@ -2,7 +2,7 @@ package com.algaworks.cadufood.api.mapper;
 
 import com.algaworks.cadufood.api.model.input.RestauranteInput;
 import com.algaworks.cadufood.api.model.output.RestauranteOutput;
-import com.algaworks.cadufood.core.generic.mapper.ForeignKeyMapper;
+import com.algaworks.cadufood.core.generic.mapper.DetachedKeyMapper;
 import com.algaworks.cadufood.domain.model.Cidade;
 import com.algaworks.cadufood.domain.model.Cozinha;
 import com.algaworks.cadufood.domain.model.Restaurante;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
-public class RestauranteMapper implements ForeignKeyMapper<Restaurante, RestauranteInput, RestauranteOutput> {
+public class RestauranteMapper implements DetachedKeyMapper<Restaurante, RestauranteInput, RestauranteOutput> {
 
     private ModelMapper modelMapper;
 
@@ -56,18 +56,18 @@ public class RestauranteMapper implements ForeignKeyMapper<Restaurante, Restaura
     public void updateEntity(RestauranteInput newEntity, Restaurante currentEntity) {
         // Para evitar exception onde ao alterar o id da cozinha, o jpa tenta alterar de uma cozinha já carregada
         // o que é proibido
-        eraseForeignKey(currentEntity);
+        detachForeignKey(currentEntity);
         modelMapper.map(newEntity, currentEntity);
     }
 
     @Override
     public void patchEntity(HashMap<String, Object> fields, Restaurante currentEntity) {
-        eraseForeignKey(currentEntity);
+        detachForeignKey(currentEntity);
         modelMapper.map(fields, currentEntity);
     }
 
     @Override
-    public void eraseForeignKey(Restaurante restaurante) {
+    public void detachForeignKey(Restaurante restaurante) {
         Long cozinhaId = restaurante.getCozinha().getId();
         restaurante.setCozinha(new Cozinha());
         restaurante.getCozinha().setId(cozinhaId);
