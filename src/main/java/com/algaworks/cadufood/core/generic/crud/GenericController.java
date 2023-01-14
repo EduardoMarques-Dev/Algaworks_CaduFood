@@ -15,8 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 public abstract class GenericController<
         DomainModel extends GenericEntity<DomainModel>,
-        InputModel extends DTOEntity<InputModel>,
-        OutputModel extends DTOEntity<OutputModel>> {
+        InputModel extends DataTransferEntity<InputModel>,
+        OutputModel extends DataTransferEntity<OutputModel>> {
 
     private final GenericService<DomainModel> service;
 
