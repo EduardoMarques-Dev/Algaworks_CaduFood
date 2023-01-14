@@ -1,5 +1,6 @@
 package com.algaworks.cadufood.api.model.output;
 
+import com.algaworks.cadufood.core.generic.crud.DTOEntity;
 import com.algaworks.cadufood.core.generic.crud.GenericEntity;
 import com.algaworks.cadufood.domain.model.Endereco;
 import com.algaworks.cadufood.domain.model.FormaPagamento;
@@ -13,7 +14,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class RestauranteOutput implements GenericEntity<RestauranteOutput> {
+public class RestauranteOutput implements DTOEntity<RestauranteOutput> {
 
     private Long id;
 

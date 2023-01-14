@@ -1,6 +1,7 @@
 package com.algaworks.cadufood.api.model.input;
 
 import com.algaworks.cadufood.api.model.input.util.IdInput;
+import com.algaworks.cadufood.core.generic.crud.DTOEntity;
 import com.algaworks.cadufood.core.generic.crud.GenericEntity;
 import com.algaworks.cadufood.domain.model.Endereco;
 import jakarta.validation.Valid;
@@ -14,7 +15,7 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-public class RestauranteInput implements GenericEntity<RestauranteInput> {
+public class RestauranteInput implements DTOEntity<RestauranteInput> {
 
     @NotBlank
     private String nome;

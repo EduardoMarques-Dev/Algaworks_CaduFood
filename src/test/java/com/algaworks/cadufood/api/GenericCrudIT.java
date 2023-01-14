@@ -3,6 +3,7 @@ package com.algaworks.cadufood.api;
 import com.algaworks.cadufood.domain.model.Cozinha;
 import com.algaworks.cadufood.domain.repository.CozinhaRepository;
 import com.algaworks.cadufood.util.DatabaseCleaner;
+import com.algaworks.cadufood.util.ResourceUtils;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.hamcrest.Matchers;
@@ -45,6 +46,9 @@ public class GenericCrudIT {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         RestAssured.port = port;
         RestAssured.basePath = "/cozinhas";
+
+        jsonCorretoCozinhaChinesa = ResourceUtils.getContentFromResource(
+                "/json/correto/cozinha-chinesa.json");
 
         databaseCleaner.clearTables();
         prepararDados();
