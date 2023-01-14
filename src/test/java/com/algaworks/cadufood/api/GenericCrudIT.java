@@ -17,11 +17,15 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("/application-test.properties")
 public class GenericCrudIT {
+
+    private static final int COZINHA_ID_INEXISTENTE = 100;
 
     @LocalServerPort
     private int port;
@@ -32,6 +36,10 @@ public class GenericCrudIT {
     @Autowired
     private DatabaseCleaner databaseCleaner;
 
+    private Cozinha cozinhaAmericana;
+    private int quantidadeCozinhasCadastradas;
+    private String jsonCorretoCozinhaChinesa;
+
     @BeforeEach
     public void setUp(){
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
@@ -41,36 +49,62 @@ public class GenericCrudIT {
         databaseCleaner.clearTables();
         prepararDados();
     }
-
     @Test
-    public void deveRetornarStatus200_QuandoConsultarCozinhas() {
+    public void deveRetornarQuantidadeCorretaEStatus200_QuandoListarCozinhas() {
         given()
                 .accept(ContentType.JSON)
                 .when()
                 .get()
                 .then()
+                .body("", hasSize(quantidadeCozinhasCadastradas))
                 .statusCode(HttpStatus.OK.value());
     }
 
     @Test
-    public void deveConter2Cozinhas_QuandoConsultarCozinhas() {
-        RestAssured.given()
+    public void deveRetornarRespostaEStatus200_QuandoBuscarCozinhaExistente() {
+        given()
+                .pathParam("cozinhaId", cozinhaAmericana.getId())
                 .accept(ContentType.JSON)
                 .when()
-                .get()
+                .get("/{cozinhaId}")
                 .then()
-                .body("", Matchers.hasSize(2))
-                .body("nome", Matchers.hasItems("Indiana","Tailandesa"));
+                .statusCode(HttpStatus.OK.value())
+                .body("nome", equalTo(cozinhaAmericana.getNome()));
     }
 
-    private void prepararDados(){
-        Cozinha cozinha1 = new Cozinha();
-        cozinha1.setNome("Indiana");
-        cozinhaRepository.save(cozinha1);
+    @Test
+    public void deveRetornarStatus404_QuandoConsultarCozinhaInexistente() {
+        given()
+                .pathParam("cozinhaId", COZINHA_ID_INEXISTENTE)
+                .accept(ContentType.JSON)
+                .when()
+                .get("/{cozinhaId}")
+                .then()
+                .statusCode(HttpStatus.NOT_FOUND.value());
+    }
 
-        Cozinha cozinha2 = new Cozinha();
-        cozinha2.setNome("Tailandesa");
-        cozinhaRepository.save(cozinha2);
+    @Test
+    public void deveRetornarStatus201_QuandoCadastrarCozinha() {
+        given()
+                .body(jsonCorretoCozinhaChinesa)
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .when()
+                .post()
+                .then()
+                .statusCode(HttpStatus.CREATED.value());
+    }
+
+    private void prepararDados() {
+        Cozinha cozinhaTailandesa = new Cozinha();
+        cozinhaTailandesa.setNome("Tailandesa");
+        cozinhaRepository.save(cozinhaTailandesa);
+
+        cozinhaAmericana = new Cozinha();
+        cozinhaAmericana.setNome("Americana");
+        cozinhaRepository.save(cozinhaAmericana);
+
+        quantidadeCozinhasCadastradas = (int) cozinhaRepository.count();
     }
 
 }
