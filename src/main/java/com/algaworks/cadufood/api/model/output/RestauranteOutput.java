@@ -1,9 +1,6 @@
 package com.algaworks.cadufood.api.model.output;
 
-import com.algaworks.cadufood.api.model.EnderecoDTO;
 import com.algaworks.cadufood.core.generic.model.DataTransferObject;
-import com.algaworks.cadufood.domain.model.Endereco;
-import com.algaworks.cadufood.domain.model.FormaPagamento;
 import com.algaworks.cadufood.domain.model.Produto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -29,7 +26,7 @@ public class RestauranteOutput implements DataTransferObject<RestauranteOutput> 
 
     private LocalDateTime dataAtualizacao;
 
-    private EnderecoDTO endereco;
+    private EnderecoOutput endereco;
 
     @JsonProperty("cozinha")
     private String nomeCozinha;

@@ -15,4 +15,5 @@ public class CozinhaNaoEncontradaException extends EntidadeNaoEncontradaExceptio
     public CozinhaNaoEncontradaException(Class classe, Long codigo) {
         super(classe, codigo);
     }
+
 }

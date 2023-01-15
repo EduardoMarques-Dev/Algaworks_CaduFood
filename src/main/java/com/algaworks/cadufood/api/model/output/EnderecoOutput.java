@@ -1,15 +1,13 @@
-package com.algaworks.cadufood.api.model;
+package com.algaworks.cadufood.api.model.output;
 
-import com.algaworks.cadufood.api.model.output.CidadeOutput;
 import com.algaworks.cadufood.api.model.resume.CidadeResume;
 import com.algaworks.cadufood.core.generic.model.DataTransferObject;
-import com.algaworks.cadufood.domain.model.Cidade;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class EnderecoDTO implements DataTransferObject<EnderecoDTO> {
+public class EnderecoOutput implements DataTransferObject<EnderecoOutput> {
 
     private String cep;
 

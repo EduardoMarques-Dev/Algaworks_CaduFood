@@ -1,4 +1,4 @@
-package com.algaworks.cadufood.api.mapper;
+package com.algaworks.cadufood.api.model.mapper;
 
 import com.algaworks.cadufood.api.model.input.RestauranteInput;
 import com.algaworks.cadufood.api.model.output.RestauranteOutput;

@@ -1,9 +1,8 @@
 package com.algaworks.cadufood.api.model.input;
 
-import com.algaworks.cadufood.api.model.EnderecoDTO;
+import com.algaworks.cadufood.api.model.output.EnderecoOutput;
 import com.algaworks.cadufood.api.model.input.util.IdInput;
 import com.algaworks.cadufood.core.generic.model.DataTransferObject;
-import com.algaworks.cadufood.domain.model.Endereco;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -20,13 +19,15 @@ public class RestauranteInput implements DataTransferObject<RestauranteInput> {
     @NotBlank
     private String nome;
 
-    private Boolean ativo;
+//    @NotNull
+//    private Boolean ativo;
 
     @PositiveOrZero
     private BigDecimal taxaFrete;
 
     @NotNull
-    private EnderecoDTO endereco;
+    @Valid
+    private EnderecoInput endereco;
 
     @NotNull
     @Valid

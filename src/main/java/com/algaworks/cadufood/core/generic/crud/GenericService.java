@@ -4,6 +4,7 @@ import com.algaworks.cadufood.core.generic.ParametrosBusca;
 import com.algaworks.cadufood.core.generic.model.GenericEntity;
 import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
+import com.algaworks.cadufood.domain.exception.SubEntidadeNaoEncontradaException;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -31,7 +32,11 @@ public abstract class GenericService<DomainModel extends GenericEntity<DomainMod
 
     @Transactional
     public DomainModel salvar(DomainModel domainModel) {
-        return salvarERecarregar(domainModel);
+        try {
+            return salvarERecarregar(domainModel);
+        } catch (DataIntegrityViolationException ex){
+            throw new SubEntidadeNaoEncontradaException();
+        }
     }
 
     @Transactional

@@ -83,6 +83,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({
             EntidadeNaoEncontradaException.class,
+            SubEntidadeNaoEncontradaException.class,
             CidadeNaoEncontradaException.class,
             RestauranteNaoEncontradoException.class,
             EstadoNaoEncontradoException.class,

@@ -1,6 +1,6 @@
 package com.algaworks.cadufood.api.controller;
 
-import com.algaworks.cadufood.api.mapper.CozinhaMapper;
+import com.algaworks.cadufood.api.model.mapper.CozinhaMapper;
 import com.algaworks.cadufood.api.model.input.CozinhaInput;
 import com.algaworks.cadufood.api.model.output.CozinhaOutput;
 import com.algaworks.cadufood.core.generic.crud.GenericController;

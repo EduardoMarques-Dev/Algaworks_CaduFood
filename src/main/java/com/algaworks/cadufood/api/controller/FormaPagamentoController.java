@@ -1,6 +1,6 @@
 package com.algaworks.cadufood.api.controller;
 
-import com.algaworks.cadufood.api.mapper.FormaPagamentoMapper;
+import com.algaworks.cadufood.api.model.mapper.FormaPagamentoMapper;
 import com.algaworks.cadufood.api.model.input.FormaPagamentoInput;
 import com.algaworks.cadufood.api.model.output.FormaPagamentoOutput;
 import com.algaworks.cadufood.core.generic.crud.GenericController;
