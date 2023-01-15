@@ -1,4 +1,4 @@
-package com.algaworks.cadufood.core.generic.crud;
+package com.algaworks.cadufood.core.generic.model;
 
 public interface GenericEntity<DomainCLass> {
 

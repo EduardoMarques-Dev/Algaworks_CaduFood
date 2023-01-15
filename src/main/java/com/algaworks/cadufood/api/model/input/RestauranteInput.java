@@ -1,7 +1,7 @@
 package com.algaworks.cadufood.api.model.input;
 
 import com.algaworks.cadufood.api.model.input.util.IdInput;
-import com.algaworks.cadufood.core.generic.crud.DataTransferEntity;
+import com.algaworks.cadufood.core.generic.model.DataTransferObject;
 import com.algaworks.cadufood.domain.model.Endereco;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-public class RestauranteInput implements DataTransferEntity<RestauranteInput> {
+public class RestauranteInput implements DataTransferObject<RestauranteInput> {
 
     @NotBlank
     private String nome;

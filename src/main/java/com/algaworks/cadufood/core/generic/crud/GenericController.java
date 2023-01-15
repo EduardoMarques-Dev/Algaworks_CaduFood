@@ -1,5 +1,7 @@
 package com.algaworks.cadufood.core.generic.crud;
 
+import com.algaworks.cadufood.core.generic.model.DataTransferObject;
+import com.algaworks.cadufood.core.generic.model.GenericEntity;
 import com.algaworks.cadufood.core.generic.mapper.GenericMapper;
 import com.algaworks.cadufood.domain.exception.NegocioException;
 import jakarta.validation.Valid;
@@ -15,8 +17,8 @@ import java.util.List;
 @AllArgsConstructor
 public abstract class GenericController<
         DomainModel extends GenericEntity<DomainModel>,
-        InputModel extends DataTransferEntity<InputModel>,
-        OutputModel extends DataTransferEntity<OutputModel>> {
+        InputModel extends DataTransferObject<InputModel>,
+        OutputModel extends DataTransferObject<OutputModel>> {
 
     private final GenericService<DomainModel> service;
 

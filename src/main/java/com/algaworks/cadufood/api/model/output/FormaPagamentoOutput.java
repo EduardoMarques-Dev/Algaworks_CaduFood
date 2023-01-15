@@ -6,10 +6,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class EstadoOutput implements DataTransferObject<EstadoOutput> {
+public class FormaPagamentoOutput implements DataTransferObject<FormaPagamentoOutput> {
 
     private Long id;
 
-    private String nome;
+    private String descricao;
 
 }
