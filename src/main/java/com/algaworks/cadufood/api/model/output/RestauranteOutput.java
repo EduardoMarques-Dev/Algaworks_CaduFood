@@ -19,6 +19,8 @@ public class RestauranteOutput implements DataTransferEntity<RestauranteOutput> 
 
     private String nome;
 
+    private Boolean ativo;
+
     private BigDecimal taxaFrete;
 
     private LocalDateTime dataCadastro;

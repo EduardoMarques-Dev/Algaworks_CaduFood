@@ -29,6 +29,9 @@ public class Restaurante implements GenericEntity<Restaurante> {
 	@Column(nullable = false)
 	private String nome;
 
+	@Column(nullable = false)
+	private boolean ativo = Boolean.TRUE;
+
 	@Column(name = "taxa_frete",
 			nullable = false)
 	private BigDecimal taxaFrete;
@@ -65,4 +68,11 @@ public class Restaurante implements GenericEntity<Restaurante> {
 	@ToString.Exclude
 	private List<FormaPagamento> formasPagamento = new ArrayList<>();
 
+	public void ativar(){
+		setAtivo(true);
+	}
+
+	public void inativar(){
+		setAtivo(false);
+	}
 }

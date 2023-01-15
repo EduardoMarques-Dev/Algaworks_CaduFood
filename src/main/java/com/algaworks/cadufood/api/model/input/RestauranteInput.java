@@ -19,6 +19,8 @@ public class RestauranteInput implements DataTransferEntity<RestauranteInput> {
     @NotBlank
     private String nome;
 
+    private Boolean ativo;
+
     @PositiveOrZero
     private BigDecimal taxaFrete;
 

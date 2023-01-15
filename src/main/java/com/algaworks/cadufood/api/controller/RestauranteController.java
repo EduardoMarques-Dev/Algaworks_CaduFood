@@ -8,10 +8,8 @@ import com.algaworks.cadufood.domain.model.Restaurante;
 import com.algaworks.cadufood.domain.model.util.parametrosBusca.RestauranteParametros;
 import com.algaworks.cadufood.domain.service.RestauranteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -62,6 +60,18 @@ public class RestauranteController extends GenericController<Restaurante, Restau
                 .build();
         List<Restaurante> restaurante = restauranteService.buscarPersonalizado(restauranteParametros);
         return mapper.toOutputCollection(restaurante);
+    }
+
+    @PutMapping("/{restauranteId}/ativo")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void ativar(@PathVariable Long restauranteId){
+        restauranteService.ativar(restauranteId);
+    }
+
+    @DeleteMapping("/{restauranteId}/ativo")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void inativar(@PathVariable Long restauranteId){
+        restauranteService.inativar(restauranteId);
     }
 
 }

@@ -19,8 +19,8 @@ public abstract class GenericService<DomainModel extends GenericEntity<DomainMod
         return repository.findAll();
     }
 
-    public DomainModel buscar(Long idDomainModel) {
-        return buscarDomainModelOuFalhar(idDomainModel);
+    public DomainModel buscar(Long domainModelId) {
+        return buscarDomainModelOuFalhar(domainModelId);
     }
 
     public List<DomainModel> buscarPersonalizado(ParametrosBusca<DomainModel> parametrosBusca) {

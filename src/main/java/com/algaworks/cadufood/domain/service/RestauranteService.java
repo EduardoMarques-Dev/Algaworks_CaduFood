@@ -7,6 +7,7 @@ import com.algaworks.cadufood.domain.model.Restaurante;
 import com.algaworks.cadufood.domain.repository.RestauranteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RestauranteService extends GenericService<Restaurante> {
@@ -19,12 +20,26 @@ public class RestauranteService extends GenericService<Restaurante> {
 	}
 
 	@Override
-	public Restaurante buscar(Long idDomainModel) {
+	public Restaurante buscar(Long domainModelId) {
 		try{
-			return super.buscar(idDomainModel);
+			return super.buscar(domainModelId);
 		}catch (EntidadeNaoEncontradaException ex){
-			throw new RestauranteNaoEncontradoException(Restaurante.class,idDomainModel);
+			throw new RestauranteNaoEncontradoException(Restaurante.class, domainModelId);
 		}
+	}
+
+	@Transactional
+	public void ativar(Long idRestaurante){
+		Restaurante restauranteAtual = buscar(idRestaurante);
+
+		restauranteAtual.ativar();
+	}
+
+	@Transactional
+	public void inativar(Long idRestaurante){
+		Restaurante restauranteAtual = buscar(idRestaurante);
+
+		restauranteAtual.inativar();
 	}
 
 }
