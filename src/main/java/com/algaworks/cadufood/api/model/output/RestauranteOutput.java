@@ -1,5 +1,6 @@
 package com.algaworks.cadufood.api.model.output;
 
+import com.algaworks.cadufood.api.model.EnderecoDTO;
 import com.algaworks.cadufood.core.generic.model.DataTransferObject;
 import com.algaworks.cadufood.domain.model.Endereco;
 import com.algaworks.cadufood.domain.model.FormaPagamento;
@@ -27,12 +28,12 @@ public class RestauranteOutput implements DataTransferObject<RestauranteOutput> 
 
     private LocalDateTime dataAtualizacao;
 
-    private Endereco endereco;
+    private EnderecoDTO endereco;
 
     private CozinhaOutput cozinha;
 
     private List<Produto> produto;
 
-    private List<FormaPagamento> formasPagamento;
+    private List<FormaPagamentoOutput> formasPagamento;
 
 }

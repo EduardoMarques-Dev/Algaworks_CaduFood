@@ -13,6 +13,6 @@ public class CidadeOutput implements DataTransferObject<CidadeOutput> {
 
     private String nome;
 
-    private Estado estado;
+    private EstadoOutput estado;
 
 }

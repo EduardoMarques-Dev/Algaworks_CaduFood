@@ -1,5 +1,6 @@
 package com.algaworks.cadufood.api.model.input;
 
+import com.algaworks.cadufood.api.model.EnderecoDTO;
 import com.algaworks.cadufood.api.model.input.util.IdInput;
 import com.algaworks.cadufood.core.generic.model.DataTransferObject;
 import com.algaworks.cadufood.domain.model.Endereco;
@@ -25,7 +26,7 @@ public class RestauranteInput implements DataTransferObject<RestauranteInput> {
     private BigDecimal taxaFrete;
 
     @NotNull
-    private Endereco endereco;
+    private EnderecoDTO endereco;
 
     @NotNull
     @Valid
