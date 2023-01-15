@@ -31,7 +31,7 @@ public class RestauranteController extends GenericController<Restaurante, Restau
         super(service, mapper);
     }
 
-    @GetMapping("/buscar-por")
+    @GetMapping("/busca-personalizada")
     public List<RestauranteOutput> buscarPersonalizado(@RequestParam(required = false) String nome,
                                                        @RequestParam(value = "taxa-frete-inicial", required = false) BigDecimal taxaFreteInicial,
                                                        @RequestParam(value = "taxa-frete-final", required = false) BigDecimal taxaFreteFinal,
