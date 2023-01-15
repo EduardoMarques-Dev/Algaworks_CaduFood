@@ -5,6 +5,7 @@ import com.algaworks.cadufood.core.generic.model.DataTransferObject;
 import com.algaworks.cadufood.domain.model.Endereco;
 import com.algaworks.cadufood.domain.model.FormaPagamento;
 import com.algaworks.cadufood.domain.model.Produto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,7 +31,8 @@ public class RestauranteOutput implements DataTransferObject<RestauranteOutput> 
 
     private EnderecoDTO endereco;
 
-    private CozinhaOutput cozinha;
+    @JsonProperty("cozinha")
+    private String nomeCozinha;
 
     private List<Produto> produto;
 
