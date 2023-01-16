@@ -1,5 +1,6 @@
 package com.algaworks.cadufood.domain.model;
 
+import com.algaworks.cadufood.core.generic.model.GenericEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +14,7 @@ import java.util.List;
 @Setter
 @RequiredArgsConstructor
 @Entity
-public class Usuario {
+public class Usuario implements GenericEntity<Usuario> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
