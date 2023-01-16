@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,6 +34,11 @@ public class Usuario implements GenericEntity<Usuario> {
             nullable = false)
     @CreationTimestamp()
     private LocalDateTime dataCadastro;
+
+    @Column(columnDefinition = "timestamp(0)",
+            nullable = false)
+    @UpdateTimestamp()
+    private LocalDateTime dataAtualizacao;
 
     @ManyToMany
     @JoinTable(name = "usuario_grupo",

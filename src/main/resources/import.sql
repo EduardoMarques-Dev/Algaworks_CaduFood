@@ -33,3 +33,9 @@ insert into grupo (id, nome) values (100, 'Gerente');
 insert into grupo (id, nome) values (200, 'Vendedor');
 insert into grupo (id, nome) values (300, 'Secretária');
 insert into grupo (id, nome) values (400, 'Cadastrador');
+
+insert into usuario (id, nome, email, senha, data_cadastro, data_atualizacao) values (100, 'João da Silva','joao.ger@cadufood.com', '123', current_timestamp, current_timestamp);
+insert into usuario (id, nome, email, senha, data_cadastro, data_atualizacao) values (200, 'Maria Joaquina','maria.vnd@cadufood.com', '123',current_timestamp, current_timestamp);
+insert into usuario (id, nome, email, senha, data_cadastro, data_atualizacao) values (300, 'José Souza','jose.sec@cadufood.com', '123',current_timestamp, current_timestamp);
+insert into usuario (id, nome, email, senha, data_cadastro, data_atualizacao) values (400, 'Sebastião Martins','sebastiao.cad@cadufood.com', '123',current_timestamp, current_timestamp);
+

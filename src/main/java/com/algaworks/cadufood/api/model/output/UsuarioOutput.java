@@ -17,9 +17,9 @@ public class UsuarioOutput implements DataTransferObject<UsuarioOutput> {
 
     private String email;
 
-    private String senha;
-
     private LocalDateTime dataCadastro;
+
+    private LocalDateTime dataAtualizacao;
 
     private List<GrupoOutput> grupos;
 
