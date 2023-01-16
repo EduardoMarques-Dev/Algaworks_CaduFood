@@ -1,6 +1,5 @@
 package com.algaworks.cadufood.api.model.input;
 
-import com.algaworks.cadufood.api.model.output.EnderecoOutput;
 import com.algaworks.cadufood.api.model.input.util.IdInput;
 import com.algaworks.cadufood.core.generic.model.DataTransferObject;
 import jakarta.validation.Valid;

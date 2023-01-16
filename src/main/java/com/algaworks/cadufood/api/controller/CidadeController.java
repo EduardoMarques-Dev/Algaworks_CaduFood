@@ -1,7 +1,7 @@
 package com.algaworks.cadufood.api.controller;
 
-import com.algaworks.cadufood.api.model.mapper.CidadeMapper;
 import com.algaworks.cadufood.api.model.input.CidadeInput;
+import com.algaworks.cadufood.api.model.mapper.CidadeMapper;
 import com.algaworks.cadufood.api.model.output.CidadeOutput;
 import com.algaworks.cadufood.core.generic.crud.GenericController;
 import com.algaworks.cadufood.domain.model.Cidade;

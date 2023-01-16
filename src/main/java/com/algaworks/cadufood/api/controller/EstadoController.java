@@ -1,7 +1,7 @@
 package com.algaworks.cadufood.api.controller;
 
-import com.algaworks.cadufood.api.model.mapper.EstadoMapper;
 import com.algaworks.cadufood.api.model.input.EstadoInput;
+import com.algaworks.cadufood.api.model.mapper.EstadoMapper;
 import com.algaworks.cadufood.api.model.output.EstadoOutput;
 import com.algaworks.cadufood.core.generic.crud.GenericController;
 import com.algaworks.cadufood.domain.model.Estado;

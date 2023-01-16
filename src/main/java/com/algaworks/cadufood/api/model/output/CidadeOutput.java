@@ -1,7 +1,6 @@
 package com.algaworks.cadufood.api.model.output;
 
 import com.algaworks.cadufood.core.generic.model.DataTransferObject;
-import com.algaworks.cadufood.domain.model.Estado;
 import lombok.Getter;
 import lombok.Setter;
 

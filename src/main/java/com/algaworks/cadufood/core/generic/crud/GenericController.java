@@ -1,9 +1,8 @@
 package com.algaworks.cadufood.core.generic.crud;
 
+import com.algaworks.cadufood.core.generic.mapper.GenericMapper;
 import com.algaworks.cadufood.core.generic.model.DataTransferObject;
 import com.algaworks.cadufood.core.generic.model.GenericEntity;
-import com.algaworks.cadufood.core.generic.mapper.GenericMapper;
-import com.algaworks.cadufood.domain.exception.NegocioException;
 import com.algaworks.cadufood.domain.exception.SubEntidadeNaoEncontradaException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

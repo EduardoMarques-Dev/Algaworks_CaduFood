@@ -1,11 +1,8 @@
 package com.algaworks.cadufood.api.model.mapper;
 
 import com.algaworks.cadufood.api.model.input.FormaPagamentoInput;
-import com.algaworks.cadufood.api.model.input.FormaPagamentoInput;
-import com.algaworks.cadufood.api.model.output.FormaPagamentoOutput;
 import com.algaworks.cadufood.api.model.output.FormaPagamentoOutput;
 import com.algaworks.cadufood.core.generic.mapper.GenericMapper;
-import com.algaworks.cadufood.domain.model.FormaPagamento;
 import com.algaworks.cadufood.domain.model.FormaPagamento;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
