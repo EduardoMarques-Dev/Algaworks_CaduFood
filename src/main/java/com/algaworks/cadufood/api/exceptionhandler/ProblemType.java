@@ -12,7 +12,8 @@ public enum ProblemType {
     ENTIDADE_EM_USO("/entidade-em-uso", "Entidade em uso"),
     PARAMETRO_INVALIDO("/parametro-invalido", "Parâmetro inválido"),
     MENSAGEM_INCOMPREENSIVEL("/mensagem-incompreensivel", "Mensagem incompreensível"),
-    DADOS_INVALIDOS("/dados-invalidos", "Dados inválidos");
+    DADOS_INVALIDOS("/dados-invalidos", "Dados inválidos"),
+    SENHA_INCORRETA("/senha-incorreta", "Senha incorreta");
 
 
     private String title;

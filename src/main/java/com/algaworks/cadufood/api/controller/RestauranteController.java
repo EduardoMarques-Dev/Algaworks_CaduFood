@@ -7,12 +7,14 @@ import com.algaworks.cadufood.core.generic.crud.GenericController;
 import com.algaworks.cadufood.domain.model.Restaurante;
 import com.algaworks.cadufood.domain.model.util.parametrosBusca.RestauranteParametros;
 import com.algaworks.cadufood.domain.service.RestauranteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -29,7 +31,7 @@ public class RestauranteController extends GenericController<Restaurante, Restau
         super(service, mapper);
     }
 
-    @GetMapping("/busca-personalizada")
+    @GetMapping
     public List<RestauranteOutput> buscarPersonalizado(@RequestParam(required = false) String nome,
                                                        @RequestParam(value = "taxa-frete-inicial", required = false) BigDecimal taxaFreteInicial,
                                                        @RequestParam(value = "taxa-frete-final", required = false) BigDecimal taxaFreteFinal,
@@ -74,5 +76,34 @@ public class RestauranteController extends GenericController<Restaurante, Restau
         restauranteService.inativar(restauranteId);
     }
 
+    @Override
+    @GetMapping("/{id}")
+    public RestauranteOutput buscar(@PathVariable Long id) {
+        return super.buscar(id);
+    }
+
+    @Override
+    @PostMapping
+    public RestauranteOutput salvar(@RequestBody @Valid RestauranteInput restauranteInput) {
+        return super.salvar(restauranteInput);
+    }
+
+    @Override
+    @PutMapping("/{id}")
+    public RestauranteOutput atualizar(@PathVariable Long id, @RequestBody @Valid RestauranteInput restauranteInput) {
+        return super.atualizar(id, restauranteInput);
+    }
+
+    @Override
+    @PatchMapping("/{id}")
+    public RestauranteOutput atualizarParcial(@PathVariable Long id, HashMap<String, Object> fields) {
+        return super.atualizarParcial(id, fields);
+    }
+
+    @Override
+    @DeleteMapping("/{id}")
+    public void excluir(@PathVariable Long id) {
+        super.excluir(id);
+    }
 }
 

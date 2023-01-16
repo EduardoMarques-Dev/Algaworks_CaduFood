@@ -113,6 +113,19 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, problem, new HttpHeaders(), statusCode, request);
     }
 
+    @ExceptionHandler(SenhaIncorretaException.class)
+    public ResponseEntity<?> handleSenhaIncorretaException(SenhaIncorretaException ex, WebRequest request) {
+        HttpStatus statusCode = HttpStatus.BAD_REQUEST;
+        ProblemType problemType = ProblemType.SENHA_INCORRETA;
+        String detail = ex.getMessage();
+
+        Problem problem = createProblemBuilder(statusCode, problemType, detail)
+                .userMessage(detail)
+                .build();
+
+        return handleExceptionInternal(ex, problem, new HttpHeaders(), statusCode, request);
+    }
+
     // DESSERIALIZAÇÃO EXCEPTION
 
     @Override

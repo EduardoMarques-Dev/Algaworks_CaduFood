@@ -4,12 +4,11 @@ import com.algaworks.cadufood.core.generic.mapper.GenericMapper;
 import com.algaworks.cadufood.core.generic.model.DataTransferObject;
 import com.algaworks.cadufood.core.generic.model.GenericEntity;
 import com.algaworks.cadufood.domain.exception.SubEntidadeNaoEncontradaException;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,30 +23,26 @@ public abstract class GenericController<
 
     private final GenericMapper<DomainModel, InputModel, OutputModel> mapper;
 
-    @GetMapping
     public List<OutputModel> listar() {
         return mapper.toOutputCollection(service.listar());
     }
 
-    @GetMapping("/{id}")
-    public OutputModel buscar(@PathVariable Long id) {
+    public OutputModel buscar(Long id) {
         DomainModel domainModel = service.buscar(id);
         return mapper.toOutput(domainModel);
     }
 
-    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public OutputModel salvar(@RequestBody @Valid InputModel inputModel) {
-            DomainModel domainModel = mapper.toDomain(inputModel);
-            domainModel = service.salvar(domainModel);
-            return mapper.toOutput(domainModel);
+    public OutputModel salvar(InputModel inputModel) {
+        DomainModel domainModel = mapper.toDomain(inputModel);
+        domainModel = service.salvar(domainModel);
+        return mapper.toOutput(domainModel);
 
     }
 
     @Transactional
-    @PutMapping("/{id}")
-    public OutputModel atualizar(@PathVariable Long id,
-                                 @RequestBody @Valid InputModel inputModel) {
+    public OutputModel atualizar(Long id,
+                                 InputModel inputModel) {
         try {
             DomainModel domainModel = service.buscar(id);
             mapper.updateEntity(inputModel, domainModel);
@@ -58,9 +53,8 @@ public abstract class GenericController<
     }
 
     @Transactional
-    @PatchMapping("/{id}")
-    public OutputModel atualizarParcial(@PathVariable Long id,
-                                        @RequestBody HashMap<String,Object> fields) {
+    public OutputModel atualizarParcial(Long id,
+                                        HashMap<String,Object> fields) {
         try {
             DomainModel domainModel = service.buscar(id);
             mapper.patchEntity(fields, domainModel);
@@ -70,9 +64,8 @@ public abstract class GenericController<
         }
     }
 
-    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void excluir(@PathVariable Long id) {
+    public void excluir(Long id) {
         service.excluir(id);
     }
 }
