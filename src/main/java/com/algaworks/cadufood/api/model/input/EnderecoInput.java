@@ -1,6 +1,6 @@
 package com.algaworks.cadufood.api.model.input;
 
-import com.algaworks.cadufood.api.model.input.util.IdInput;
+import com.algaworks.cadufood.api.model.resume.IdResume;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -25,6 +25,6 @@ public class EnderecoInput {
 
     @Valid
     @NotNull
-    private IdInput cidade;
+    private IdResume cidade;
 
 }

@@ -1,6 +1,6 @@
 package com.algaworks.cadufood.api.model.input;
 
-import com.algaworks.cadufood.api.model.input.util.IdInput;
+import com.algaworks.cadufood.api.model.resume.IdResume;
 import com.algaworks.cadufood.core.generic.model.DataTransferObject;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -30,6 +30,6 @@ public class RestauranteInput implements DataTransferObject<RestauranteInput> {
 
     @NotNull
     @Valid
-    private IdInput cozinha;
+    private IdResume cozinha;
 
 }
