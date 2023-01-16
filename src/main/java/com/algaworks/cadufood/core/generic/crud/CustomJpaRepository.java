@@ -13,8 +13,9 @@ import java.util.List;
 @NoRepositoryBean
 public interface CustomJpaRepository<T, ID> extends JpaRepository<T, ID> {
 
-    @Transactional
     T refresh(T t);
+
+    void detach(T entity);
 
     List<T> buscarPersonalizado(ParametrosBusca<T> parametrosBusca);
 

@@ -27,10 +27,14 @@ public class CustomJpaRepositoryImpl<T,ID> extends SimpleJpaRepository<T,ID>
     }
 
     @Override
-    @Transactional
     public T refresh(T t) {
         manager.refresh(t);
         return t;
+    }
+
+    @Override
+    public void detach(T t) {
+        manager.refresh(t);
     }
 
     @Override
