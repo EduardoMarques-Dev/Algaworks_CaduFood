@@ -1,24 +1,55 @@
 package com.algaworks.cadufood.core.generic.mapper;
 
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public interface GenericMapper<DomainModel, InputModel, OutputModel> {
+@RequiredArgsConstructor
+public abstract class GenericMapper<DomainModel, InputModel, OutputModel> {
 
-    DomainModel toDomain(InputModel inputModel);
+    private final Class<DomainModel> domainClass;
 
-    OutputModel toOutput(DomainModel domainModel);
+    private final Class<InputModel> inputClass;
 
-    List<DomainModel> toDomainCollection(List<InputModel> inputModelList);
+    private final Class<OutputModel> outputClass;
 
-    List<OutputModel> toOutputCollection(List<DomainModel> domainModelList);
+    protected final ModelMapper modelMapper = new ModelMapper();
 
-    Page<OutputModel> toOutputCollection(Page<DomainModel> domainModelPage);
+    public DomainModel toDomain(InputModel cidadeInput) {
+        return modelMapper.map(cidadeInput, domainClass);
+    }
 
-    void updateEntity(InputModel newEntity, DomainModel currentEntity);
+    public OutputModel toOutput(DomainModel cidade) {
+        return modelMapper.map(cidade, outputClass);
+    }
 
-    void patchEntity(HashMap<String, Object> fields, DomainModel currentEntity);
+    public List<DomainModel> toDomainCollection(List<InputModel> cidadeInputs) {
+        return cidadeInputs.stream()
+                .map(this::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    public List<OutputModel> toOutputCollection(List<DomainModel> cidades) {
+        return cidades.stream()
+                .map(this::toOutput)
+                .collect(Collectors.toList());
+    }
+
+    public Page<OutputModel> toOutputCollection(Page<DomainModel> cidades) {
+        return new PageImpl<>(toOutputCollection(cidades.toList()));
+    }
+
+    public void updateEntity(InputModel newEntity, DomainModel currentEntity) {
+        modelMapper.map(newEntity, currentEntity);
+    }
+
+    public void patchEntity(HashMap<String, Object> fields, DomainModel currentEntity) {
+        modelMapper.map(fields, currentEntity);
+    }
 
 }

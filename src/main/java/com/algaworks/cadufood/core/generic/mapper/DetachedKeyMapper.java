@@ -1,9 +1,27 @@
 package com.algaworks.cadufood.core.generic.mapper;
 
-// Utilizado quando a classe possui Foreign Keys
-// Que precisam ser limpadas para a atualização de recurso
-public interface DetachedKeyMapper<DomainModel, InputModel, OutputModel> extends GenericMapper<DomainModel, InputModel, OutputModel> {
+import java.util.HashMap;
 
-    void detachForeignKey(DomainModel domainModel);
+// Utilizado quando a classe possui Foreign Keys
+// Que precisam ser desanexadas para a atualização de recurso
+public abstract class DetachedKeyMapper<DomainModel, InputModel, OutputModel> extends GenericMapper<DomainModel, InputModel, OutputModel> {
+
+    public DetachedKeyMapper(Class<DomainModel> domainClass, Class<InputModel> inputClass, Class<OutputModel> outputClass) {
+        super(domainClass, inputClass, outputClass);
+    }
+
+    @Override
+    public void updateEntity(InputModel newEntity, DomainModel currentEntity) {
+        detachForeignKey(currentEntity);
+        modelMapper.map(newEntity, currentEntity);
+    }
+
+    @Override
+    public void patchEntity(HashMap<String, Object> fields, DomainModel currentEntity) {
+        detachForeignKey(currentEntity);
+        modelMapper.map(fields, currentEntity);
+    }
+
+    protected abstract void detachForeignKey(DomainModel domainModel);
 
 }
