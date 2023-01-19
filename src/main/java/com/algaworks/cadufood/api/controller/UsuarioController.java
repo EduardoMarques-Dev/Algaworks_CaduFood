@@ -2,8 +2,8 @@ package com.algaworks.cadufood.api.controller;
 
 
 import com.algaworks.cadufood.api.model.input.UsuarioInput;
-import com.algaworks.cadufood.api.model.input.UsuarioSenha;
-import com.algaworks.cadufood.api.model.input.UsuarioUpdate;
+import com.algaworks.cadufood.api.model.resume.UsuarioSenha;
+import com.algaworks.cadufood.api.model.resume.UsuarioUpdate;
 import com.algaworks.cadufood.api.model.mapper.UsuarioMapper;
 import com.algaworks.cadufood.api.model.output.UsuarioOutput;
 import com.algaworks.cadufood.core.generic.crud.GenericController;

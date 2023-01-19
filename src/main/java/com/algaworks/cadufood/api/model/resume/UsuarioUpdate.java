@@ -1,4 +1,4 @@
-package com.algaworks.cadufood.api.model.input;
+package com.algaworks.cadufood.api.model.resume;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

@@ -1,6 +1,10 @@
 package com.algaworks.cadufood.api.exceptionhandler;
 
 import com.algaworks.cadufood.domain.exception.*;
+import com.algaworks.cadufood.domain.exception.negocio.CidadeNaoEncontradaException;
+import com.algaworks.cadufood.domain.exception.negocio.CozinhaNaoEncontradaException;
+import com.algaworks.cadufood.domain.exception.negocio.EstadoNaoEncontradoException;
+import com.algaworks.cadufood.domain.exception.negocio.RestauranteNaoEncontradoException;
 import com.fasterxml.jackson.databind.JsonMappingException.Reference;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.PropertyBindingException;
