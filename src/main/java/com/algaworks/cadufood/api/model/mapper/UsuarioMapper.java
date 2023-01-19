@@ -1,8 +1,8 @@
 package com.algaworks.cadufood.api.model.mapper;
 
 import com.algaworks.cadufood.api.model.input.UsuarioInput;
-import com.algaworks.cadufood.api.model.resume.UsuarioUpdate;
 import com.algaworks.cadufood.api.model.output.UsuarioOutput;
+import com.algaworks.cadufood.api.model.resume.UsuarioUpdate;
 import com.algaworks.cadufood.core.generic.mapper.GenericMapper;
 import com.algaworks.cadufood.domain.model.Usuario;
 import org.modelmapper.ModelMapper;

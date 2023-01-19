@@ -1,7 +1,7 @@
 package com.algaworks.cadufood.domain.service;
 
-import com.algaworks.cadufood.core.generic.crud.CustomJpaRepository;
-import com.algaworks.cadufood.core.generic.crud.GenericService;
+import com.algaworks.cadufood.core.generic.crud.repository.CustomJpaRepository;
+import com.algaworks.cadufood.core.generic.crud.service.GenericService;
 import com.algaworks.cadufood.domain.exception.NegocioException;
 import com.algaworks.cadufood.domain.model.Usuario;
 import com.algaworks.cadufood.domain.repository.UsuarioRepository;

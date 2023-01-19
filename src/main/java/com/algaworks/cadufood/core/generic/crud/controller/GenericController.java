@@ -1,5 +1,6 @@
-package com.algaworks.cadufood.core.generic.crud;
+package com.algaworks.cadufood.core.generic.crud.controller;
 
+import com.algaworks.cadufood.core.generic.crud.service.GenericService;
 import com.algaworks.cadufood.core.generic.mapper.GenericMapper;
 import com.algaworks.cadufood.core.generic.model.DataTransferObject;
 import com.algaworks.cadufood.core.generic.model.GenericEntity;

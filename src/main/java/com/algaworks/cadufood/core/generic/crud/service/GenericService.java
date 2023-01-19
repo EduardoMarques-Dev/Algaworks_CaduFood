@@ -1,6 +1,7 @@
-package com.algaworks.cadufood.core.generic.crud;
+package com.algaworks.cadufood.core.generic.crud.service;
 
 import com.algaworks.cadufood.core.generic.ParametrosBusca;
+import com.algaworks.cadufood.core.generic.crud.repository.CustomJpaRepository;
 import com.algaworks.cadufood.core.generic.model.GenericEntity;
 import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;

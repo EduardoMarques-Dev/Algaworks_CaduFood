@@ -3,7 +3,7 @@ package com.algaworks.cadufood.api.controller;
 import com.algaworks.cadufood.api.model.input.RestauranteInput;
 import com.algaworks.cadufood.api.model.mapper.RestauranteMapper;
 import com.algaworks.cadufood.api.model.output.RestauranteOutput;
-import com.algaworks.cadufood.core.generic.crud.GenericController;
+import com.algaworks.cadufood.core.generic.crud.controller.GenericController;
 import com.algaworks.cadufood.domain.model.Restaurante;
 import com.algaworks.cadufood.domain.model.util.parametrosBusca.RestauranteParametros;
 import com.algaworks.cadufood.domain.service.RestauranteService;

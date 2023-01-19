@@ -2,6 +2,7 @@ package com.algaworks.cadufood.api.exceptionhandler;
 
 import lombok.Getter;
 
+// Ajustar: URI_PADRAO
 @Getter
 public enum ProblemType {
 
@@ -15,12 +16,12 @@ public enum ProblemType {
     DADOS_INVALIDOS("/dados-invalidos", "Dados inválidos"),
     SENHA_INCORRETA("/senha-incorreta", "Senha incorreta");
 
-
+    public static final String URI_PADRAO = "https://cadufood.com.br";
     private String title;
     private String uri;
 
     ProblemType(String path, String title) {
-        this.uri = "https://cadufood.com.br" + path;
+        this.uri = URI_PADRAO + path;
         this.title = title;
     }
 }

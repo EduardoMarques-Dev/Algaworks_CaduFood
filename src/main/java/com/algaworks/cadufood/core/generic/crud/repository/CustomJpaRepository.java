@@ -1,9 +1,8 @@
-package com.algaworks.cadufood.core.generic.crud;
+package com.algaworks.cadufood.core.generic.crud.repository;
 
 import com.algaworks.cadufood.core.generic.ParametrosBusca;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

@@ -2,11 +2,11 @@ package com.algaworks.cadufood.api.controller;
 
 
 import com.algaworks.cadufood.api.model.input.UsuarioInput;
-import com.algaworks.cadufood.api.model.resume.UsuarioSenha;
-import com.algaworks.cadufood.api.model.resume.UsuarioUpdate;
 import com.algaworks.cadufood.api.model.mapper.UsuarioMapper;
 import com.algaworks.cadufood.api.model.output.UsuarioOutput;
-import com.algaworks.cadufood.core.generic.crud.GenericController;
+import com.algaworks.cadufood.api.model.resume.UsuarioSenha;
+import com.algaworks.cadufood.api.model.resume.UsuarioUpdate;
+import com.algaworks.cadufood.core.generic.crud.controller.GenericController;
 import com.algaworks.cadufood.domain.exception.NegocioException;
 import com.algaworks.cadufood.domain.exception.SenhaIncorretaException;
 import com.algaworks.cadufood.domain.exception.SubEntidadeNaoEncontradaException;

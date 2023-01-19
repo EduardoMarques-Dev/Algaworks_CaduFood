@@ -59,10 +59,10 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         ProblemType problemType = ProblemType.ERRO_DE_SISTEMA;
         String detail = MSG_ERRO_GENERICA_USUARIO_FINAL;
 
-        // Importante colocar o printStackTrace (pelo menos por enquanto, que não estamos
-        // fazendo logging) para mostrar a stacktrace no console
-        // Se não fizer isso, você não vai ver a stacktrace de exceptions que seriam importantes
-        // para você, especialmente na fase de desenvolvimento
+        // Comentários: Importante colocar o printStackTrace (pelo menos por enquanto, já que ainda não foi
+        // implementado o logging) para mostrar a stacktrace no console.
+        // Se não fizer isso, não poderei ver a stacktrace de exceptions que seriam importantes,
+        // principalmente na fase de desenvolvimento
         ex.printStackTrace();
 
         Problem problem = createProblemBuilder(status, problemType, detail).build();
