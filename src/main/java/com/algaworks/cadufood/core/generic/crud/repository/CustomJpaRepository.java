@@ -6,9 +6,8 @@ import org.springframework.data.repository.NoRepositoryBean;
 
 import java.util.List;
 
-/* Anotação que informa ao Spring para não instanciar uma implementação
-   Para este repositório
-*/
+// Comentários: Anotação que informa ao Spring para não instanciar uma implementação
+// Para este repositório
 @NoRepositoryBean
 public interface CustomJpaRepository<T, ID> extends JpaRepository<T, ID> {
 

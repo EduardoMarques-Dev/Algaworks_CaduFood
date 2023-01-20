@@ -24,6 +24,4 @@ public class RestauranteFormaPagamentoController extends GenericController<Forma
         super(service, mapper);
     }
 
-
-
 }

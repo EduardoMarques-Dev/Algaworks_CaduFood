@@ -6,7 +6,7 @@ import com.algaworks.cadufood.api.model.mapper.UsuarioMapper;
 import com.algaworks.cadufood.api.model.output.UsuarioOutput;
 import com.algaworks.cadufood.api.model.resume.UsuarioSenha;
 import com.algaworks.cadufood.api.model.resume.UsuarioUpdate;
-import com.algaworks.cadufood.core.generic.crud.controller.GenericController;
+import com.algaworks.cadufood.core.generic.crud.controller.ExceptPostPutController;
 import com.algaworks.cadufood.domain.exception.NegocioException;
 import com.algaworks.cadufood.domain.exception.SenhaIncorretaException;
 import com.algaworks.cadufood.domain.exception.SubEntidadeNaoEncontradaException;
@@ -19,11 +19,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/usuarios")
-public class UsuarioController extends GenericController<Usuario, UsuarioInput, UsuarioOutput> {
+public class UsuarioController extends ExceptPostPutController<Usuario, UsuarioInput, UsuarioOutput> {
 
     @Autowired
     private UsuarioService usuarioService;
@@ -33,6 +32,12 @@ public class UsuarioController extends GenericController<Usuario, UsuarioInput, 
 
     public UsuarioController(UsuarioService service, UsuarioMapper mapper) {
         super(service, mapper);
+    }
+
+    @Override
+    @PostMapping
+    public UsuarioOutput salvar(@RequestBody @Valid UsuarioInput usuarioInput) {
+        return super.salvar(usuarioInput);
     }
 
     @PutMapping("/{id}")
@@ -66,27 +71,4 @@ public class UsuarioController extends GenericController<Usuario, UsuarioInput, 
         return super.atualizarParcial(id, fields);
     }
 
-    @Override
-    @GetMapping
-    public List<UsuarioOutput> listar() {
-        return super.listar();
-    }
-
-    @Override
-    @GetMapping("/{id}")
-    public UsuarioOutput buscar(@PathVariable Long id) {
-        return super.buscar(id);
-    }
-
-    @Override
-    @PostMapping
-    public UsuarioOutput salvar(@RequestBody @Valid UsuarioInput usuarioInput) {
-        return super.salvar(usuarioInput);
-    }
-
-    @Override
-    @DeleteMapping
-    public void excluir(@PathVariable Long id) {
-        super.excluir(id);
-    }
 }

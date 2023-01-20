@@ -2,8 +2,8 @@ package com.algaworks.cadufood.core.generic.mapper;
 
 import java.util.HashMap;
 
-// Utilizado quando a classe possui Foreign Keys
-// Que precisam ser desanexadas para a atualização de recurso
+// Comentários: Utilizado quando a classe possui Foreign Keys
+// Que precisam ser desanexadas para a atualização do recurso
 public abstract class DetachedKeyMapper<DomainModel, InputModel, OutputModel> extends GenericMapper<DomainModel, InputModel, OutputModel> {
 
     public DetachedKeyMapper(Class<DomainModel> domainClass, Class<InputModel> inputClass, Class<OutputModel> outputClass) {

@@ -3,23 +3,21 @@ package com.algaworks.cadufood.api.controller;
 import com.algaworks.cadufood.api.model.input.RestauranteInput;
 import com.algaworks.cadufood.api.model.mapper.RestauranteMapper;
 import com.algaworks.cadufood.api.model.output.RestauranteOutput;
-import com.algaworks.cadufood.core.generic.crud.controller.GenericController;
+import com.algaworks.cadufood.core.generic.crud.controller.ExceptGetController;
 import com.algaworks.cadufood.domain.model.Restaurante;
 import com.algaworks.cadufood.domain.model.util.parametrosBusca.RestauranteParametros;
 import com.algaworks.cadufood.domain.service.RestauranteService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/restaurantes")
-public class RestauranteController extends GenericController<Restaurante, RestauranteInput, RestauranteOutput> {
+public class RestauranteController extends ExceptGetController<Restaurante, RestauranteInput, RestauranteOutput> {
 
     @Autowired
     private RestauranteService restauranteService;
@@ -64,6 +62,12 @@ public class RestauranteController extends GenericController<Restaurante, Restau
         return mapper.toOutputCollection(restaurante);
     }
 
+    @Override
+    @GetMapping("/{id}")
+    public RestauranteOutput buscar(@PathVariable Long id) {
+        return super.buscar(id);
+    }
+
     @PutMapping("/{restauranteId}/ativo")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void ativar(@PathVariable Long restauranteId){
@@ -76,34 +80,5 @@ public class RestauranteController extends GenericController<Restaurante, Restau
         restauranteService.inativar(restauranteId);
     }
 
-    @Override
-    @GetMapping("/{id}")
-    public RestauranteOutput buscar(@PathVariable Long id) {
-        return super.buscar(id);
-    }
-
-    @Override
-    @PostMapping
-    public RestauranteOutput salvar(@RequestBody @Valid RestauranteInput restauranteInput) {
-        return super.salvar(restauranteInput);
-    }
-
-    @Override
-    @PutMapping("/{id}")
-    public RestauranteOutput atualizar(@PathVariable Long id, @RequestBody @Valid RestauranteInput restauranteInput) {
-        return super.atualizar(id, restauranteInput);
-    }
-
-    @Override
-    @PatchMapping("/{id}")
-    public RestauranteOutput atualizarParcial(@PathVariable Long id, HashMap<String, Object> fields) {
-        return super.atualizarParcial(id, fields);
-    }
-
-    @Override
-    @DeleteMapping("/{id}")
-    public void excluir(@PathVariable Long id) {
-        super.excluir(id);
-    }
 }
 
