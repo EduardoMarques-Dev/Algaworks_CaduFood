@@ -5,7 +5,7 @@ import com.algaworks.cadufood.core.generic.crud.repository.CustomJpaRepository;
 import com.algaworks.cadufood.core.generic.model.GenericEntity;
 import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
-import com.algaworks.cadufood.domain.exception.SubEntidadeNaoEncontradaException;
+import com.algaworks.cadufood.domain.exception.NegocioException;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -36,7 +36,7 @@ public abstract class GenericService<DomainModel extends GenericEntity<DomainMod
         try {
             return salvarERecarregar(domainModel);
         } catch (DataIntegrityViolationException ex){
-            throw new SubEntidadeNaoEncontradaException();
+            throw new NegocioException(ex);
         }
     }
 

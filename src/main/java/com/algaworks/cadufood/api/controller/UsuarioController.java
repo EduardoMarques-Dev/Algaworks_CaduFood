@@ -9,7 +9,6 @@ import com.algaworks.cadufood.api.model.resume.UsuarioUpdate;
 import com.algaworks.cadufood.core.generic.crud.controller.ExceptPostPutController;
 import com.algaworks.cadufood.domain.exception.NegocioException;
 import com.algaworks.cadufood.domain.exception.SenhaIncorretaException;
-import com.algaworks.cadufood.domain.exception.SubEntidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.model.Usuario;
 import com.algaworks.cadufood.domain.service.UsuarioService;
 import jakarta.validation.Valid;
@@ -47,7 +46,7 @@ public class UsuarioController extends ExceptPostPutController<Usuario, UsuarioI
             mapper.updateEntity(usuarioUpdate, domainModel);
             return mapper.toOutput(usuarioService.recarregar(domainModel));
         } catch (DataIntegrityViolationException ex) {
-            throw new SubEntidadeNaoEncontradaException();
+            throw new NegocioException(ex);
         }
     }
 

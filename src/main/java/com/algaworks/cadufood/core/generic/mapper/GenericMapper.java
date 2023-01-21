@@ -5,8 +5,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -20,28 +22,28 @@ public abstract class GenericMapper<DomainModel, InputModel, OutputModel> {
 
     protected final ModelMapper modelMapper = new ModelMapper();
 
-    public DomainModel toDomain(InputModel cidadeInput) {
-        return modelMapper.map(cidadeInput, domainClass);
+    public DomainModel toDomain(InputModel inputModel) {
+        return modelMapper.map(inputModel, domainClass);
     }
 
-    public OutputModel toOutput(DomainModel cidade) {
-        return modelMapper.map(cidade, outputClass);
+    public OutputModel toOutput(DomainModel domainModel) {
+        return modelMapper.map(domainModel, outputClass);
     }
 
-    public List<DomainModel> toDomainCollection(List<InputModel> cidadeInputs) {
-        return cidadeInputs.stream()
+    public List<DomainModel> toDomainCollection(Collection<InputModel> inputModelList) {
+        return inputModelList.stream()
                 .map(this::toDomain)
                 .collect(Collectors.toList());
     }
 
-    public List<OutputModel> toOutputCollection(List<DomainModel> cidades) {
-        return cidades.stream()
+    public List<OutputModel> toOutputCollection(Collection<DomainModel> domainModelList) {
+        return domainModelList.stream()
                 .map(this::toOutput)
                 .collect(Collectors.toList());
     }
 
-    public Page<OutputModel> toOutputCollection(Page<DomainModel> cidades) {
-        return new PageImpl<>(toOutputCollection(cidades.toList()));
+    public Page<OutputModel> toOutputCollection(Page<DomainModel> domainModelPage) {
+        return new PageImpl<>(toOutputCollection(domainModelPage.toList()));
     }
 
     public void updateEntity(InputModel newEntity, DomainModel currentEntity) {

@@ -4,7 +4,7 @@ import com.algaworks.cadufood.core.generic.crud.service.GenericService;
 import com.algaworks.cadufood.core.generic.mapper.GenericMapper;
 import com.algaworks.cadufood.core.generic.model.DataTransferObject;
 import com.algaworks.cadufood.core.generic.model.GenericEntity;
-import com.algaworks.cadufood.domain.exception.SubEntidadeNaoEncontradaException;
+import com.algaworks.cadufood.domain.exception.NegocioException;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -38,7 +38,6 @@ public abstract class GenericController<
         DomainModel domainModel = mapper.toDomain(inputModel);
         domainModel = service.salvar(domainModel);
         return mapper.toOutput(domainModel);
-
     }
 
     @Transactional
@@ -49,7 +48,7 @@ public abstract class GenericController<
             mapper.updateEntity(inputModel, domainModel);
             return mapper.toOutput(service.recarregar(domainModel));
         } catch (DataIntegrityViolationException ex) {
-            throw new SubEntidadeNaoEncontradaException();
+            throw new NegocioException(ex);
         }
     }
 
@@ -61,7 +60,7 @@ public abstract class GenericController<
             mapper.patchEntity(fields, domainModel);
             return mapper.toOutput(service.recarregar(domainModel));
         } catch (DataIntegrityViolationException ex) {
-            throw new SubEntidadeNaoEncontradaException();
+            throw new NegocioException(ex);
         }
     }
 

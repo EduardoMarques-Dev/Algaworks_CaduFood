@@ -174,3 +174,5 @@ values
         'EDITAR_COZINHAS',
         'Permite editar cozinhas'
     );
+
+insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) values (100, 100), (100, 200), (100, 300), (200, 300), (300, 200), (300, 300), (400, 100), (400, 200), (500, 100), (500, 200), (600, 300);
