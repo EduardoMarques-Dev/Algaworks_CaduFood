@@ -2,18 +2,17 @@ package com.algaworks.cadufood.domain.model;
 
 import com.algaworks.cadufood.core.generic.model.DescriptiveEntity;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @RequiredArgsConstructor
 @Entity
 public class FormaPagamento implements DescriptiveEntity<FormaPagamento> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@EqualsAndHashCode.Include
 	private Long id;
 
 	@Column(nullable = false)

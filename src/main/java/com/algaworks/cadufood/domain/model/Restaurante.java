@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -83,5 +84,11 @@ public class Restaurante implements GenericEntity<Restaurante> {
 
 	public boolean desassociarFormaPagamento(FormaPagamento formaPagamento){
 		return getFormasPagamento().remove(formaPagamento);
+	}
+
+	public List<FormaPagamento> getFormaPagamento(FormaPagamento formaPagamento){
+		return getFormasPagamento().stream().filter(
+				itemFormaPagamento -> itemFormaPagamento.equals(formaPagamento)
+		).toList();
 	}
 }
