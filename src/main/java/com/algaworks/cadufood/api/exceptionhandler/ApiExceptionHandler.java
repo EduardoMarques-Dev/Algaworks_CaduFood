@@ -1,6 +1,9 @@
 package com.algaworks.cadufood.api.exceptionhandler;
 
-import com.algaworks.cadufood.domain.exception.*;
+import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
+import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
+import com.algaworks.cadufood.domain.exception.NegocioException;
+import com.algaworks.cadufood.domain.exception.SenhaIncorretaException;
 import com.algaworks.cadufood.domain.exception.negocio.CidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.exception.negocio.CozinhaNaoEncontradaException;
 import com.algaworks.cadufood.domain.exception.negocio.EstadoNaoEncontradoException;

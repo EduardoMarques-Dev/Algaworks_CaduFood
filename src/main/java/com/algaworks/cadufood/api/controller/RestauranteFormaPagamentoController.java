@@ -1,17 +1,12 @@
 package com.algaworks.cadufood.api.controller;
 
-import com.algaworks.cadufood.api.model.input.FormaPagamentoInput;
 import com.algaworks.cadufood.api.model.mapper.FormaPagamentoMapper;
 import com.algaworks.cadufood.api.model.output.FormaPagamentoOutput;
-import com.algaworks.cadufood.core.generic.crud.controller.GenericController;
-import com.algaworks.cadufood.domain.model.FormaPagamento;
 import com.algaworks.cadufood.domain.model.Restaurante;
 import com.algaworks.cadufood.domain.service.FormaPagamentoService;
 import com.algaworks.cadufood.domain.service.RestauranteService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
