@@ -13,9 +13,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -92,6 +90,13 @@ public class Restaurante implements GenericEntity<Restaurante> {
 		return getFormasPagamento().stream().filter(
 				itemFormaPagamento -> itemFormaPagamento.equals(formaPagamento)
 		).toList();
+	}
+
+	public Collection<?> getSubRecurso(String subRecurso){
+		if (subRecurso.equals("formasPagamento"))
+			return getFormasPagamento();
+		else
+			return new ArrayList<>();
 	}
 
 	@Override

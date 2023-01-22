@@ -16,4 +16,6 @@ public interface GenericEntity<DomainCLass> {
         setCodigo(UUID.randomUUID().toString());
     }
 
+//    Class<? extends GenericEntity> getEntityClass();
+
 }
