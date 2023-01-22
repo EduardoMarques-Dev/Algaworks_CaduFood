@@ -1,5 +1,6 @@
 package com.algaworks.cadufood.domain.model;
 
+import com.algaworks.cadufood.core.generic.model.FatherEntity;
 import com.algaworks.cadufood.core.generic.model.GenericEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -19,7 +20,7 @@ import java.util.*;
 @Setter
 @RequiredArgsConstructor
 @Entity
-public class Restaurante implements GenericEntity<Restaurante> {
+public class Restaurante implements FatherEntity<Restaurante> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -92,16 +93,43 @@ public class Restaurante implements GenericEntity<Restaurante> {
 		).toList();
 	}
 
-	public Collection<?> getSubRecurso(String subRecurso){
-		if (subRecurso.equals("formasPagamento"))
-			return getFormasPagamento();
-		else
-			return new ArrayList<>();
-	}
-
 	@Override
 	@PrePersist
 	public void gerarCodigo() {
-		GenericEntity.super.gerarCodigo();
+		FatherEntity.super.gerarCodigo();
+	}
+
+	@Override
+	public Collection<?> listarSubRecurso(Object subRecurso) {
+		if (((Class) subRecurso).getSimpleName().equals("FormaPagamento")){
+			return getFormasPagamento();
+		}
+		return new ArrayList<>();
+	}
+
+	@Override
+	public Collection<?> buscarSubRecurso(Object subRecurso) {
+		if (subRecurso instanceof FormaPagamento formaPagamento){
+			return getFormasPagamento().stream().filter(
+					itemFormaPagamento -> itemFormaPagamento.equals(formaPagamento)
+			).toList();
+		}
+		return null;
+	}
+
+	@Override
+	public boolean associarSubRecurso(Object subRecurso) {
+		if (subRecurso instanceof FormaPagamento formaPagamento){
+			return getFormasPagamento().add(formaPagamento);
+		}
+		return false;
+	}
+
+	@Override
+	public boolean desassociarSubRecurso(Object subRecurso) {
+		if (subRecurso instanceof FormaPagamento formaPagamento){
+			return getFormasPagamento().remove(formaPagamento);
+		}
+		return false;
 	}
 }

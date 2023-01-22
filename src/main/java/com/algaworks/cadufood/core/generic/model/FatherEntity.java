@@ -4,6 +4,12 @@ import java.util.Collection;
 
 public interface FatherEntity<DomainModel> extends GenericEntity<DomainModel> {
 
-    Collection<?> listarSubRecurso(String subRecurso);
+    Collection<?> listarSubRecurso(Object subRecurso);
+
+    Collection<?> buscarSubRecurso(Object ChildModel);
+
+    boolean associarSubRecurso(Object subRecurso);
+
+    boolean desassociarSubRecurso(Object subRecurso);
 
 }
