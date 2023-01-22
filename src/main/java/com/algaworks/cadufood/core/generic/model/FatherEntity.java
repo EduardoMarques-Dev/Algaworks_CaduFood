@@ -2,14 +2,14 @@ package com.algaworks.cadufood.core.generic.model;
 
 import java.util.Collection;
 
-public interface FatherEntity<DomainModel> extends GenericEntity<DomainModel> {
+public interface FatherEntity extends GenericEntity {
 
     Collection<?> listarSubRecurso(Object subRecurso);
 
     Collection<?> buscarSubRecurso(Object ChildModel);
 
-    boolean associarSubRecurso(Object subRecurso);
+    void associarSubRecurso(Object subRecurso);
 
-    boolean desassociarSubRecurso(Object subRecurso);
+    void desassociarSubRecurso(Object subRecurso);
 
 }

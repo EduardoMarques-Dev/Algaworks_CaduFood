@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 @Entity
-public class Permissao implements GenericEntity<Permissao> {
+public class Permissao implements GenericEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

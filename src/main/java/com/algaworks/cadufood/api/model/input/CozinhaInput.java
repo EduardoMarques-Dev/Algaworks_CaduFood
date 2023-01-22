@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CozinhaInput implements DataTransferObject<CozinhaInput> {
+public class CozinhaInput implements DataTransferObject {
 
     @NotBlank
     private String nome;

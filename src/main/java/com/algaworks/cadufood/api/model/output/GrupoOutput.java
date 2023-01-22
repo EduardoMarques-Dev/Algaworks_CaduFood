@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class GrupoOutput implements DataTransferObject<GrupoOutput> {
+public class GrupoOutput implements DataTransferObject {
 
     private String codigo;
 

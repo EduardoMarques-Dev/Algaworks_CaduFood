@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @AllArgsConstructor
-public abstract class GenericService<DomainModel extends GenericEntity<DomainModel>> {
+public abstract class GenericService<DomainModel extends GenericEntity> {
 
     private final GenericRepository<DomainModel, Long> repository;
 

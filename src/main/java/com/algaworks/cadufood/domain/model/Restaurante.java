@@ -1,7 +1,7 @@
 package com.algaworks.cadufood.domain.model;
 
+import com.algaworks.cadufood.core.generic.model.ActivatableEntity;
 import com.algaworks.cadufood.core.generic.model.FatherEntity;
-import com.algaworks.cadufood.core.generic.model.GenericEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -20,7 +20,7 @@ import java.util.*;
 @Setter
 @RequiredArgsConstructor
 @Entity
-public class Restaurante implements FatherEntity<Restaurante> {
+public class Restaurante implements FatherEntity, ActivatableEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -71,28 +71,6 @@ public class Restaurante implements FatherEntity<Restaurante> {
 	@ToString.Exclude
 	private Set<FormaPagamento> formasPagamento = new HashSet<>();
 
-	public void ativar(){
-		setAtivo(true);
-	}
-
-	public void inativar(){
-		setAtivo(false);
-	}
-
-	public boolean associarFormaPagamento(FormaPagamento formaPagamento){
-		return getFormasPagamento().add(formaPagamento);
-	}
-
-	public boolean desassociarFormaPagamento(FormaPagamento formaPagamento){
-		return getFormasPagamento().remove(formaPagamento);
-	}
-
-	public List<FormaPagamento> getFormaPagamento(FormaPagamento formaPagamento){
-		return getFormasPagamento().stream().filter(
-				itemFormaPagamento -> itemFormaPagamento.equals(formaPagamento)
-		).toList();
-	}
-
 	@Override
 	@PrePersist
 	public void gerarCodigo() {
@@ -118,18 +96,16 @@ public class Restaurante implements FatherEntity<Restaurante> {
 	}
 
 	@Override
-	public boolean associarSubRecurso(Object subRecurso) {
+	public void associarSubRecurso(Object subRecurso) {
 		if (subRecurso instanceof FormaPagamento formaPagamento){
-			return getFormasPagamento().add(formaPagamento);
+			getFormasPagamento().add(formaPagamento);
 		}
-		return false;
 	}
 
 	@Override
-	public boolean desassociarSubRecurso(Object subRecurso) {
+	public void desassociarSubRecurso(Object subRecurso) {
 		if (subRecurso instanceof FormaPagamento formaPagamento){
-			return getFormasPagamento().remove(formaPagamento);
+			getFormasPagamento().remove(formaPagamento);
 		}
-		return false;
 	}
 }

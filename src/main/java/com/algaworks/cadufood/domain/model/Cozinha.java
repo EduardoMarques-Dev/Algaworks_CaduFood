@@ -8,13 +8,12 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Getter
 @Setter
 @RequiredArgsConstructor
 @Entity
-public class Cozinha implements GenericEntity<Cozinha> {
+public class Cozinha implements GenericEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

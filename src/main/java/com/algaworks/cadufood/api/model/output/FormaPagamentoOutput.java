@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class FormaPagamentoOutput implements DataTransferObject<FormaPagamentoOutput> {
+public class FormaPagamentoOutput implements DataTransferObject {
 
     private String codigo;
 

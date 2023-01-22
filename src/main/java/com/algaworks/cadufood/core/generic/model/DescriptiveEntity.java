@@ -1,6 +1,6 @@
 package com.algaworks.cadufood.core.generic.model;
 
-public interface DescriptiveEntity<DomainClass> extends GenericEntity<DomainClass> {
+public interface DescriptiveEntity extends GenericEntity {
 
    String getDescricao();
 

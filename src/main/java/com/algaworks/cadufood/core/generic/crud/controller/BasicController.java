@@ -10,9 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public abstract class BasicController<
-        DomainModel extends GenericEntity<DomainModel>,
-        InputModel extends DataTransferObject<InputModel>,
-        OutputModel extends DataTransferObject<OutputModel>>
+        DomainModel extends GenericEntity,
+        InputModel extends DataTransferObject,
+        OutputModel extends DataTransferObject>
         extends GenericController<DomainModel, InputModel, OutputModel>
         implements AllApiAnnotations<InputModel,OutputModel> {
 

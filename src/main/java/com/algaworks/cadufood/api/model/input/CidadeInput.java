@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CidadeInput implements DataTransferObject<CidadeInput> {
+public class CidadeInput implements DataTransferObject {
 
     @NotBlank
     private String nome;

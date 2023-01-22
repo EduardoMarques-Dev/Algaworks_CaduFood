@@ -2,7 +2,7 @@ package com.algaworks.cadufood.core.generic.model;
 
 import java.util.UUID;
 
-public interface GenericEntity<DomainCLass> {
+public interface GenericEntity {
 
     Long getId();
 

@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @Setter
 @RequiredArgsConstructor
 @Entity
-public class Produto implements GenericEntity<Produto> {
+public class Produto implements GenericEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

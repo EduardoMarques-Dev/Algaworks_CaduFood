@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CozinhaOutput implements DataTransferObject<CozinhaOutput> {
+public class CozinhaOutput implements DataTransferObject {
 
     private String codigo;
 

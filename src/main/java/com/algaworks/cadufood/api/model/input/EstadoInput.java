@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class EstadoInput implements DataTransferObject<EstadoInput> {
+public class EstadoInput implements DataTransferObject {
 
     @NotBlank
     private String nome;

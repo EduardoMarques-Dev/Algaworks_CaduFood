@@ -10,9 +10,9 @@ import com.algaworks.cadufood.core.generic.model.GenericEntity;
 import java.util.List;
 
 public abstract class ExceptPostPutController<
-            DomainModel extends GenericEntity<DomainModel>,
-            InputModel extends DataTransferObject<InputModel>,
-            OutputModel extends DataTransferObject<OutputModel>>
+            DomainModel extends GenericEntity,
+            InputModel extends DataTransferObject,
+            OutputModel extends DataTransferObject>
         extends GenericController<DomainModel, InputModel, OutputModel>
         implements GetAnnotations<OutputModel>, DeleteAnnotations {
 

@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class GrupoInput implements DataTransferObject<GrupoInput> {
+public class GrupoInput implements DataTransferObject {
 
     @NotBlank
     private String nome;

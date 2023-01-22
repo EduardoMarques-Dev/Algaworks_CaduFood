@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @RequiredArgsConstructor
 @Entity
-public class Usuario implements GenericEntity<Usuario> {
+public class Usuario implements GenericEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

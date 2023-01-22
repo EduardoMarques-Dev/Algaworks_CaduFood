@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-public class RestauranteInput implements DataTransferObject<RestauranteInput> {
+public class RestauranteInput implements DataTransferObject {
 
     @NotBlank
     private String nome;

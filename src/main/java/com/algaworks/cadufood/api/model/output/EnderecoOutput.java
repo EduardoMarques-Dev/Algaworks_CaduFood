@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class EnderecoOutput implements DataTransferObject<EnderecoOutput> {
+public class EnderecoOutput implements DataTransferObject {
 
     private String cep;
 

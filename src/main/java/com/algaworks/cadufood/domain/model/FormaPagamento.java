@@ -1,7 +1,6 @@
 package com.algaworks.cadufood.domain.model;
 
 import com.algaworks.cadufood.core.generic.model.DescriptiveEntity;
-import com.algaworks.cadufood.core.generic.model.GenericEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @RequiredArgsConstructor
 @Entity
-public class FormaPagamento implements DescriptiveEntity<FormaPagamento> {
+public class FormaPagamento implements DescriptiveEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CidadeOutput implements DataTransferObject<CidadeOutput> {
+public class CidadeOutput implements DataTransferObject {
 
     private String codigo;
 
