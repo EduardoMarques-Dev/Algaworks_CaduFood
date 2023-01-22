@@ -1,7 +1,6 @@
 package com.algaworks.cadufood.api.model.output;
 
 import com.algaworks.cadufood.core.generic.model.DataTransferObject;
-import com.algaworks.cadufood.domain.model.Produto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +13,7 @@ import java.util.List;
 @Setter
 public class RestauranteOutput implements DataTransferObject<RestauranteOutput> {
 
-    private Long id;
+    private String codigo;
 
     private String nome;
 
@@ -31,7 +30,7 @@ public class RestauranteOutput implements DataTransferObject<RestauranteOutput> 
     @JsonProperty("cozinha")
     private String nomeCozinha;
 
-    private List<Produto> produto;
+//    private List<Produto> produto;
 
     private List<FormaPagamentoOutput> formasPagamento;
 

@@ -7,23 +7,19 @@ public class EntidadeNaoEncontradaException extends NegocioException {
 	public static final String NAO_EXISTE = "Não existe registro";
 
 	public static final String NAO_EXISTE_CODIGO
-			= "Não existe registro de código %d";
+			= "Não existe registro de código %s";
 
 	public static final String NAO_EXISTE_OBJETO
 			= "Não existe registro do objeto %s";
 
 	public static final String NAO_EXISTE_CADASTRO_COM_CODIGO
-			= "Não existe registro do objeto %s com código %d";
-
-	public EntidadeNaoEncontradaException(String mensagem) {
-		super(mensagem);
-	}
+			= "Não existe registro do objeto %s com código %s";
 
 	public EntidadeNaoEncontradaException() {
 		super(NAO_EXISTE);
 	}
 
-	public EntidadeNaoEncontradaException(Long codigo) {
+	public EntidadeNaoEncontradaException(String codigo) {
 		super(String.format(NAO_EXISTE_CODIGO, codigo));
 	}
 
@@ -31,7 +27,7 @@ public class EntidadeNaoEncontradaException extends NegocioException {
 		super(String.format(NAO_EXISTE_OBJETO, classe.getSimpleName()));
 	}
 
-	public EntidadeNaoEncontradaException(Class classe, Long codigo) {
+	public EntidadeNaoEncontradaException(Class classe, String codigo) {
 		super(String.format(NAO_EXISTE_CADASTRO_COM_CODIGO, classe.getSimpleName(), codigo));
 	}
 

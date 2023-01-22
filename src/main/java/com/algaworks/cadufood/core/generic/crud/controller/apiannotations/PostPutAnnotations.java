@@ -10,10 +10,10 @@ public interface PostPutAnnotations<InputModel, OutputModel> {
     @PostMapping
     public OutputModel salvar(@RequestBody @Valid InputModel inputModel);
 
-    @PutMapping("/{id}")
-    public OutputModel atualizar(@PathVariable Long id, @RequestBody @Valid InputModel inputModel);
+    @PutMapping("/{codigo}")
+    public OutputModel atualizar(@PathVariable String codigo, @RequestBody @Valid InputModel inputModel);
 
-    @PatchMapping("/{id}")
-    public OutputModel atualizarParcial(@PathVariable Long id, @RequestBody HashMap<String, Object> fields);
+    @PatchMapping("/{codigo}")
+    public OutputModel atualizarParcial(@PathVariable String codigo, @RequestBody HashMap<String, Object> fields);
 
 }

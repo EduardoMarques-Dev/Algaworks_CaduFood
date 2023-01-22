@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class CidadeOutput implements DataTransferObject<CidadeOutput> {
 
-    private Long id;
+    private String codigo;
 
     private String nome;
 

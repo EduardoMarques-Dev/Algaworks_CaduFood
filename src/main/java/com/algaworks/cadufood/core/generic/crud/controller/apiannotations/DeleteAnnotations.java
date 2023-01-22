@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 public interface DeleteAnnotations {
 
-    @DeleteMapping("/{id}")
-    void excluir(@PathVariable Long id);
+    @DeleteMapping("/{codigo}")
+    void excluir(@PathVariable String codigo);
 
 }

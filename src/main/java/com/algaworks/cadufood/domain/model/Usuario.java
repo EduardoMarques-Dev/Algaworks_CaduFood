@@ -21,6 +21,9 @@ public class Usuario implements GenericEntity<Usuario> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, nullable = false)
+    private String codigo;
+
     @Column(nullable = false)
     private String nome;
 
@@ -46,4 +49,9 @@ public class Usuario implements GenericEntity<Usuario> {
             inverseJoinColumns = @JoinColumn(name = "grupo_id"))
     private List<Grupo> grupos;
 
+    @Override
+    @PrePersist
+    public void gerarCodigo() {
+        GenericEntity.super.gerarCodigo();
+    }
 }

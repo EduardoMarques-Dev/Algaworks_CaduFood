@@ -6,7 +6,8 @@ public class CidadeNaoEncontradaException extends EntidadeNaoEncontradaException
 
     private static final long serialVersionUID = 1L;
     
-    public CidadeNaoEncontradaException(Class classe, Long codigo) {
+    public CidadeNaoEncontradaException(Class classe, String codigo) {
         super(classe, codigo);
     }
+
 }

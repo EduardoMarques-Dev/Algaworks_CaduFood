@@ -39,10 +39,10 @@ public class UsuarioController extends ExceptPostPutController<Usuario, UsuarioI
         return super.salvar(usuarioInput);
     }
 
-    @PutMapping("/{id}")
-    public UsuarioOutput atualizar(@PathVariable Long id, @RequestBody @Valid UsuarioUpdate usuarioUpdate) {
+    @PutMapping("/{codigo}")
+    public UsuarioOutput atualizar(@PathVariable String codigo, @RequestBody @Valid UsuarioUpdate usuarioUpdate) {
         try {
-            Usuario domainModel = usuarioService.buscar(id);
+            Usuario domainModel = usuarioService.buscar(codigo);
             mapper.updateEntity(usuarioUpdate, domainModel);
             return mapper.toOutput(usuarioService.recarregar(domainModel));
         } catch (DataIntegrityViolationException ex) {
@@ -50,10 +50,10 @@ public class UsuarioController extends ExceptPostPutController<Usuario, UsuarioI
         }
     }
 
-    @PutMapping("/{id}/senha")
+    @PutMapping("/{codigo}/senha")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void atualizarSenha(@PathVariable Long id, @RequestBody @Valid UsuarioSenha usuarioSenha) {
-            Usuario domainModel = usuarioService.buscar(id);
+    public void atualizarSenha(@PathVariable String codigo, @RequestBody @Valid UsuarioSenha usuarioSenha) {
+            Usuario domainModel = usuarioService.buscar(codigo);
             if (domainModel.getSenha().equals(usuarioSenha.getSenhaAtual())){
                 domainModel.setSenha(usuarioSenha.getNovaSenha());
             } else {
@@ -62,12 +62,12 @@ public class UsuarioController extends ExceptPostPutController<Usuario, UsuarioI
     }
 
     @Override
-    @PatchMapping("/{id}")
-    public UsuarioOutput atualizarParcial(@PathVariable Long id, @RequestBody @Valid HashMap<String, Object> fields) {
+    @PatchMapping("/{codigo}")
+    public UsuarioOutput atualizarParcial(@PathVariable String codigo, @RequestBody @Valid HashMap<String, Object> fields) {
         if(fields.containsKey("senha")){
             throw new NegocioException("Não é permitido atualizar a senha desta maneira");
         }
-        return super.atualizarParcial(id, fields);
+        return super.atualizarParcial(codigo, fields);
     }
 
 }

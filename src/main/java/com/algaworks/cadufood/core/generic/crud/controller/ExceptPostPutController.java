@@ -25,14 +25,14 @@ public abstract class ExceptPostPutController<
         return super.listar();
     }
 
+
     @Override
-    public OutputModel buscar(Long id) {
-        return super.buscar(id);
+    public OutputModel buscar(String codigo) {
+        return super.buscar(codigo);
     }
 
     @Override
-    public void excluir(Long id) {
-        super.excluir(id);
+    public void excluir(String codigo) {
+        super.excluir(codigo);
     }
-
 }

@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class UsuarioOutput implements DataTransferObject<UsuarioOutput> {
 
-    private Long id;
+    private String codigo;
 
     private String nome;
 

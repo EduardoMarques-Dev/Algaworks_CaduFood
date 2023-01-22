@@ -19,11 +19,11 @@ public class CozinhaService extends GenericService<Cozinha> {
 	}
 
 	@Override
-	public Cozinha buscar(Long domainModelId) {
+	public Cozinha buscar(String cozinhaCodigo) {
 		try {
-			return super.buscar(domainModelId);
+			return super.buscar(cozinhaCodigo);
 		}catch (EntidadeNaoEncontradaException ex){
-			throw new CozinhaNaoEncontradaException(Cozinha.class, domainModelId);
+			throw new CozinhaNaoEncontradaException(Cozinha.class, cozinhaCodigo);
 		}
 	}
 

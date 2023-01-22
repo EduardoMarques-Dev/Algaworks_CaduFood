@@ -2,15 +2,11 @@ package com.algaworks.cadufood.core.generic.model;
 
 public interface DescriptiveEntity<DomainClass> extends GenericEntity<DomainClass> {
 
-    String getDescricao();
+   String getDescricao();
 
-    @Override
-    default String getNome(){
+   @Override
+   default String getNome(){
         return getDescricao();
     }
 
-    @Override
-    default String getNomeField() {
-        return "descricao";
-    }
 }

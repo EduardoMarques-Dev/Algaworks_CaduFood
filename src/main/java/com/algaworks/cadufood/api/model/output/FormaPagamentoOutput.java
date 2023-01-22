@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class FormaPagamentoOutput implements DataTransferObject<FormaPagamentoOutput> {
 
-    private Long id;
+    private String codigo;
 
     private String descricao;
 

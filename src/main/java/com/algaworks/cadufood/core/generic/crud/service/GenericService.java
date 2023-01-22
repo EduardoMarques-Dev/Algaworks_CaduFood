@@ -1,7 +1,7 @@
 package com.algaworks.cadufood.core.generic.crud.service;
 
 import com.algaworks.cadufood.core.generic.ParametrosBusca;
-import com.algaworks.cadufood.core.generic.crud.repository.CustomJpaRepository;
+import com.algaworks.cadufood.core.generic.crud.repository.GenericRepository;
 import com.algaworks.cadufood.core.generic.model.GenericEntity;
 import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
@@ -16,15 +16,16 @@ import java.util.List;
 @AllArgsConstructor
 public abstract class GenericService<DomainModel extends GenericEntity<DomainModel>> {
 
-    private final CustomJpaRepository<DomainModel, Long> repository;
+    private final GenericRepository<DomainModel, Long> repository;
 
     public List<DomainModel> listar() {
         return repository.findAll();
     }
 
-    public DomainModel buscar(Long domainModelId) {
-        return buscarDomainModelOuFalhar(domainModelId);
+    public DomainModel buscar(String domainModelCodigo) {
+        return buscarDomainModelOuFalhar(domainModelCodigo);
     }
+
 
     public List<DomainModel> buscarPersonalizado(ParametrosBusca<DomainModel> parametrosBusca) {
         return repository.
@@ -41,20 +42,20 @@ public abstract class GenericService<DomainModel extends GenericEntity<DomainMod
     }
 
     @Transactional
-    public void excluir(Long idDomainModel) {
+    public void excluir(String domainModelCodigo) {
         try{
-            repository.deleteById(idDomainModel);
+            repository.deleteByCodigo(domainModelCodigo);
             repository.flush();
         } catch (EmptyResultDataAccessException ex){
-            throw new EntidadeNaoEncontradaException(idDomainModel);
+            throw new EntidadeNaoEncontradaException(domainModelCodigo);
         } catch (DataIntegrityViolationException ex){
             throw new EntidadeEmUsoException();
         }
     }
 
-    private DomainModel buscarDomainModelOuFalhar(Long idDomainModel) {
-        return repository.findById(idDomainModel).orElseThrow(() -> new EntidadeNaoEncontradaException(
-                idDomainModel
+    private DomainModel buscarDomainModelOuFalhar(String domainModelCodigo) {
+        return repository.findByCodigo(domainModelCodigo).orElseThrow(() -> new EntidadeNaoEncontradaException(
+                domainModelCodigo
         ));
     }
 

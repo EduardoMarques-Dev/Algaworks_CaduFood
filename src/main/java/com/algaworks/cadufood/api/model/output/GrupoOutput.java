@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class GrupoOutput implements DataTransferObject<GrupoOutput> {
 
-    private Long id;
+    private String codigo;
 
     private String nome;
 

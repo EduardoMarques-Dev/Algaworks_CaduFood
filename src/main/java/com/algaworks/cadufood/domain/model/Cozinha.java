@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -18,6 +19,9 @@ public class Cozinha implements GenericEntity<Cozinha> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@Column(unique = true, nullable = false)
+	private String codigo;
 	
 	@Column(nullable = false)
 	private String nome;
@@ -25,4 +29,9 @@ public class Cozinha implements GenericEntity<Cozinha> {
 	@OneToMany(mappedBy = "cozinha")
 	private List<Restaurante> restaurantes = new ArrayList<>();
 
+	@Override
+	@PrePersist
+	public void gerarCodigo() {
+		GenericEntity.super.gerarCodigo();
+	}
 }

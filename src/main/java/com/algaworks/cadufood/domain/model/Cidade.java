@@ -15,6 +15,9 @@ public class Cidade implements GenericEntity<Cidade> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@Column(unique = true, nullable = false)
+	private String codigo;
 	
 	@Column(nullable = false)
 	private String nome;
@@ -22,5 +25,11 @@ public class Cidade implements GenericEntity<Cidade> {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Estado estado;
+
+	@Override
+	@PrePersist
+	public void gerarCodigo() {
+		GenericEntity.super.gerarCodigo();
+	}
 
 }

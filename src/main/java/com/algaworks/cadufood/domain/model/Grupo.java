@@ -1,5 +1,6 @@
 package com.algaworks.cadufood.domain.model;
 
+import com.algaworks.cadufood.core.generic.model.DescriptiveEntity;
 import com.algaworks.cadufood.core.generic.model.GenericEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -21,10 +22,19 @@ public class Grupo implements GenericEntity<Grupo> {
     @Column(nullable = false)
     private String nome;
 
+    @Column(unique = true, nullable = false)
+    private String codigo;
+
     @ManyToMany
     @JoinTable(name = "grupo_permissao",
             joinColumns = @JoinColumn(name = "grupo_id"),
             inverseJoinColumns = @JoinColumn(name = "permissao_id"))
     private List<Permissao> permissoes;
+
+    @Override
+    @PrePersist
+    public void gerarCodigo() {
+        GenericEntity.super.gerarCodigo();
+    }
 
 }

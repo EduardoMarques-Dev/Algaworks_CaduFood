@@ -24,7 +24,7 @@ public class RestauranteService extends GenericService<Restaurante> {
 	}
 
 	@Override
-	public Restaurante buscar(Long domainModelId) {
+	public Restaurante buscar(String domainModelId) {
 		try{
 			return super.buscar(domainModelId);
 		}catch (EntidadeNaoEncontradaException ex){
@@ -33,29 +33,29 @@ public class RestauranteService extends GenericService<Restaurante> {
 	}
 
 	@Transactional
-	public void associarFormaPagamento(Long restauranteId, Long formaPagamentoId) {
-		Restaurante restaurante = buscar(restauranteId);
-		FormaPagamento formaPagamento = formaPagamentoService.buscar(formaPagamentoId);
+	public void associarFormaPagamento(String restauranteCodigo, String formaPagamentoCodigo) {
+		Restaurante restaurante = buscar(restauranteCodigo);
+		FormaPagamento formaPagamento = formaPagamentoService.buscar(formaPagamentoCodigo);
 		restaurante.associarFormaPagamento(formaPagamento);
 	}
 
 	@Transactional
-	public void desassociarFormaPagamento(Long restauranteId, Long formaPagamentoId) {
-		Restaurante restaurante = buscar(restauranteId);
-		FormaPagamento formaPagamento = formaPagamentoService.buscar(formaPagamentoId);
+	public void desassociarFormaPagamento(String restauranteCodigo, String formaPagamentoCodigo) {
+		Restaurante restaurante = buscar(restauranteCodigo);
+		FormaPagamento formaPagamento = formaPagamentoService.buscar(formaPagamentoCodigo);
 		restaurante.desassociarFormaPagamento(formaPagamento);
 	}
 
 
 	@Transactional
-	public void ativar(Long idRestaurante){
-		Restaurante restauranteAtual = buscar(idRestaurante);
+	public void ativar(String restauranteCodigo){
+		Restaurante restauranteAtual = buscar(restauranteCodigo);
 		restauranteAtual.ativar();
 	}
 
 	@Transactional
-	public void inativar(Long idRestaurante){
-		Restaurante restauranteAtual = buscar(idRestaurante);
+	public void inativar(String restauranteCodigo){
+		Restaurante restauranteAtual = buscar(restauranteCodigo);
 		restauranteAtual.inativar();
 	}
 

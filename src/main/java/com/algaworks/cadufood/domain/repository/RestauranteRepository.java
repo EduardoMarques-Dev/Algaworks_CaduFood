@@ -1,6 +1,6 @@
 package com.algaworks.cadufood.domain.repository;
 
-import com.algaworks.cadufood.core.generic.crud.repository.CustomJpaRepository;
+import com.algaworks.cadufood.core.generic.crud.repository.GenericRepository;
 import com.algaworks.cadufood.domain.model.Restaurante;
 import com.algaworks.cadufood.domain.repository.util.interfacequeries.RestauranteRepositoryQueries;
 import org.springframework.stereotype.Repository;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 // CLASSE DE EXEMPLO
 @Repository
 public interface RestauranteRepository extends
-        CustomJpaRepository<Restaurante, Long>,
+        GenericRepository<Restaurante, Long>,
         RestauranteRepositoryQueries {
 
 }

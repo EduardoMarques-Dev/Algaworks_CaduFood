@@ -28,8 +28,8 @@ public abstract class GenericController<
         return mapper.toOutputCollection(service.listar());
     }
 
-    public OutputModel buscar(Long id) {
-        DomainModel domainModel = service.buscar(id);
+    public OutputModel buscar(String codigo) {
+        DomainModel domainModel = service.buscar(codigo);
         return mapper.toOutput(domainModel);
     }
 
@@ -41,10 +41,10 @@ public abstract class GenericController<
     }
 
     @Transactional
-    public OutputModel atualizar(Long id,
+    public OutputModel atualizar(String codigo,
                                  InputModel inputModel) {
         try {
-            DomainModel domainModel = service.buscar(id);
+            DomainModel domainModel = service.buscar(codigo);
             mapper.updateEntity(inputModel, domainModel);
             return mapper.toOutput(service.recarregar(domainModel));
         } catch (DataIntegrityViolationException ex) {
@@ -53,10 +53,10 @@ public abstract class GenericController<
     }
 
     @Transactional
-    public OutputModel atualizarParcial(Long id,
+    public OutputModel atualizarParcial(String codigo,
                                         HashMap<String,Object> fields) {
         try {
-            DomainModel domainModel = service.buscar(id);
+            DomainModel domainModel = service.buscar(codigo);
             mapper.patchEntity(fields, domainModel);
             return mapper.toOutput(service.recarregar(domainModel));
         } catch (DataIntegrityViolationException ex) {
@@ -65,7 +65,7 @@ public abstract class GenericController<
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void excluir(Long id) {
-        service.excluir(id);
+    public void excluir(String codigo) {
+        service.excluir(codigo);
     }
 }

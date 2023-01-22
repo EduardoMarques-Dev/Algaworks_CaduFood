@@ -10,12 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(value = "/restaurantes/{restauranteId}/formas-pagamento")
+@RequestMapping(value = "/restaurantes/{restauranteCodigo}/formas-pagamento")
 public class RestauranteFormaPagamentoController {
 
     @Autowired
@@ -28,28 +26,28 @@ public class RestauranteFormaPagamentoController {
     private FormaPagamentoMapper mapper;
 
     @GetMapping
-    public List<FormaPagamentoOutput> listarFormaPagamento(@PathVariable Long restauranteId) {
-        Restaurante restaurante = restauranteService.buscar(restauranteId);
+    public List<FormaPagamentoOutput> listarFormaPagamento(@PathVariable String restauranteCodigo) {
+        Restaurante restaurante = restauranteService.buscar(restauranteCodigo);
         return mapper.toOutputCollection(restaurante.getFormasPagamento());
     }
 
-    @GetMapping("/{formaPagamentoId}")
-    public List<FormaPagamentoOutput> buscarFormaPagamento(@PathVariable Long restauranteId, @PathVariable Long formaPagamentoId) {
-        Restaurante restaurante = restauranteService.buscar(restauranteId);
-        FormaPagamento formaPagamento = formaPagamentoService.buscar(formaPagamentoId);
+    @GetMapping("/{formaPagamentoCodigo}")
+    public List<FormaPagamentoOutput> buscarFormaPagamento(@PathVariable String restauranteCodigo, @PathVariable String formaPagamentoCodigo) {
+        Restaurante restaurante = restauranteService.buscar(restauranteCodigo);
+        FormaPagamento formaPagamento = formaPagamentoService.buscar(formaPagamentoCodigo);
         return mapper.toOutputCollection(restaurante.getFormaPagamento(formaPagamento));
     }
 
-    @PostMapping("/{formaPagamentoId}")
+    @PostMapping("/{formaPagamentoCodigo}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void associarFormaPagamento(@PathVariable Long restauranteId, @PathVariable Long formaPagamentoId) {
-        restauranteService.associarFormaPagamento(restauranteId, formaPagamentoId);
+    public void associarFormaPagamento(@PathVariable String restauranteCodigo, @PathVariable String formaPagamentoCodigo) {
+        restauranteService.associarFormaPagamento(restauranteCodigo, formaPagamentoCodigo);
     }
 
-    @DeleteMapping("/{formaPagamentoId}")
+    @DeleteMapping("/{formaPagamentoCodigo}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void DesassociarFormaPagamento(@PathVariable Long restauranteId, @PathVariable Long formaPagamentoId) {
-        restauranteService.desassociarFormaPagamento(restauranteId, formaPagamentoId);
+    public void DesassociarFormaPagamento(@PathVariable String restauranteCodigo, @PathVariable String formaPagamentoCodigo) {
+        restauranteService.desassociarFormaPagamento(restauranteCodigo, formaPagamentoCodigo);
     }
 
 }

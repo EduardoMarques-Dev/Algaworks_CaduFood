@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class CozinhaOutput implements DataTransferObject<CozinhaOutput> {
 
-    private Long id;
+    private String codigo;
 
     private String nome;
 

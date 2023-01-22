@@ -63,21 +63,21 @@ public class RestauranteController extends ExceptGetController<Restaurante, Rest
     }
 
     @Override
-    @GetMapping("/{id}")
-    public RestauranteOutput buscar(@PathVariable Long id) {
-        return super.buscar(id);
+    @GetMapping("/{codigo}")
+    public RestauranteOutput buscar(@PathVariable String codigo) {
+        return super.buscar(codigo);
     }
 
-    @PutMapping("/{restauranteId}/ativo")
+    @PutMapping("/{restauranteCodigo}/ativo")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void ativar(@PathVariable Long restauranteId){
-        restauranteService.ativar(restauranteId);
+    public void ativar(@PathVariable String restauranteCodigo){
+        restauranteService.ativar(restauranteCodigo);
     }
 
-    @DeleteMapping("/{restauranteId}/ativo")
+    @DeleteMapping("/{restauranteCodigo}/ativo")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void inativar(@PathVariable Long restauranteId){
-        restauranteService.inativar(restauranteId);
+    public void inativar(@PathVariable String restauranteCodigo){
+        restauranteService.inativar(restauranteCodigo);
     }
 
 }

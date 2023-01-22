@@ -26,18 +26,17 @@ public abstract class ExceptGetController<
     }
 
     @Override
-    public OutputModel atualizar(Long id, InputModel inputModel) {
-        return super.atualizar(id, inputModel);
+    public OutputModel atualizar(String codigo, InputModel inputModel) {
+        return super.atualizar(codigo, inputModel);
     }
 
     @Override
-    public OutputModel atualizarParcial(Long id, HashMap<String, Object> fields) {
-        return super.atualizarParcial(id, fields);
+    public OutputModel atualizarParcial(String codigo, HashMap<String, Object> fields) {
+        return super.atualizarParcial(codigo, fields);
     }
 
     @Override
-    public void excluir(Long id) {
-        super.excluir(id);
+    public void excluir(String codigo) {
+        super.excluir(codigo);
     }
-
 }

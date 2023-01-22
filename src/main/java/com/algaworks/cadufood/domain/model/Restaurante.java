@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -27,6 +26,9 @@ public class Restaurante implements GenericEntity<Restaurante> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@Column(unique = true)
+	private String codigo;
 
 	@Column(nullable = false)
 	private String nome;
@@ -90,5 +92,11 @@ public class Restaurante implements GenericEntity<Restaurante> {
 		return getFormasPagamento().stream().filter(
 				itemFormaPagamento -> itemFormaPagamento.equals(formaPagamento)
 		).toList();
+	}
+
+	@Override
+	@PrePersist
+	public void gerarCodigo() {
+		GenericEntity.super.gerarCodigo();
 	}
 }

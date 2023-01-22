@@ -6,7 +6,8 @@ public class RestauranteNaoEncontradoException extends EntidadeNaoEncontradaExce
 
     private static final long serialVersionUID = 1L;
 
-    public RestauranteNaoEncontradoException(Class classe, Long codigo) {
+    public RestauranteNaoEncontradoException(Class classe, String codigo) {
         super(classe, codigo);
     }
+
 }

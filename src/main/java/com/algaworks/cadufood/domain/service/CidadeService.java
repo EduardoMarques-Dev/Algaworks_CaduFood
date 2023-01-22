@@ -19,11 +19,11 @@ public class CidadeService extends GenericService<Cidade> {
 	}
 
 	@Override
-	public Cidade buscar(Long domainModelId) {
+	public Cidade buscar(String cidadeCodigo) {
 		try{
-			return super.buscar(domainModelId);
+			return super.buscar(cidadeCodigo);
 		}catch (EntidadeNaoEncontradaException ex){
-			throw new CidadeNaoEncontradaException(Cidade.class, domainModelId);
+			throw new CidadeNaoEncontradaException(Cidade.class, cidadeCodigo);
 		}
 	}
 

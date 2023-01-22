@@ -1,6 +1,7 @@
 package com.algaworks.cadufood.domain.service;
 
 import com.algaworks.cadufood.core.generic.crud.repository.CustomJpaRepository;
+import com.algaworks.cadufood.core.generic.crud.repository.GenericRepository;
 import com.algaworks.cadufood.core.generic.crud.service.GenericService;
 import com.algaworks.cadufood.domain.exception.NegocioException;
 import com.algaworks.cadufood.domain.model.Usuario;
@@ -17,7 +18,7 @@ public class UsuarioService extends GenericService<Usuario> {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public UsuarioService(CustomJpaRepository<Usuario, Long> repository) {
+    public UsuarioService(UsuarioRepository repository) {
         super(repository);
     }
 

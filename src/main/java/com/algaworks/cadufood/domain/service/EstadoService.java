@@ -19,11 +19,11 @@ public class EstadoService extends GenericService<Estado> {
 	}
 
 	@Override
-	public Estado buscar(Long domainModelId) {
+	public Estado buscar(String estadoCodigo) {
 		try{
-			return super.buscar(domainModelId);
+			return super.buscar(estadoCodigo);
 		}catch (EntidadeNaoEncontradaException ex){
-			throw new EstadoNaoEncontradoException(Estado.class, domainModelId);
+			throw new EstadoNaoEncontradoException(Estado.class, estadoCodigo);
 		}
 	}
 
