@@ -16,5 +16,4 @@ public interface CustomJpaRepository<T, ID> extends JpaRepository<T, ID> {
 
     void detach(T entity);
 
-
 }

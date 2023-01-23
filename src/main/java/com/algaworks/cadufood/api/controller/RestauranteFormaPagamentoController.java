@@ -30,7 +30,7 @@ public class RestauranteFormaPagamentoController extends SubResourceController<
     private FormaPagamentoMapper mapper;
 
     public RestauranteFormaPagamentoController(RestauranteService fatherService, FormaPagamentoService childService, FormaPagamentoMapper childMapper) {
-        super(new FormaPagamento(), "formasPagamento", fatherService, childService, childMapper);
+        super("formasPagamento", fatherService, childService, childMapper);
     }
 
 }

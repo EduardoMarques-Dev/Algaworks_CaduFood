@@ -8,7 +8,7 @@ public interface FatherEntity extends GenericEntity {
 
     Map<String, Collection> getSubRecursos();
 
-    default Collection<?> listarSubRecurso(String chave, Object subRecurso){
+    default Collection<?> listarSubRecurso(String chave){
         Map<String, Collection> subRecursos = getSubRecursos();
         return subRecursos.containsKey(chave) ?
                 subRecursos.get(chave).stream().toList() : new ArrayList<>();
