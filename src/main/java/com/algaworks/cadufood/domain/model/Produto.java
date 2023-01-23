@@ -7,11 +7,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
+
+@Entity
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Entity
 public class Produto implements GenericEntity {
 
     @Id
@@ -42,5 +44,17 @@ public class Produto implements GenericEntity {
     @PrePersist
     public void gerarCodigo() {
         GenericEntity.super.gerarCodigo();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Produto produto)) return false;
+        return Objects.equals(getId(), produto.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 }

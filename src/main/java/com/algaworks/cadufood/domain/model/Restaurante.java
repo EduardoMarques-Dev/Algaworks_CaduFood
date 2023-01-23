@@ -16,10 +16,11 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
 
+
+@Entity
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Entity
 public class Restaurante implements FatherEntity, ActivatableEntity {
 
 	@Id
@@ -83,5 +84,17 @@ public class Restaurante implements FatherEntity, ActivatableEntity {
 		subRecursos.put("formasPagamento", getFormasPagamento());
 		subRecursos.put("produto", getProduto());
 		return subRecursos;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Restaurante that)) return false;
+		return Objects.equals(getId(), that.getId());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getId());
 	}
 }

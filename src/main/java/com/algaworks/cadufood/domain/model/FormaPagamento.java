@@ -2,18 +2,19 @@ package com.algaworks.cadufood.domain.model;
 
 import com.algaworks.cadufood.core.generic.model.DescriptiveEntity;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@RequiredArgsConstructor
+import java.util.Objects;
+
+
 @Entity
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class FormaPagamento implements DescriptiveEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@EqualsAndHashCode.Include
 	private Long id;
 
@@ -27,5 +28,17 @@ public class FormaPagamento implements DescriptiveEntity {
 	@PrePersist
 	public void gerarCodigo() {
 		DescriptiveEntity.super.gerarCodigo();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof FormaPagamento that)) return false;
+		return Objects.equals(getId(), that.getId());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getId());
 	}
 }

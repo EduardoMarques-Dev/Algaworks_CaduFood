@@ -8,11 +8,13 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+
+@Entity
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Entity
 public class Cozinha implements GenericEntity {
 
 	@Id
@@ -32,5 +34,17 @@ public class Cozinha implements GenericEntity {
 	@PrePersist
 	public void gerarCodigo() {
 		GenericEntity.super.gerarCodigo();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Cozinha cozinha)) return false;
+		return Objects.equals(getId(), cozinha.getId());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getId());
 	}
 }

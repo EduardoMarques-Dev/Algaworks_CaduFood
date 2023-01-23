@@ -8,10 +8,11 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+
+@Embeddable
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Embeddable
 public class Endereco {
 
     @Column(name = "endereco_cep",

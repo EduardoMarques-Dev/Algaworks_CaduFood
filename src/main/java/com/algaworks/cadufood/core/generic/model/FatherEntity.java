@@ -9,13 +9,13 @@ public interface FatherEntity extends GenericEntity {
     Map<String, Collection> getSubRecursos();
 
     default Collection<?> listarSubRecurso(String chave){
-        Map<String, Collection> subRecursos = getSubRecursos();
+        var subRecursos = getSubRecursos();
         return subRecursos.containsKey(chave) ?
                 subRecursos.get(chave).stream().toList() : new ArrayList<>();
     }
 
     default Collection<?> buscarSubRecurso(String chave, Object subRecurso) {
-        Map<String, Collection> subRecursos = getSubRecursos();
+        var subRecursos = getSubRecursos();
         if (subRecursos.containsKey(chave)){
             return subRecursos.get(chave).stream().filter(
                     x -> x.equals(subRecurso)
@@ -25,14 +25,14 @@ public interface FatherEntity extends GenericEntity {
     }
 
     default void associarSubRecurso(String chave, Object subRecurso) {
-        Map<String, Collection> subRecursos = getSubRecursos();
+        var subRecursos = getSubRecursos();
         if (subRecursos.containsKey(chave)){
             subRecursos.get(chave).add(subRecurso);
         }
     }
 
     default void desassociarSubRecurso(String chave, Object subRecurso) {
-        Map<String, Collection> subRecursos = getSubRecursos();
+        var subRecursos = getSubRecursos();
         if (subRecursos.containsKey(chave)){
             subRecursos.get(chave).remove(subRecurso);
         }

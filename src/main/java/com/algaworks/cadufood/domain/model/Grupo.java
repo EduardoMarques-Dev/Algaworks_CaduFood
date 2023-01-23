@@ -7,11 +7,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Objects;
 
+
+@Entity
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Entity
 public class Grupo implements GenericEntity {
 
     @Id
@@ -36,4 +38,15 @@ public class Grupo implements GenericEntity {
         GenericEntity.super.gerarCodigo();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Grupo grupo)) return false;
+        return Objects.equals(getId(), grupo.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 }

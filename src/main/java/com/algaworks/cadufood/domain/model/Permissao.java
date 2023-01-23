@@ -6,10 +6,13 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.util.Objects;
+
+
+@Entity
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Entity
 public class Permissao implements GenericEntity {
 
 	@Id
@@ -29,5 +32,17 @@ public class Permissao implements GenericEntity {
 	@PrePersist
 	public void gerarCodigo() {
 		GenericEntity.super.gerarCodigo();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Permissao permissao)) return false;
+		return Objects.equals(getId(), permissao.getId());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getId());
 	}
 }

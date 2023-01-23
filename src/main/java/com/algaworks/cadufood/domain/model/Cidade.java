@@ -6,10 +6,13 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.util.Objects;
+
+
+@Entity
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Entity
 public class Cidade implements GenericEntity {
 
 	@Id
@@ -32,4 +35,15 @@ public class Cidade implements GenericEntity {
 		GenericEntity.super.gerarCodigo();
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Cidade cidade)) return false;
+		return Objects.equals(getId(), cidade.getId());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getId());
+	}
 }

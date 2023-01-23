@@ -6,10 +6,12 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.util.Objects;
+
+@Entity
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Entity
 public class Estado implements GenericEntity {
 
 	@Id
@@ -28,4 +30,15 @@ public class Estado implements GenericEntity {
 		GenericEntity.super.gerarCodigo();
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Estado estado)) return false;
+		return Objects.equals(getId(), estado.getId());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getId());
+	}
 }
