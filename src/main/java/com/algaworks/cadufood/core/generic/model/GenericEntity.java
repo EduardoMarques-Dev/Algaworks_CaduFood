@@ -12,6 +12,8 @@ public interface GenericEntity {
 
     String getNome();
 
+    // Comentários: Para funcionar, é necessário sobrescrever e
+    // anotar com @Prepersist
     default void gerarCodigo() {
         setCodigo(UUID.randomUUID().toString());
     }

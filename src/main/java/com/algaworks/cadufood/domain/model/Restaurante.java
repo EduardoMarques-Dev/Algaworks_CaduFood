@@ -78,34 +78,10 @@ public class Restaurante implements FatherEntity, ActivatableEntity {
 	}
 
 	@Override
-	public Collection<?> listarSubRecurso(Object subRecurso) {
-		if (((Class) subRecurso).getSimpleName().equals("FormaPagamento")){
-			return getFormasPagamento();
-		}
-		return new ArrayList<>();
-	}
-
-	@Override
-	public Collection<?> buscarSubRecurso(Object subRecurso) {
-		if (subRecurso instanceof FormaPagamento formaPagamento){
-			return getFormasPagamento().stream().filter(
-					itemFormaPagamento -> itemFormaPagamento.equals(formaPagamento)
-			).toList();
-		}
-		return null;
-	}
-
-	@Override
-	public void associarSubRecurso(Object subRecurso) {
-		if (subRecurso instanceof FormaPagamento formaPagamento){
-			getFormasPagamento().add(formaPagamento);
-		}
-	}
-
-	@Override
-	public void desassociarSubRecurso(Object subRecurso) {
-		if (subRecurso instanceof FormaPagamento formaPagamento){
-			getFormasPagamento().remove(formaPagamento);
-		}
+	public Map<String, Collection> getSubRecursos(){
+		Map<String, Collection> subRecursos = new HashMap<>();
+		subRecursos.put("formasPagamento", getFormasPagamento());
+		subRecursos.put("produto", getProduto());
+		return subRecursos;
 	}
 }

@@ -20,7 +20,9 @@ public abstract class SubResourceController<
         ChildInputModel extends DataTransferObject,
         ChildOutputModel extends DataTransferObject> {
 
-    Class<ChildModel> childModelClass;
+    ChildModel childModel;
+
+    String chave;
 
     private final GenericService<FatherModel> fatherService;
 
@@ -31,14 +33,14 @@ public abstract class SubResourceController<
     @GetMapping
     public List<ChildOutputModel> listarDomainModel(@PathVariable String codigo) {
         FatherModel fatherModel = fatherService.buscar(codigo);
-        return childMapper.toOutputCollection((Collection<ChildModel>) fatherModel.listarSubRecurso(childModelClass));
+        return childMapper.toOutputCollection((Collection<ChildModel>) fatherModel.listarSubRecurso(chave, childModel));
     }
 
     @GetMapping("/{childCodigo}")
     public List<ChildOutputModel> buscarDomainModel(@PathVariable String codigo, @PathVariable String childCodigo) {
         FatherModel fatherModel = fatherService.buscar(codigo);
         ChildModel childModel = childService.buscar(childCodigo);
-        return childMapper.toOutputCollection((Collection<ChildModel>) fatherModel.buscarSubRecurso(childModel));
+        return childMapper.toOutputCollection((Collection<ChildModel>) fatherModel.buscarSubRecurso(chave, childModel));
     }
 
     @PostMapping("/{childCodigo}")
@@ -47,7 +49,7 @@ public abstract class SubResourceController<
     public void associarDomainModel(@PathVariable String codigo, @PathVariable String childCodigo) {
         FatherModel fatherModel = fatherService.buscar(codigo);
         ChildModel childModel = childService.buscar(childCodigo);
-        fatherModel.associarSubRecurso(childModel);
+        fatherModel.associarSubRecurso(chave, childModel);
     }
 
     @DeleteMapping("/{childCodigo}")
@@ -56,7 +58,7 @@ public abstract class SubResourceController<
     public void DesassociarDomainModel(@PathVariable String codigo, @PathVariable String childCodigo) {
         FatherModel fatherModel = fatherService.buscar(codigo);
         ChildModel childModel = childService.buscar(childCodigo);
-        fatherModel.desassociarSubRecurso(childModel);
+        fatherModel.desassociarSubRecurso(chave, childModel);
     }
 
 }

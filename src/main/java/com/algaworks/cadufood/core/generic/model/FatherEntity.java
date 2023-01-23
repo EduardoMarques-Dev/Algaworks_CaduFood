@@ -1,15 +1,41 @@
 package com.algaworks.cadufood.core.generic.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 public interface FatherEntity extends GenericEntity {
 
-    Collection<?> listarSubRecurso(Object subRecurso);
+    Map<String, Collection> getSubRecursos();
 
-    Collection<?> buscarSubRecurso(Object ChildModel);
+    default Collection<?> listarSubRecurso(String chave, Object subRecurso){
+        Map<String, Collection> subRecursos = getSubRecursos();
+        return subRecursos.containsKey(chave) ?
+                subRecursos.get(chave).stream().toList() : new ArrayList<>();
+    }
 
-    void associarSubRecurso(Object subRecurso);
+    default Collection<?> buscarSubRecurso(String chave, Object subRecurso) {
+        Map<String, Collection> subRecursos = getSubRecursos();
+        if (subRecursos.containsKey(chave)){
+            return subRecursos.get(chave).stream().filter(
+                    x -> x.equals(subRecurso)
+            ).toList();
+        }
+        return new ArrayList<>();
+    }
 
-    void desassociarSubRecurso(Object subRecurso);
+    default void associarSubRecurso(String chave, Object subRecurso) {
+        Map<String, Collection> subRecursos = getSubRecursos();
+        if (subRecursos.containsKey(chave)){
+            subRecursos.get(chave).add(subRecurso);
+        }
+    }
+
+    default void desassociarSubRecurso(String chave, Object subRecurso) {
+        Map<String, Collection> subRecursos = getSubRecursos();
+        if (subRecursos.containsKey(chave)){
+            subRecursos.get(chave).remove(subRecurso);
+        }
+    }
 
 }
