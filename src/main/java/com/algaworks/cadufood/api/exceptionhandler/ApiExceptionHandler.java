@@ -132,7 +132,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, problem, new HttpHeaders(), statusCode, request);
     }
 
-    // DESSERIALIZAÇÃO EXCEPTION
+    // BODY EXCEPTION
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {

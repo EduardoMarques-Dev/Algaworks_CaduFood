@@ -1,15 +1,12 @@
-package com.algaworks.cadufood.domain.repository.util.filtros;
+package com.algaworks.cadufood.domain.repository.util.filter;
 
-import com.algaworks.cadufood.core.generic.ParametrosBusca;
+import com.algaworks.cadufood.core.generic.filter.GenericFilter;
 import com.algaworks.cadufood.domain.model.Restaurante;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
@@ -18,7 +15,7 @@ import java.util.ArrayList;
 
 @Setter
 @Getter
-public class RestauranteFiltros implements ParametrosBusca<Restaurante> {
+public class RestauranteFiltros implements GenericFilter<Restaurante> {
 
     String nome;
     BigDecimal taxaFreteInicial;
@@ -80,10 +77,5 @@ public class RestauranteFiltros implements ParametrosBusca<Restaurante> {
         if (cozinhaId != null){
             predicates.add(builder.equal(root.get("cozinha").get("id"), cozinhaId));
         }
-    }
-
-    @Override
-    public Class<Restaurante> getDomainClass() {
-        return Restaurante.class;
     }
 }

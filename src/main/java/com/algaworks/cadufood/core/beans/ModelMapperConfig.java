@@ -1,4 +1,4 @@
-package com.algaworks.cadufood.core.modelmapper;
+package com.algaworks.cadufood.core.beans;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

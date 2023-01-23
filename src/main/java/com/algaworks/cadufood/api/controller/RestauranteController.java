@@ -4,8 +4,10 @@ import com.algaworks.cadufood.api.model.input.RestauranteInput;
 import com.algaworks.cadufood.api.model.mapper.RestauranteMapper;
 import com.algaworks.cadufood.api.model.output.RestauranteOutput;
 import com.algaworks.cadufood.core.generic.crud.controller.ExceptGetController;
+import com.algaworks.cadufood.core.generic.crud.service.GenericService;
+import com.algaworks.cadufood.core.generic.mapper.GenericMapper;
 import com.algaworks.cadufood.domain.model.Restaurante;
-import com.algaworks.cadufood.domain.repository.util.filtros.RestauranteFiltros;
+import com.algaworks.cadufood.domain.repository.util.filter.RestauranteFiltros;
 import com.algaworks.cadufood.domain.service.RestauranteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +25,7 @@ public class RestauranteController extends ExceptGetController<Restaurante, Rest
     @Autowired
     private RestauranteMapper mapper;
 
-    public RestauranteController(RestauranteService service, RestauranteMapper mapper) {
+    public RestauranteController(GenericService<Restaurante> service, GenericMapper<Restaurante, RestauranteInput, RestauranteOutput> mapper) {
         super(service, mapper);
     }
 

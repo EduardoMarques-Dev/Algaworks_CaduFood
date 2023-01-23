@@ -1,19 +1,11 @@
 package com.algaworks.cadufood.infrastructure.repository;
 
-import com.algaworks.cadufood.core.generic.ParametrosBusca;
 import com.algaworks.cadufood.core.generic.crud.repository.CustomJpaRepository;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CustomJpaRepositoryImpl<T,ID> extends SimpleJpaRepository<T,ID>
         implements CustomJpaRepository<T,ID>, Serializable {

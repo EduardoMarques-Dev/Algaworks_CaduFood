@@ -1,7 +1,8 @@
 package com.algaworks.cadufood.core.generic.crud.service;
 
-import com.algaworks.cadufood.core.generic.ParametrosBusca;
+import com.algaworks.cadufood.core.generic.filter.GenericFilter;
 import com.algaworks.cadufood.core.generic.crud.repository.GenericRepository;
+import com.algaworks.cadufood.core.generic.filter.GenericSpec;
 import com.algaworks.cadufood.core.generic.model.GenericEntity;
 import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
@@ -13,10 +14,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@AllArgsConstructor
 public abstract class GenericService<DomainModel extends GenericEntity> {
 
-    private final GenericRepository<DomainModel, Long> repository;
+    protected final GenericRepository<DomainModel, Long> repository;
+    GenericSpec<DomainModel> genericSpec;
+
+    public GenericService(GenericRepository<DomainModel, Long> repository, GenericSpec<DomainModel> genericSpec) {
+        this.repository = repository;
+        this.genericSpec = genericSpec;
+    }
+
+    public GenericService(GenericRepository<DomainModel, Long> repository) {
+        this.repository = repository;
+        this.genericSpec = new GenericSpec<>();
+    }
 
     public List<DomainModel> listar() {
         return repository.findAll();
@@ -27,10 +38,8 @@ public abstract class GenericService<DomainModel extends GenericEntity> {
     }
 
 
-    public List<DomainModel> buscarPersonalizado(ParametrosBusca<DomainModel> parametrosBusca) {
-//        return repository.
-//                findAll(parametrosBusca);
-        return null;
+    public List<DomainModel> buscarPersonalizado(GenericFilter<DomainModel> genericFilter) {
+        return repository.findAll(genericSpec.usandoFiltro(genericFilter));
     }
 
     @Transactional
