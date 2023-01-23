@@ -36,26 +36,26 @@ public class CustomJpaRepositoryImpl<T,ID> extends SimpleJpaRepository<T,ID>
         manager.refresh(t);
     }
 
-    @Override
-    public List<T> buscarPersonalizado(ParametrosBusca<T> parametrosBusca) {
-        // Inicialização
-        Class<T> tClass = parametrosBusca.getDomainClass();
-        CriteriaBuilder builder = manager.getCriteriaBuilder();
-        CriteriaQuery<T> query = builder.createQuery(tClass);
-        Root<T> root = query.from(tClass); // From Restaurante
-        var predicates = new ArrayList<Predicate>();
-
-        // Montando a query
-        parametrosBusca.criarFiltro(predicates,builder,root);
-
-        // Converte o ArrayList para Array
-        if (!predicates.isEmpty()){
-            query.where(predicates.toArray(new Predicate[0]));
-        }
-
-        // Realizando a consulta
-        TypedQuery<T> queryTipada = manager.createQuery(query);
-        return queryTipada.getResultList();
-    }
+//    @Override
+//    public List<T> buscarPersonalizado(ParametrosBusca<T> parametrosBusca) {
+//        // Inicialização
+//        Class<T> tClass = parametrosBusca.getDomainClass();
+//        CriteriaBuilder builder = manager.getCriteriaBuilder();
+//        CriteriaQuery<T> query = builder.createQuery(tClass);
+//        Root<T> root = query.from(tClass); // From Restaurante
+//        var predicates = new ArrayList<Predicate>();
+//
+//        // Montando a query
+//        parametrosBusca.criarFiltro(predicates,builder,root);
+//
+//        // Converte o ArrayList para Array
+//        if (!predicates.isEmpty()){
+//            query.where(predicates.toArray(new Predicate[0]));
+//        }
+//
+//        // Realizando a consulta
+//        TypedQuery<T> queryTipada = manager.createQuery(query);
+//        return queryTipada.getResultList();
+//    }
 
 }

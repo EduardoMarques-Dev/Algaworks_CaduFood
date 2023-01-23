@@ -5,14 +5,12 @@ import com.algaworks.cadufood.api.model.mapper.RestauranteMapper;
 import com.algaworks.cadufood.api.model.output.RestauranteOutput;
 import com.algaworks.cadufood.core.generic.crud.controller.ExceptGetController;
 import com.algaworks.cadufood.domain.model.Restaurante;
-import com.algaworks.cadufood.infrastructure.repository.filtros.RestauranteFiltros;
+import com.algaworks.cadufood.domain.repository.util.filtros.RestauranteFiltros;
 import com.algaworks.cadufood.domain.service.RestauranteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController

@@ -1,4 +1,4 @@
-package com.algaworks.cadufood.infrastructure.repository.filtros;
+package com.algaworks.cadufood.domain.repository.util.filtros;
 
 import com.algaworks.cadufood.core.generic.ParametrosBusca;
 import com.algaworks.cadufood.domain.model.Restaurante;
@@ -7,21 +7,30 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+@Setter
 @Getter
 public class RestauranteFiltros implements ParametrosBusca<Restaurante> {
 
     String nome;
     BigDecimal taxaFreteInicial;
     BigDecimal taxaFreteFinal;
+
+//    @DateTimeFormat(iso = ISO.DATE_TIME)
     LocalDateTime dataCadastroInicial;
+//    @DateTimeFormat(iso = ISO.DATE_TIME)
     LocalDateTime dataCadastroFinal;
+//    @DateTimeFormat(iso = ISO.DATE_TIME)
     LocalDateTime dataAtualizacaoInicial;
+//    @DateTimeFormat(iso = ISO.DATE_TIME)
     LocalDateTime dataAtualizacaoFinal;
     String enderecoCep;
     String enderecoLogradouro;

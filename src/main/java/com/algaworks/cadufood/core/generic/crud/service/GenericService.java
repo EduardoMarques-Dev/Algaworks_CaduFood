@@ -28,8 +28,9 @@ public abstract class GenericService<DomainModel extends GenericEntity> {
 
 
     public List<DomainModel> buscarPersonalizado(ParametrosBusca<DomainModel> parametrosBusca) {
-        return repository.
-                buscarPersonalizado(parametrosBusca);
+//        return repository.
+//                findAll(parametrosBusca);
+        return null;
     }
 
     @Transactional
