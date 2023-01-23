@@ -46,7 +46,7 @@ public class CustomJpaRepositoryImpl<T,ID> extends SimpleJpaRepository<T,ID>
         var predicates = new ArrayList<Predicate>();
 
         // Montando a query
-        parametrosBusca.criarWhere(predicates,builder,root);
+        parametrosBusca.criarFiltro(predicates,builder,root);
 
         // Converte o ArrayList para Array
         if (!predicates.isEmpty()){

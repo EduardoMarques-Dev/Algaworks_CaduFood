@@ -1,4 +1,4 @@
-package com.algaworks.cadufood.domain.model.util.parametrosBusca;
+package com.algaworks.cadufood.infrastructure.repository.filtros;
 
 import com.algaworks.cadufood.core.generic.ParametrosBusca;
 import com.algaworks.cadufood.domain.model.Restaurante;
@@ -14,8 +14,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 @Getter
-@Builder
-public class RestauranteParametros implements ParametrosBusca<Restaurante> {
+public class RestauranteFiltros implements ParametrosBusca<Restaurante> {
 
     String nome;
     BigDecimal taxaFreteInicial;
@@ -32,7 +31,7 @@ public class RestauranteParametros implements ParametrosBusca<Restaurante> {
     Long cozinhaId;
 
     @Override
-    public void criarWhere(ArrayList<Predicate> predicates, CriteriaBuilder builder, Root<Restaurante> root) {
+    public void criarFiltro(ArrayList<Predicate> predicates, CriteriaBuilder builder, Root<Restaurante> root) {
         if (StringUtils.hasLength(nome)){
             predicates.add(builder.like(root.get("nome"),"%"+ nome +"%"));
         }

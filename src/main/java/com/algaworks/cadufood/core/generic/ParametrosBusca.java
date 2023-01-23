@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public interface ParametrosBusca<DomainClass> {
 
-    void criarWhere(ArrayList<Predicate> predicates, CriteriaBuilder builder, Root<DomainClass> root);
+    void criarFiltro(ArrayList<Predicate> predicates, CriteriaBuilder builder, Root<DomainClass> root);
 
     Class<DomainClass> getDomainClass();
 }

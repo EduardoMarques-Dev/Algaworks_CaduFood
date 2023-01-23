@@ -5,7 +5,7 @@ import com.algaworks.cadufood.api.model.mapper.RestauranteMapper;
 import com.algaworks.cadufood.api.model.output.RestauranteOutput;
 import com.algaworks.cadufood.core.generic.crud.controller.ExceptGetController;
 import com.algaworks.cadufood.domain.model.Restaurante;
-import com.algaworks.cadufood.domain.model.util.parametrosBusca.RestauranteParametros;
+import com.algaworks.cadufood.infrastructure.repository.filtros.RestauranteFiltros;
 import com.algaworks.cadufood.domain.service.RestauranteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,35 +30,8 @@ public class RestauranteController extends ExceptGetController<Restaurante, Rest
     }
 
     @GetMapping
-    public List<RestauranteOutput> buscarPersonalizado(@RequestParam(required = false) String nome,
-                                                       @RequestParam(value = "taxa-frete-inicial", required = false) BigDecimal taxaFreteInicial,
-                                                       @RequestParam(value = "taxa-frete-final", required = false) BigDecimal taxaFreteFinal,
-                                                       @RequestParam(value = "data-cadastro-inicial", required = false) LocalDateTime dataCadastroInicial,
-                                                       @RequestParam(value = "data-cadastro-final", required = false) LocalDateTime dataCadastroFinal,
-                                                       @RequestParam(value = "data-atualizacao-inicial", required = false) LocalDateTime dataAtualizacaoInicial,
-                                                       @RequestParam(value = "taxa-atualizacao-final", required = false) LocalDateTime dataAtualizacaoFinal,
-                                                       @RequestParam(value = "endereco-cep", required = false) String enderecoCep,
-                                                       @RequestParam(value = "endereco-logradouro", required = false) String enderecoLogradouro,
-                                                       @RequestParam(value = "endereco-numero", required = false) String enderecoNumero,
-                                                       @RequestParam(value = "endereco-bairro", required = false) String enderecoBairro,
-                                                       @RequestParam(value = "endereco-cidade-id", required = false) Long enderecoCidadeId,
-                                                       @RequestParam(value = "cozinha-id", required = false) Long cozinhaId) {
-        RestauranteParametros restauranteParametros = RestauranteParametros.builder()
-                .nome(nome)
-                .taxaFreteInicial(taxaFreteInicial)
-                .taxaFreteFinal(taxaFreteFinal)
-                .dataCadastroInicial(dataCadastroInicial)
-                .dataCadastroFinal(dataCadastroFinal)
-                .dataAtualizacaoInicial(dataAtualizacaoInicial)
-                .dataAtualizacaoFinal(dataAtualizacaoFinal)
-                .enderecoCep(enderecoCep)
-                .enderecoLogradouro(enderecoLogradouro)
-                .enderecoNumero(enderecoNumero)
-                .enderecoBairro(enderecoBairro)
-                .enderecoCidadeId(enderecoCidadeId)
-                .cozinhaId(cozinhaId)
-                .build();
-        List<Restaurante> restaurante = restauranteService.buscarPersonalizado(restauranteParametros);
+    public List<RestauranteOutput> buscarPersonalizado(RestauranteFiltros restauranteFiltros) {
+        List<Restaurante> restaurante = restauranteService.buscarPersonalizado(restauranteFiltros);
         return mapper.toOutputCollection(restaurante);
     }
 
