@@ -14,7 +14,7 @@ public interface FatherEntity extends GenericEntity {
                 subRecursos.get(chave).stream().toList() : new ArrayList<>();
     }
 
-    default Collection<?> buscarSubRecurso(String chave, Object subRecurso) {
+    default Collection<?> buscarSubRecurso(String chave, GenericEntity subRecurso) {
         var subRecursos = getSubRecursos();
         if (subRecursos.containsKey(chave)){
             return subRecursos.get(chave).stream().filter(
@@ -24,14 +24,14 @@ public interface FatherEntity extends GenericEntity {
         return new ArrayList<>();
     }
 
-    default void associarSubRecurso(String chave, Object subRecurso) {
+    default void associarSubRecurso(String chave, GenericEntity subRecurso) {
         var subRecursos = getSubRecursos();
         if (subRecursos.containsKey(chave)){
             subRecursos.get(chave).add(subRecurso);
         }
     }
 
-    default void desassociarSubRecurso(String chave, Object subRecurso) {
+    default void desassociarSubRecurso(String chave, GenericEntity subRecurso) {
         var subRecursos = getSubRecursos();
         if (subRecursos.containsKey(chave)){
             subRecursos.get(chave).remove(subRecurso);
