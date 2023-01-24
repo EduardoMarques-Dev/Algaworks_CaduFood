@@ -8,6 +8,8 @@ import com.algaworks.cadufood.domain.model.Restaurante;
 import com.algaworks.cadufood.domain.repository.util.filter.RestauranteFiltros;
 import com.algaworks.cadufood.domain.service.RestauranteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,8 +26,8 @@ public class RestauranteController extends ExceptGetController<Restaurante, Rest
     private RestauranteMapper mapper;
 
     @GetMapping
-    public List<RestauranteOutput> buscarPersonalizado(RestauranteFiltros restauranteFiltros) {
-        List<Restaurante> restaurante = restauranteService.buscarPersonalizado(restauranteFiltros);
+    public Page<RestauranteOutput> buscarPersonalizado(RestauranteFiltros restauranteFiltros, Pageable pageable) {
+        Page<Restaurante> restaurante = restauranteService.buscarPersonalizado(restauranteFiltros, pageable);
         return mapper.toOutputCollection(restaurante);
     }
 
