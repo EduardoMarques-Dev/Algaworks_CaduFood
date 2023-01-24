@@ -12,9 +12,4 @@ public class GrupoService extends GenericService<Grupo> {
     @Autowired
     private GrupoRepository grupoRepository;
 
-    public GrupoService(GrupoRepository repository) {
-        super(repository);
-    }
-
-
 }

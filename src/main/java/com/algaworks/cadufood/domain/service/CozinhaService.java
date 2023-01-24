@@ -14,10 +14,6 @@ public class CozinhaService extends GenericService<Cozinha> {
 	@Autowired
 	private CozinhaRepository cozinhaRepository;
 
-	public CozinhaService(CozinhaRepository repository) {
-		super(repository);
-	}
-
 	@Override
 	public Cozinha buscar(String cozinhaCodigo) {
 		try {

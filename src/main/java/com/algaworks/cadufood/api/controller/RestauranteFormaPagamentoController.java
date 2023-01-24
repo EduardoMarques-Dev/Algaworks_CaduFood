@@ -29,8 +29,4 @@ public class RestauranteFormaPagamentoController extends SubResourceController<
     @Autowired
     private FormaPagamentoMapper mapper;
 
-    public RestauranteFormaPagamentoController(RestauranteService fatherService, FormaPagamentoService childService, FormaPagamentoMapper childMapper) {
-        super("formasPagamento", fatherService, childService, childMapper);
-    }
-
 }

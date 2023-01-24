@@ -1,8 +1,6 @@
 package com.algaworks.cadufood.core.generic.crud.controller;
 
 import com.algaworks.cadufood.core.generic.crud.controller.apiannotations.AllApiAnnotations;
-import com.algaworks.cadufood.core.generic.crud.service.GenericService;
-import com.algaworks.cadufood.core.generic.mapper.GenericMapper;
 import com.algaworks.cadufood.core.generic.model.DataTransferObject;
 import com.algaworks.cadufood.core.generic.model.GenericEntity;
 
@@ -15,10 +13,6 @@ public abstract class BasicController<
         OutputModel extends DataTransferObject>
         extends GenericController<DomainModel, InputModel, OutputModel>
         implements AllApiAnnotations<InputModel,OutputModel> {
-
-    public BasicController(GenericService<DomainModel> service, GenericMapper<DomainModel, InputModel, OutputModel> mapper) {
-        super(service, mapper);
-    }
 
     @Override
     public List<OutputModel> listar() {

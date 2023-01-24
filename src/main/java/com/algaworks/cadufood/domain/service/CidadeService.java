@@ -14,10 +14,6 @@ public class CidadeService extends GenericService<Cidade> {
 	@Autowired
 	private CidadeRepository cidadeRepository;
 
-	public CidadeService(CidadeRepository repository) {
-		super(repository);
-	}
-
 	@Override
 	public Cidade buscar(String cidadeCodigo) {
 		try{

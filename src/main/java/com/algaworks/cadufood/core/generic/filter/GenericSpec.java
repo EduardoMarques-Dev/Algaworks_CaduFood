@@ -6,7 +6,7 @@ import org.springframework.data.jpa.domain.Specification;
 
 import java.util.ArrayList;
 
-public class GenericSpec<DomainModel extends GenericEntity> {
+public abstract class GenericSpec<DomainModel extends GenericEntity> {
 
     public Specification<DomainModel> usandoFiltro(GenericFilter<DomainModel> genericFilter){
         return ((root, query, builder) -> {

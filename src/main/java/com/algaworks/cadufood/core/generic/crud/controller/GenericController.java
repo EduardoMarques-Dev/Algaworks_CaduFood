@@ -5,7 +5,7 @@ import com.algaworks.cadufood.core.generic.mapper.GenericMapper;
 import com.algaworks.cadufood.core.generic.model.DataTransferObject;
 import com.algaworks.cadufood.core.generic.model.GenericEntity;
 import com.algaworks.cadufood.domain.exception.NegocioException;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,15 +14,16 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.util.HashMap;
 import java.util.List;
 
-@AllArgsConstructor
 public abstract class GenericController<
         DomainModel extends GenericEntity,
         InputModel extends DataTransferObject,
         OutputModel extends DataTransferObject> {
 
-    private final GenericService<DomainModel> service;
+    @Autowired
+    private GenericService<DomainModel> service;
 
-    private final GenericMapper<DomainModel, InputModel, OutputModel> mapper;
+    @Autowired
+    private GenericMapper<DomainModel, InputModel, OutputModel> mapper;
 
     public List<OutputModel> listar() {
         return mapper.toOutputCollection(service.listar());

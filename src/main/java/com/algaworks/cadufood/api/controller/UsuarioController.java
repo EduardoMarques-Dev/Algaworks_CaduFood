@@ -29,10 +29,6 @@ public class UsuarioController extends ExceptPostPutController<Usuario, UsuarioI
     @Autowired
     private UsuarioMapper mapper;
 
-    public UsuarioController(UsuarioService service, UsuarioMapper mapper) {
-        super(service, mapper);
-    }
-
     @Override
     @PostMapping
     public UsuarioOutput salvar(@RequestBody @Valid UsuarioInput usuarioInput) {

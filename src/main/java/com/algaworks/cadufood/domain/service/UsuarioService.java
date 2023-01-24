@@ -16,10 +16,6 @@ public class UsuarioService extends GenericService<Usuario> {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public UsuarioService(UsuarioRepository repository) {
-        super(repository);
-    }
-
     @Override
     @Transactional
     public Usuario salvar(Usuario usuario) {

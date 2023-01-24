@@ -3,7 +3,6 @@ package com.algaworks.cadufood.api.controller;
 import com.algaworks.cadufood.api.model.input.CidadeInput;
 import com.algaworks.cadufood.api.model.mapper.CidadeMapper;
 import com.algaworks.cadufood.api.model.output.CidadeOutput;
-import com.algaworks.cadufood.core.generic.crud.controller.BasicController;
 import com.algaworks.cadufood.core.generic.crud.controller.ExceptGetController;
 import com.algaworks.cadufood.domain.model.Cidade;
 import com.algaworks.cadufood.domain.service.CidadeService;
@@ -28,10 +27,6 @@ public class CidadeController extends ExceptGetController<Cidade, CidadeInput, C
 
     @Autowired
     private CidadeMapper mapper;
-
-    public CidadeController(CidadeService service, CidadeMapper mapper) {
-        super(service, mapper);
-    }
 
     @GetMapping
     public MappingJacksonValue listar(@RequestParam(required = false) String campos) {

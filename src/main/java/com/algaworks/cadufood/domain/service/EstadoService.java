@@ -14,10 +14,6 @@ public class EstadoService extends GenericService<Estado> {
 	@Autowired
 	private EstadoRepository estadoRepository;
 
-	public EstadoService(EstadoRepository repository) {
-		super(repository);
-	}
-
 	@Override
 	public Estado buscar(String estadoCodigo) {
 		try{
