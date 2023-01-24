@@ -20,10 +20,10 @@ public abstract class GenericController<
         OutputModel extends DataTransferObject> {
 
     @Autowired
-    private GenericService<DomainModel> service;
+    protected GenericService<DomainModel> service;
 
     @Autowired
-    private GenericMapper<DomainModel, InputModel, OutputModel> mapper;
+    protected GenericMapper<DomainModel, InputModel, OutputModel> mapper;
 
     public List<OutputModel> listar() {
         return mapper.toOutputCollection(service.listar());

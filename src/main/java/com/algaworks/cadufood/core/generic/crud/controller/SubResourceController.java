@@ -5,6 +5,7 @@ import com.algaworks.cadufood.core.generic.mapper.GenericMapper;
 import com.algaworks.cadufood.core.generic.model.DataTransferObject;
 import com.algaworks.cadufood.core.generic.model.FatherEntity;
 import com.algaworks.cadufood.core.generic.model.GenericEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,22 +14,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 import java.util.List;
 
+@RequiredArgsConstructor
 public abstract class SubResourceController<
         FatherModel extends FatherEntity,
         ChildModel extends GenericEntity,
         ChildInputModel extends DataTransferObject,
         ChildOutputModel extends DataTransferObject> {
 
-    String nomeSubRecurso;
+    final String nomeSubRecurso;
 
     @Autowired
-    private GenericService<FatherModel> fatherService;
+    protected GenericService<FatherModel> fatherService;
 
     @Autowired
-    private GenericService<ChildModel> childService;
+    protected GenericService<ChildModel> childService;
 
     @Autowired
-    private GenericMapper<ChildModel, ChildInputModel, ChildOutputModel> childMapper;
+    protected GenericMapper<ChildModel, ChildInputModel, ChildOutputModel> childMapper;
 
     @GetMapping
     public List<ChildOutputModel> listarDomainModel(@PathVariable String codigo) {

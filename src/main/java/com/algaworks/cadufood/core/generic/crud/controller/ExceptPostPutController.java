@@ -19,7 +19,6 @@ public abstract class ExceptPostPutController<
         return super.listar();
     }
 
-
     @Override
     public OutputModel buscar(String codigo) {
         return super.buscar(codigo);

@@ -1,9 +1,14 @@
 package com.algaworks.cadufood.domain.model;
 
 import com.algaworks.cadufood.core.generic.model.DescriptiveEntity;
-import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.Hibernate;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.util.Objects;
 

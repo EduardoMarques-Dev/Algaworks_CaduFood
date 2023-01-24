@@ -2,7 +2,6 @@ package com.algaworks.cadufood.domain.model;
 
 import com.algaworks.cadufood.core.generic.model.ActivatableEntity;
 import com.algaworks.cadufood.core.generic.model.FatherEntity;
-import com.algaworks.cadufood.core.generic.model.GenericEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
