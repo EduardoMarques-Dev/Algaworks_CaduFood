@@ -14,8 +14,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping(value = "/restaurantes")
 public class RestauranteController extends ExceptGetController<Restaurante, RestauranteInput, RestauranteOutput> {
@@ -26,6 +24,7 @@ public class RestauranteController extends ExceptGetController<Restaurante, Rest
     @Autowired
     private RestauranteMapper mapper;
 
+    // todo: Criar controladdor genérico para filtros avançados
     @GetMapping
     public Page<RestauranteOutput> buscarPersonalizado(RestauranteFiltros restauranteFiltros,
                                                        @PageableDefault(size = 10) Pageable pageable) {
