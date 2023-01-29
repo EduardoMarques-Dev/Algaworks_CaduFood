@@ -2,10 +2,9 @@ package com.algaworks.cadufood.api.model.input;
 
 import com.algaworks.cadufood.api.model.resume.IdResume;
 import com.algaworks.cadufood.core.generic.model.DataTransferObject;
-import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,20 +12,15 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-public class RestauranteInput implements DataTransferObject {
+public class ProdutoInput implements DataTransferObject {
 
     @NotBlank
     private String nome;
-
-    @PositiveOrZero
-    private BigDecimal taxaFrete;
-
+    private String descricao;
     @NotNull
-    @Valid
-    private EnderecoInput endereco;
-
+    @Min(1)
+    private BigDecimal preco;
     @NotNull
-    @Valid
-    private IdResume cozinha;
+    private IdResume restaurante;
 
 }

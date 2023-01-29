@@ -33,7 +33,7 @@ public class Produto implements GenericEntity {
     private BigDecimal preco;
 
     @Column(nullable = false)
-    private Boolean ativo;
+    private Boolean ativo = Boolean.TRUE;
 
     @ManyToOne
     @JoinColumn(name = "restaurante_id",

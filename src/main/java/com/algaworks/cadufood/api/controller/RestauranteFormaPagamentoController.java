@@ -19,4 +19,5 @@ public class RestauranteFormaPagamentoController extends SubResourceController<
     public RestauranteFormaPagamentoController() {
         super("formasPagamento");
     }
+
 }

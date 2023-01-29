@@ -12,7 +12,6 @@ public class RestauranteService extends GenericService<Restaurante> {
 
 	@Override
 	public Restaurante buscar(String domainModelId) {
-		System.out.println("ulala");
 		try{
 			return super.buscar(domainModelId);
 		}catch (EntidadeNaoEncontradaException ex){
