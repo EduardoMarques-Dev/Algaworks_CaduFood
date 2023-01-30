@@ -1,6 +1,6 @@
 package com.algaworks.cadufood.api.model.output;
 
-import com.algaworks.cadufood.core.generic.model.DataTransferObject;
+import com.algaworks.cadufood.core.generic.model.DTO;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +8,7 @@ import lombok.Setter;
 @JsonFilter("CidadeOutput")
 @Getter
 @Setter
-public class CidadeOutput implements DataTransferObject {
+public class CidadeOutput implements DTO {
 
     private String codigo;
 

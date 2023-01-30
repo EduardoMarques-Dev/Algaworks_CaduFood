@@ -2,8 +2,8 @@ package com.algaworks.cadufood.core.generic.crud.controller;
 
 import com.algaworks.cadufood.core.generic.crud.service.GenericService;
 import com.algaworks.cadufood.core.generic.mapper.GenericMapper;
-import com.algaworks.cadufood.core.generic.model.GenericEntity;
-import com.algaworks.cadufood.core.generic.model.GenericObject;
+import com.algaworks.cadufood.core.generic.model.EntidadeGenerica;
+import com.algaworks.cadufood.core.generic.model.ObjetoGenerico;
 import com.algaworks.cadufood.domain.exception.NegocioException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -20,9 +20,9 @@ import java.util.List;
  * @author Carlos Eduardo Marques Pereira
  */
 public abstract class GenericController<
-        DomainModel extends GenericEntity,
-        InputModel extends GenericObject,
-        OutputModel extends GenericObject> {
+        DomainModel extends EntidadeGenerica,
+        InputModel extends ObjetoGenerico,
+        OutputModel extends ObjetoGenerico> {
 
     @Autowired
     protected GenericService<DomainModel> service;

@@ -4,7 +4,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
-public interface FatherEntity extends GenericEntity {
+/**
+ * Interface que representa uma entidade REST pai.
+ *
+ * Interface criada para as entidades que possuem
+ * subEntidades.
+ *
+ * @author Carlos Eduardo Marques Pereira
+ */
+public interface EntidadePai extends EntidadeGenerica {
 
     Map<String, Collection> getSubRecursos();
 
@@ -14,7 +22,7 @@ public interface FatherEntity extends GenericEntity {
                 subRecursos.get(chave).stream().toList() : new ArrayList<>();
     }
 
-    default Collection<?> buscarSubRecurso(String chave, GenericEntity subRecurso) {
+    default Collection<?> buscarSubRecurso(String chave, EntidadeGenerica subRecurso) {
         var subRecursos = getSubRecursos();
         if (subRecursos.containsKey(chave)){
             return subRecursos.get(chave).stream().filter(
@@ -24,14 +32,14 @@ public interface FatherEntity extends GenericEntity {
         return new ArrayList<>();
     }
 
-    default void associarSubRecurso(String chave, GenericEntity subRecurso) {
+    default void associarSubRecurso(String chave, EntidadeGenerica subRecurso) {
         var subRecursos = getSubRecursos();
         if (subRecursos.containsKey(chave)){
             subRecursos.get(chave).add(subRecurso);
         }
     }
 
-    default void desassociarSubRecurso(String chave, GenericEntity subRecurso) {
+    default void desassociarSubRecurso(String chave, EntidadeGenerica subRecurso) {
         var subRecursos = getSubRecursos();
         if (subRecursos.containsKey(chave)){
             subRecursos.get(chave).remove(subRecurso);

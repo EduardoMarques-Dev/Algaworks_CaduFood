@@ -1,7 +1,7 @@
 package com.algaworks.cadufood.domain.model;
 
-import com.algaworks.cadufood.core.generic.model.ActivatableEntity;
-import com.algaworks.cadufood.core.generic.model.FatherEntity;
+import com.algaworks.cadufood.core.generic.model.EntidadeAtivavel;
+import com.algaworks.cadufood.core.generic.model.EntidadePai;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -21,7 +21,7 @@ import java.util.*;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class Restaurante implements FatherEntity, ActivatableEntity {
+public class Restaurante implements EntidadePai, EntidadeAtivavel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,10 +72,9 @@ public class Restaurante implements FatherEntity, ActivatableEntity {
 	@ToString.Exclude
 	private Set<FormaPagamento> formasPagamento = new HashSet<>();
 
-	@Override
 	@PrePersist
 	public void gerarCodigo() {
-		FatherEntity.super.gerarCodigo();
+		setCodigo(UUID.randomUUID().toString());
 	}
 
 	@Override
@@ -84,6 +83,16 @@ public class Restaurante implements FatherEntity, ActivatableEntity {
 		subRecursos.put("formasPagamento", getFormasPagamento());
 		subRecursos.put("produto", getProduto());
 		return subRecursos;
+	}
+
+	@Override
+	public void ativar() {
+		setAtivo(true);
+	}
+
+	@Override
+	public void inativar() {
+		setAtivo(false);
 	}
 
 	@Override

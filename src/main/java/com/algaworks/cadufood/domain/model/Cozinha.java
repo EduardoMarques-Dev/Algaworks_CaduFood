@@ -1,6 +1,6 @@
 package com.algaworks.cadufood.domain.model;
 
-import com.algaworks.cadufood.core.generic.model.GenericEntity;
+import com.algaworks.cadufood.core.generic.model.EntidadeGenerica;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -9,13 +9,14 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 
 @Entity
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class Cozinha implements GenericEntity {
+public class Cozinha implements EntidadeGenerica {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,10 +31,9 @@ public class Cozinha implements GenericEntity {
 	@OneToMany(mappedBy = "cozinha")
 	private List<Restaurante> restaurantes = new ArrayList<>();
 
-	@Override
 	@PrePersist
 	public void gerarCodigo() {
-		GenericEntity.super.gerarCodigo();
+		setCodigo(UUID.randomUUID().toString());
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 package com.algaworks.cadufood.core.generic.crud.service;
 
 import com.algaworks.cadufood.core.generic.crud.repository.GenericRepository;
-import com.algaworks.cadufood.core.generic.model.GenericEntity;
+import com.algaworks.cadufood.core.generic.model.EntidadeGenerica;
 import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.exception.NegocioException;
@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author Carlos Eduardo Marques Pereira
  */
-public abstract class GenericService<DomainModel extends GenericEntity> {
+public abstract class GenericService<DomainModel extends EntidadeGenerica> {
 
     @Autowired
     protected GenericRepository<DomainModel, Long> repository;

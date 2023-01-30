@@ -1,19 +1,20 @@
 package com.algaworks.cadufood.domain.model;
 
-import com.algaworks.cadufood.core.generic.model.GenericEntity;
+import com.algaworks.cadufood.core.generic.model.EntidadeGenerica;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.util.Objects;
+import java.util.UUID;
 
 
 @Entity
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class Cidade implements GenericEntity {
+public class Cidade implements EntidadeGenerica {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,10 +30,9 @@ public class Cidade implements GenericEntity {
 	@JoinColumn(nullable = false)
 	private Estado estado;
 
-	@Override
 	@PrePersist
 	public void gerarCodigo() {
-		GenericEntity.super.gerarCodigo();
+		setCodigo(UUID.randomUUID().toString());
 	}
 
 	@Override

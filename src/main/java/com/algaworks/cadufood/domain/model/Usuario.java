@@ -1,6 +1,6 @@
 package com.algaworks.cadufood.domain.model;
 
-import com.algaworks.cadufood.core.generic.model.GenericEntity;
+import com.algaworks.cadufood.core.generic.model.EntidadeGenerica;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -11,13 +11,14 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 
 @Entity
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class Usuario implements GenericEntity {
+public class Usuario implements EntidadeGenerica {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,10 +52,9 @@ public class Usuario implements GenericEntity {
             inverseJoinColumns = @JoinColumn(name = "grupo_id"))
     private List<Grupo> grupos;
 
-    @Override
     @PrePersist
     public void gerarCodigo() {
-        GenericEntity.super.gerarCodigo();
+        setCodigo(UUID.randomUUID().toString());
     }
 
     @Override

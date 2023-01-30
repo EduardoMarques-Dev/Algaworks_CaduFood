@@ -1,6 +1,6 @@
 package com.algaworks.cadufood.core.generic.crud.repository;
 
-import com.algaworks.cadufood.core.generic.model.GenericEntity;
+import com.algaworks.cadufood.core.generic.model.EntidadeGenerica;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.NoRepositoryBean;
 
@@ -17,7 +17,7 @@ import java.util.Optional;
  * para este repositório
  */
 @NoRepositoryBean
-public interface GenericRepository <DomainModel extends GenericEntity, ID> extends CustomJpaRepository<DomainModel, ID>,
+public interface GenericRepository <DomainModel extends EntidadeGenerica, ID> extends CustomJpaRepository<DomainModel, ID>,
         JpaSpecificationExecutor<DomainModel> {
 
     Optional<DomainModel> findByCodigo(String codigo);

@@ -2,8 +2,8 @@ package com.algaworks.cadufood.core.generic.crud.controller;
 
 import com.algaworks.cadufood.core.generic.crud.controller.apiannotations.DeleteAnnotations;
 import com.algaworks.cadufood.core.generic.crud.controller.apiannotations.PostPutAnnotations;
-import com.algaworks.cadufood.core.generic.model.DataTransferObject;
-import com.algaworks.cadufood.core.generic.model.GenericEntity;
+import com.algaworks.cadufood.core.generic.model.DTO;
+import com.algaworks.cadufood.core.generic.model.EntidadeGenerica;
 
 import java.util.HashMap;
 
@@ -15,9 +15,9 @@ import java.util.HashMap;
  * @author Carlos Eduardo Marques Pereira
  */
 public abstract class ExceptGetController<
-            DomainModel extends GenericEntity,
-            InputModel extends DataTransferObject,
-            OutputModel extends DataTransferObject>
+            DomainModel extends EntidadeGenerica,
+            InputModel extends DTO,
+            OutputModel extends DTO>
         extends GenericController<DomainModel, InputModel, OutputModel>
         implements PostPutAnnotations<InputModel,OutputModel>, DeleteAnnotations {
 

@@ -1,13 +1,13 @@
 package com.algaworks.cadufood.api.model.input;
 
-import com.algaworks.cadufood.core.generic.model.DataTransferObject;
+import com.algaworks.cadufood.core.generic.model.DTO;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class CozinhaInput implements DataTransferObject {
+public class CozinhaInput implements DTO {
 
     @NotBlank
     private String nome;

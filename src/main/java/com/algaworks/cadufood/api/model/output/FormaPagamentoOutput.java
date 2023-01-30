@@ -1,12 +1,12 @@
 package com.algaworks.cadufood.api.model.output;
 
-import com.algaworks.cadufood.core.generic.model.DataTransferObject;
+import com.algaworks.cadufood.core.generic.model.DTO;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class FormaPagamentoOutput implements DataTransferObject {
+public class FormaPagamentoOutput implements DTO {
 
     private String codigo;
 

@@ -1,6 +1,6 @@
 package com.algaworks.cadufood.domain.model;
 
-import com.algaworks.cadufood.core.generic.model.DescriptiveEntity;
+import com.algaworks.cadufood.core.generic.model.EntidadeDescritiva;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -11,13 +11,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.util.Objects;
+import java.util.UUID;
 
 
 @Entity
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class FormaPagamento implements DescriptiveEntity {
+public class FormaPagamento implements EntidadeDescritiva {
 
 	@Id
 	@EqualsAndHashCode.Include
@@ -29,10 +30,9 @@ public class FormaPagamento implements DescriptiveEntity {
 	@Column(nullable = false)
 	private String descricao;
 
-	@Override
 	@PrePersist
 	public void gerarCodigo() {
-		DescriptiveEntity.super.gerarCodigo();
+		setCodigo(UUID.randomUUID().toString());
 	}
 
 	@Override

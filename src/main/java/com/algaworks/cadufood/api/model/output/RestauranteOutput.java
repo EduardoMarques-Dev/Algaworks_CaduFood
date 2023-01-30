@@ -1,6 +1,6 @@
 package com.algaworks.cadufood.api.model.output;
 
-import com.algaworks.cadufood.core.generic.model.DataTransferObject;
+import com.algaworks.cadufood.core.generic.model.DTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class RestauranteOutput implements DataTransferObject {
+public class RestauranteOutput implements DTO {
 
     private String codigo;
 

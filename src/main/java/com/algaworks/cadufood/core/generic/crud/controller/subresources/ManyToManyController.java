@@ -2,9 +2,9 @@ package com.algaworks.cadufood.core.generic.crud.controller.subresources;
 
 import com.algaworks.cadufood.core.generic.crud.service.GenericService;
 import com.algaworks.cadufood.core.generic.mapper.GenericMapper;
-import com.algaworks.cadufood.core.generic.model.DataTransferObject;
-import com.algaworks.cadufood.core.generic.model.FatherEntity;
-import com.algaworks.cadufood.core.generic.model.GenericEntity;
+import com.algaworks.cadufood.core.generic.model.DTO;
+import com.algaworks.cadufood.core.generic.model.EntidadePai;
+import com.algaworks.cadufood.core.generic.model.EntidadeGenerica;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,10 +16,10 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public abstract class ManyToManyController<
-        FatherModel extends FatherEntity,
-        ChildModel extends GenericEntity,
-        ChildInputModel extends DataTransferObject,
-        ChildOutputModel extends DataTransferObject> {
+        FatherModel extends EntidadePai,
+        ChildModel extends EntidadeGenerica,
+        ChildInputModel extends DTO,
+        ChildOutputModel extends DTO> {
 
     final String subResourceName;
 

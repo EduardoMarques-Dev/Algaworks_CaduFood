@@ -1,7 +1,7 @@
 package com.algaworks.cadufood.api.model.input;
 
 import com.algaworks.cadufood.api.model.resume.IdResume;
-import com.algaworks.cadufood.core.generic.model.DataTransferObject;
+import com.algaworks.cadufood.core.generic.model.DTO;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-public class RestauranteInput implements DataTransferObject {
+public class RestauranteInput implements DTO {
 
     @NotBlank
     private String nome;
