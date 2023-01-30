@@ -20,14 +20,9 @@ public class RestauranteFiltros implements GenericFilter<Restaurante> {
     String nome;
     BigDecimal taxaFreteInicial;
     BigDecimal taxaFreteFinal;
-
-//    @DateTimeFormat(iso = ISO.DATE_TIME)
     LocalDateTime dataCadastroInicial;
-//    @DateTimeFormat(iso = ISO.DATE_TIME)
     LocalDateTime dataCadastroFinal;
-//    @DateTimeFormat(iso = ISO.DATE_TIME)
     LocalDateTime dataAtualizacaoInicial;
-//    @DateTimeFormat(iso = ISO.DATE_TIME)
     LocalDateTime dataAtualizacaoFinal;
     String enderecoCep;
     String enderecoLogradouro;

@@ -2,7 +2,7 @@ package com.algaworks.cadufood.core.generic.crud.service;
 
 import com.algaworks.cadufood.core.generic.crud.repository.GenericRepository;
 import com.algaworks.cadufood.core.generic.filter.GenericFilter;
-import com.algaworks.cadufood.core.generic.filter.GenericSpec;
+import com.algaworks.cadufood.core.generic.filter.GenericSpecification;
 import com.algaworks.cadufood.core.generic.model.GenericEntity;
 import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
@@ -23,7 +23,7 @@ public abstract class GenericService<DomainModel extends GenericEntity> {
     protected GenericRepository<DomainModel, Long> repository;
 
     @Autowired
-    protected GenericSpec<DomainModel> genericSpec;
+    protected GenericSpecification<DomainModel> genericSpecification;
 
     public List<DomainModel> listar() {
         return repository.findAll();
@@ -34,7 +34,7 @@ public abstract class GenericService<DomainModel extends GenericEntity> {
     }
 
     public Page<DomainModel> buscarPersonalizado(GenericFilter<DomainModel> genericFilter, Pageable pageable) {
-        return repository.findAll(genericSpec.usandoFiltro(genericFilter), pageable);
+        return repository.findAll(genericSpecification.usandoFiltro(genericFilter), pageable);
     }
 
     @Transactional
