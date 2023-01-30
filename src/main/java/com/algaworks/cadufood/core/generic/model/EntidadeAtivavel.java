@@ -1,7 +1,7 @@
 package com.algaworks.cadufood.core.generic.model;
 
 /**
- * Interface representando uma entidade REST ativável.
+ * Interface que representa uma entidade REST ativável.
  *
  * Interface criada para as entidades que possuem
  * controle de estado de ativação.

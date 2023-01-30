@@ -8,7 +8,7 @@ import java.util.Optional;
 
 
 /**
- * Class representing a generic REST repository.
+ * Classe que representa um repositório REST genérico.
  *
  * @author Carlos Eduardo Marques Pereira
  *
@@ -17,7 +17,7 @@ import java.util.Optional;
  * para este repositório
  */
 @NoRepositoryBean
-public interface GenericRepository <DomainModel extends EntidadeGenerica, ID> extends CustomJpaRepository<DomainModel, ID>,
+public interface RepositorioGenerico<DomainModel extends EntidadeGenerica, ID> extends CustomJpaRepository<DomainModel, ID>,
         JpaSpecificationExecutor<DomainModel> {
 
     Optional<DomainModel> findByCodigo(String codigo);

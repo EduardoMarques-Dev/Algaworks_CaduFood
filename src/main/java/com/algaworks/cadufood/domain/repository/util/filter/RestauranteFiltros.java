@@ -1,6 +1,6 @@
 package com.algaworks.cadufood.domain.repository.util.filter;
 
-import com.algaworks.cadufood.core.generic.filter.GenericFilter;
+import com.algaworks.cadufood.core.generic.filter.FiltroGenerico;
 import com.algaworks.cadufood.domain.model.Restaurante;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Predicate;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 @Setter
 @Getter
-public class RestauranteFiltros implements GenericFilter<Restaurante> {
+public class RestauranteFiltros implements FiltroGenerico<Restaurante> {
 
     String nome;
     BigDecimal taxaFreteInicial;

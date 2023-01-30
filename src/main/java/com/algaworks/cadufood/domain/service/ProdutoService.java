@@ -1,6 +1,6 @@
 package com.algaworks.cadufood.domain.service;
 
-import com.algaworks.cadufood.core.generic.crud.service.GenericService;
+import com.algaworks.cadufood.core.generic.crud.service.ServicoGenerico;
 import com.algaworks.cadufood.domain.exception.NegocioException;
 import com.algaworks.cadufood.domain.model.Produto;
 import com.algaworks.cadufood.domain.model.Restaurante;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ProdutoService extends GenericService<Produto> {
+public class ProdutoService extends ServicoGenerico<Produto> {
     private final ProdutoRepository produtoRepository;
 
     public List<Produto> listarPorRestaurante(Restaurante restaurante) {

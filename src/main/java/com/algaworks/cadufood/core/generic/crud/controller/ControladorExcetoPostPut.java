@@ -8,31 +8,32 @@ import com.algaworks.cadufood.core.generic.model.EntidadeGenerica;
 import java.util.List;
 
 /**
- * Class representing a custom REST controller.
- * Provides a generic controller implementation,
- * without POST and PUT method mapping.
+ * Classe que representa um controlador REST personalizado.
+ *
+ * Fornece uma implementação do Controlador Genérico
+ * sem mapeamento de método POST e PUT.
  *
  * @author Carlos Eduardo Marques Pereira
  */
-public abstract class ExceptPostPutController<
+public abstract class ControladorExcetoPostPut<
             DomainModel extends EntidadeGenerica,
             InputModel extends DTO,
             OutputModel extends DTO>
-        extends GenericController<DomainModel, InputModel, OutputModel>
+        extends ControladorGenerico<DomainModel, InputModel, OutputModel>
         implements GetAnnotations<OutputModel>, DeleteAnnotations {
 
     @Override
-    public List<OutputModel> list() {
-        return super.list();
+    public List<OutputModel> listar() {
+        return super.listar();
     }
 
     @Override
-    public OutputModel find(String code) {
-        return super.find(code);
+    public OutputModel buscar(String code) {
+        return super.buscar(code);
     }
 
     @Override
-    public void delete(String codigo) {
-        super.delete(codigo);
+    public void excluir(String codigo) {
+        super.excluir(codigo);
     }
 }

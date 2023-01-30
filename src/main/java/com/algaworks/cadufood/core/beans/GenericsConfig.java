@@ -1,15 +1,6 @@
 package com.algaworks.cadufood.core.beans;
 
-import com.algaworks.cadufood.core.generic.filter.GenericFilter;
-import com.algaworks.cadufood.core.generic.filter.GenericSpecification;
-import com.algaworks.cadufood.core.generic.model.EntidadeGenerica;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.ArrayList;
 
 @Configuration
 public class GenericsConfig {

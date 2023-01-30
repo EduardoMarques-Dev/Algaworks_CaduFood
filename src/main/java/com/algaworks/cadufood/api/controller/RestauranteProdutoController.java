@@ -29,7 +29,7 @@ public class RestauranteProdutoController {
 
     @GetMapping
     public List<ProdutoOutput> listar(@PathVariable String restauranteCodigo) {
-        Restaurante restaurante = restauranteService.find(restauranteCodigo);
+        Restaurante restaurante = restauranteService.buscar(restauranteCodigo);
 
         List<Produto> todosProdutos = produtoService.listarPorRestaurante(restaurante);
 
@@ -47,12 +47,12 @@ public class RestauranteProdutoController {
     @ResponseStatus(HttpStatus.CREATED)
     public ProdutoOutput adicionar(@PathVariable String restauranteCodigo,
                                    @RequestBody @Valid ProdutoInput produtoInput) {
-        Restaurante restaurante = restauranteService.find(restauranteCodigo);
+        Restaurante restaurante = restauranteService.buscar(restauranteCodigo);
 
         Produto produto = produtoMapper.toDomain(produtoInput);
         produto.setRestaurante(restaurante);
 
-        produto = produtoService.save(produto);
+        produto = produtoService.salvar(produto);
 
         return produtoMapper.toOutput(produto);
     }
@@ -64,7 +64,7 @@ public class RestauranteProdutoController {
 
         produtoMapper.updateEntity(produtoInput, produtoAtual);
 
-        produtoAtual = produtoService.save(produtoAtual);
+        produtoAtual = produtoService.salvar(produtoAtual);
 
         return produtoMapper.toOutput(produtoAtual);
     }

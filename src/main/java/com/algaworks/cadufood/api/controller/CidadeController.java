@@ -3,7 +3,7 @@ package com.algaworks.cadufood.api.controller;
 import com.algaworks.cadufood.api.model.input.CidadeInput;
 import com.algaworks.cadufood.api.model.mapper.CidadeMapper;
 import com.algaworks.cadufood.api.model.output.CidadeOutput;
-import com.algaworks.cadufood.core.generic.crud.controller.ExceptGetController;
+import com.algaworks.cadufood.core.generic.crud.controller.ControladorExcetoGet;
 import com.algaworks.cadufood.domain.model.Cidade;
 import com.algaworks.cadufood.domain.service.CidadeService;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/cidades")
-public class CidadeController extends ExceptGetController<Cidade, CidadeInput, CidadeOutput> {
+public class CidadeController extends ControladorExcetoGet<Cidade, CidadeInput, CidadeOutput> {
 
     @Autowired
     private CidadeService cidadeService;
@@ -29,8 +29,8 @@ public class CidadeController extends ExceptGetController<Cidade, CidadeInput, C
     private CidadeMapper mapper;
 
     @GetMapping
-    public MappingJacksonValue list(@RequestParam(required = false) String campos) {
-        List<CidadeOutput> outputModels = mapper.toOutputCollection(cidadeService.list());
+    public MappingJacksonValue listar(@RequestParam(required = false) String campos) {
+        List<CidadeOutput> outputModels = mapper.toOutputCollection(cidadeService.listar());
 
         MappingJacksonValue outputWrapper = new MappingJacksonValue(outputModels);
         outputWrapper.setFilters(adicionarFiltros(campos));
@@ -51,7 +51,7 @@ public class CidadeController extends ExceptGetController<Cidade, CidadeInput, C
     }
 
     @Override
-    public CidadeOutput find(String code) {
-        return super.find(code);
+    public CidadeOutput buscar(String code) {
+        return super.buscar(code);
     }
 }

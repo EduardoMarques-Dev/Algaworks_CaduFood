@@ -10,8 +10,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Classe que representa um mapeador REST genérico.
+ *
+ * Responsável por realizar conversões entre modelos
+ * representacionais e de domínio.
+ *
+ * @author Carlos Eduardo Marques Pereira
+ */
 @RequiredArgsConstructor
-public abstract class GenericMapper<DomainModel, InputModel, OutputModel> {
+public abstract class MapeadorGenerico<DomainModel, InputModel, OutputModel> {
 
     private final Class<DomainModel> domainClass;
 

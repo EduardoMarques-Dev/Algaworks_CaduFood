@@ -1,7 +1,7 @@
 package com.algaworks.cadufood.core.generic.crud.controller;
 
-import com.algaworks.cadufood.core.generic.crud.service.GenericService;
-import com.algaworks.cadufood.core.generic.mapper.GenericMapper;
+import com.algaworks.cadufood.core.generic.crud.service.ServicoGenerico;
+import com.algaworks.cadufood.core.generic.mapper.MapeadorGenerico;
 import com.algaworks.cadufood.core.generic.model.EntidadeGenerica;
 import com.algaworks.cadufood.core.generic.model.ObjetoGenerico;
 import com.algaworks.cadufood.domain.exception.NegocioException;
@@ -15,63 +15,63 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Class representing a generic REST controller.
+ * Classe que representa um controlador REST genérico.
  *
  * @author Carlos Eduardo Marques Pereira
  */
-public abstract class GenericController<
+public abstract class ControladorGenerico<
         DomainModel extends EntidadeGenerica,
         InputModel extends ObjetoGenerico,
         OutputModel extends ObjetoGenerico> {
 
     @Autowired
-    protected GenericService<DomainModel> service;
+    protected ServicoGenerico<DomainModel> service;
 
     @Autowired
-    protected GenericMapper<DomainModel, InputModel, OutputModel> mapper;
+    protected MapeadorGenerico<DomainModel, InputModel, OutputModel> mapper;
 
-    public List<OutputModel> list() {
-        return mapper.toOutputCollection(service.list());
+    public List<OutputModel> listar() {
+        return mapper.toOutputCollection(service.listar());
     }
 
-    public OutputModel find(String code) {
-        DomainModel domainModel = service.find(code);
+    public OutputModel buscar(String code) {
+        DomainModel domainModel = service.buscar(code);
         return mapper.toOutput(domainModel);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    public OutputModel save(InputModel inputModel) {
+    public OutputModel salvar(InputModel inputModel) {
         DomainModel domainModel = mapper.toDomain(inputModel);
-        domainModel = service.save(domainModel);
+        domainModel = service.salvar(domainModel);
         return mapper.toOutput(domainModel);
     }
 
     @Transactional
-    public OutputModel update(String codigo,
-                              InputModel inputModel) {
+    public OutputModel atualizar(String codigo,
+                                 InputModel inputModel) {
         try {
-            DomainModel domainModel = service.find(codigo);
+            DomainModel domainModel = service.buscar(codigo);
             mapper.updateEntity(inputModel, domainModel);
-            return mapper.toOutput(service.refresh(domainModel));
+            return mapper.toOutput(service.recarregar(domainModel));
         } catch (DataIntegrityViolationException ex) {
             throw new NegocioException(ex);
         }
     }
 
     @Transactional
-    public OutputModel patch(String codigo,
-                             HashMap<String,Object> fields) {
+    public OutputModel atualizarParcial(String codigo,
+                                        HashMap<String,Object> fields) {
         try {
-            DomainModel domainModel = service.find(codigo);
+            DomainModel domainModel = service.buscar(codigo);
             mapper.patchEntity(fields, domainModel);
-            return mapper.toOutput(service.refresh(domainModel));
+            return mapper.toOutput(service.recarregar(domainModel));
         } catch (DataIntegrityViolationException ex) {
             throw new NegocioException(ex);
         }
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(String codigo) {
-        service.delete(codigo);
+    public void excluir(String codigo) {
+        service.excluir(codigo);
     }
 }

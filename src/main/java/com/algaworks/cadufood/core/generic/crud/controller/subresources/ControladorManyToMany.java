@@ -1,10 +1,10 @@
 package com.algaworks.cadufood.core.generic.crud.controller.subresources;
 
-import com.algaworks.cadufood.core.generic.crud.service.GenericService;
-import com.algaworks.cadufood.core.generic.mapper.GenericMapper;
+import com.algaworks.cadufood.core.generic.crud.service.ServicoGenerico;
+import com.algaworks.cadufood.core.generic.mapper.MapeadorGenerico;
 import com.algaworks.cadufood.core.generic.model.DTO;
-import com.algaworks.cadufood.core.generic.model.EntidadePai;
 import com.algaworks.cadufood.core.generic.model.EntidadeGenerica;
+import com.algaworks.cadufood.core.generic.model.EntidadePai;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.List;
 
 @RequiredArgsConstructor
-public abstract class ManyToManyController<
+public abstract class ControladorManyToMany<
         FatherModel extends EntidadePai,
         ChildModel extends EntidadeGenerica,
         ChildInputModel extends DTO,
@@ -24,24 +24,24 @@ public abstract class ManyToManyController<
     final String subResourceName;
 
     @Autowired
-    protected GenericService<FatherModel> fatherService;
+    protected ServicoGenerico<FatherModel> fatherService;
 
     @Autowired
-    protected GenericService<ChildModel> childService;
+    protected ServicoGenerico<ChildModel> childService;
 
     @Autowired
-    protected GenericMapper<ChildModel, ChildInputModel, ChildOutputModel> childMapper;
+    protected MapeadorGenerico<ChildModel, ChildInputModel, ChildOutputModel> childMapper;
 
     @GetMapping
     public List<ChildOutputModel> listarDomainModel(@PathVariable String codigo) {
-        FatherModel fatherModel = fatherService.find(codigo);
+        FatherModel fatherModel = fatherService.buscar(codigo);
         return childMapper.toOutputCollection((Collection<ChildModel>) fatherModel.listarSubRecurso(subResourceName));
     }
 
     @GetMapping("/{childCodigo}")
     public List<ChildOutputModel> buscarDomainModel(@PathVariable String codigo, @PathVariable String childCodigo) {
-        FatherModel fatherModel = fatherService.find(codigo);
-        ChildModel childModel = childService.find(childCodigo);
+        FatherModel fatherModel = fatherService.buscar(codigo);
+        ChildModel childModel = childService.buscar(childCodigo);
         return childMapper.toOutputCollection((Collection<ChildModel>) fatherModel.buscarSubRecurso(subResourceName, childModel));
     }
 
@@ -49,8 +49,8 @@ public abstract class ManyToManyController<
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
     public void associarDomainModel(@PathVariable String codigo, @PathVariable String childCodigo) {
-        FatherModel fatherModel = fatherService.find(codigo);
-        ChildModel childModel = childService.find(childCodigo);
+        FatherModel fatherModel = fatherService.buscar(codigo);
+        ChildModel childModel = childService.buscar(childCodigo);
         fatherModel.associarSubRecurso(subResourceName, childModel);
     }
 
@@ -58,8 +58,8 @@ public abstract class ManyToManyController<
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
     public void DesassociarDomainModel(@PathVariable String codigo, @PathVariable String childCodigo) {
-        FatherModel fatherModel = fatherService.find(codigo);
-        ChildModel childModel = childService.find(childCodigo);
+        FatherModel fatherModel = fatherService.buscar(codigo);
+        ChildModel childModel = childService.buscar(childCodigo);
         fatherModel.desassociarSubRecurso(subResourceName, childModel);
     }
 

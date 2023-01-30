@@ -1,6 +1,6 @@
 package com.algaworks.cadufood.core.generic.crud.service;
 
-import com.algaworks.cadufood.core.generic.crud.repository.GenericRepository;
+import com.algaworks.cadufood.core.generic.crud.repository.RepositorioGenerico;
 import com.algaworks.cadufood.core.generic.model.EntidadeGenerica;
 import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
@@ -13,24 +13,24 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Class representing a generic REST service.
+ * Classe que representa um serviço REST genérico.
  *
  * @author Carlos Eduardo Marques Pereira
  */
-public abstract class GenericService<DomainModel extends EntidadeGenerica> {
+public abstract class ServicoGenerico<DomainModel extends EntidadeGenerica> {
 
     @Autowired
-    protected GenericRepository<DomainModel, Long> repository;
+    protected RepositorioGenerico<DomainModel, Long> repositorio;
 
 //    @Autowired
 //    protected GenericSpecification<DomainModel> genericSpecification;
 
-    public List<DomainModel> list() {
-        return repository.findAll();
+    public List<DomainModel> listar() {
+        return repositorio.findAll();
     }
 
-    public DomainModel find(String domainModelCodigo) {
-        return findOrFail(domainModelCodigo);
+    public DomainModel buscar(String domainModelCodigo) {
+        return buscarOuFalhar(domainModelCodigo);
     }
 
 //    public Page<DomainModel> buscarPersonalizado(GenericFilter<DomainModel> genericFilter, Pageable pageable) {
@@ -38,19 +38,19 @@ public abstract class GenericService<DomainModel extends EntidadeGenerica> {
 //    }
 
     @Transactional
-    public DomainModel save(DomainModel domainModel) {
+    public DomainModel salvar(DomainModel domainModel) {
         try {
-            return saveAndRefresh(domainModel);
+            return salvarERecarregar(domainModel);
         } catch (DataIntegrityViolationException ex){
             throw new NegocioException(ex);
         }
     }
 
     @Transactional
-    public void delete(String domainModelCodigo) {
+    public void excluir(String domainModelCodigo) {
         try{
-            repository.deleteByCodigo(domainModelCodigo);
-            repository.flush();
+            repositorio.deleteByCodigo(domainModelCodigo);
+            repositorio.flush();
         } catch (EmptyResultDataAccessException ex){
             throw new EntidadeNaoEncontradaException(domainModelCodigo);
         } catch (DataIntegrityViolationException ex){
@@ -58,21 +58,21 @@ public abstract class GenericService<DomainModel extends EntidadeGenerica> {
         }
     }
 
-    private DomainModel findOrFail(String domainModelCodigo) {
-        return repository.findByCodigo(domainModelCodigo).orElseThrow(() -> new EntidadeNaoEncontradaException(
+    private DomainModel buscarOuFalhar(String domainModelCodigo) {
+        return repositorio.findByCodigo(domainModelCodigo).orElseThrow(() -> new EntidadeNaoEncontradaException(
                 domainModelCodigo
         ));
     }
 
     @Transactional
-    private DomainModel saveAndRefresh(DomainModel domainModel) {
-        return refresh(repository.save(domainModel));
+    private DomainModel salvarERecarregar(DomainModel domainModel) {
+        return recarregar(repositorio.save(domainModel));
     }
 
     @Transactional
-    public DomainModel refresh(DomainModel domainModel) {
-        repository.flush();
-        return repository.refresh(domainModel);
+    public DomainModel recarregar(DomainModel domainModel) {
+        repositorio.flush();
+        return repositorio.refresh(domainModel);
     }
 
 }

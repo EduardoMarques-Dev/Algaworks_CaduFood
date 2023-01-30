@@ -6,13 +6,18 @@ import org.springframework.data.jpa.domain.Specification;
 
 import java.util.ArrayList;
 
-public abstract class GenericSpecification<DomainModel extends EntidadeGenerica> {
+/**
+ * Interface que representa uma especificação genérica.
+ *
+ * @author Carlos Eduardo Marques Pereira
+ */
+public abstract class EspecificacaoGenerica<DomainModel extends EntidadeGenerica> {
 
-    public Specification<DomainModel> usandoFiltro(GenericFilter<DomainModel> genericFilter){
+    public Specification<DomainModel> usandoFiltro(FiltroGenerico<DomainModel> filtroGenerico){
         return ((root, query, builder) -> {
             var predicates = new ArrayList<Predicate>();
 
-            genericFilter.criarFiltro(predicates, builder, root);
+            filtroGenerico.criarFiltro(predicates, builder, root);
 
             return builder.and(predicates.toArray(new Predicate[0]));
         });

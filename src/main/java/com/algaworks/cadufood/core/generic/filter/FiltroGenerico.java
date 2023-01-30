@@ -6,7 +6,12 @@ import jakarta.persistence.criteria.Root;
 
 import java.util.ArrayList;
 
-public interface GenericFilter<DomainClass> {
+/**
+ * Interface que representa um filtro genérico.
+ *
+ * @author Carlos Eduardo Marques Pereira
+ */
+public interface FiltroGenerico<DomainClass> {
 
     void criarFiltro(ArrayList<Predicate> predicates, CriteriaBuilder builder, Root<DomainClass> root);
 

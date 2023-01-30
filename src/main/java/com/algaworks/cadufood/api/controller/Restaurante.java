@@ -3,8 +3,7 @@ package com.algaworks.cadufood.api.controller;
 import com.algaworks.cadufood.api.model.input.RestauranteInput;
 import com.algaworks.cadufood.api.model.mapper.RestauranteMapper;
 import com.algaworks.cadufood.api.model.output.RestauranteOutput;
-import com.algaworks.cadufood.core.generic.crud.controller.ExceptGetController;
-import com.algaworks.cadufood.domain.model.Restaurante;
+import com.algaworks.cadufood.core.generic.crud.controller.ControladorExcetoGet;
 import com.algaworks.cadufood.domain.service.RestauranteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/restaurantes")
-public class RestauranteController extends ExceptGetController<Restaurante, RestauranteInput, RestauranteOutput> {
+public class Restaurante extends ControladorExcetoGet<com.algaworks.cadufood.domain.model.Restaurante, RestauranteInput, RestauranteOutput> {
 
     @Autowired
     private RestauranteService restauranteService;
@@ -30,8 +29,8 @@ public class RestauranteController extends ExceptGetController<Restaurante, Rest
 
     @Override
     @GetMapping("/{codigo}")
-    public RestauranteOutput find(@PathVariable String code) {
-        return super.find(code);
+    public RestauranteOutput buscar(@PathVariable String code) {
+        return super.buscar(code);
     }
 
     @PutMapping("/{restauranteCodigo}/ativo")

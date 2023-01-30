@@ -1,6 +1,6 @@
 package com.algaworks.cadufood.domain.service;
 
-import com.algaworks.cadufood.core.generic.crud.service.GenericService;
+import com.algaworks.cadufood.core.generic.crud.service.ServicoGenerico;
 import com.algaworks.cadufood.domain.exception.NegocioException;
 import com.algaworks.cadufood.domain.model.Usuario;
 import com.algaworks.cadufood.domain.repository.UsuarioRepository;
@@ -11,14 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
-public class UsuarioService extends GenericService<Usuario> {
+public class UsuarioService extends ServicoGenerico<Usuario> {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
 
     @Override
     @Transactional
-    public Usuario save(Usuario usuario) {
+    public Usuario salvar(Usuario usuario) {
 //        usuarioRepository.detach(usuario);
 
         Optional<Usuario> usuarioExistente = usuarioRepository.findByEmail(usuario.getEmail());
@@ -30,6 +30,6 @@ public class UsuarioService extends GenericService<Usuario> {
             );
         }
 
-        return super.save(usuario);
+        return super.salvar(usuario);
     }
 }
