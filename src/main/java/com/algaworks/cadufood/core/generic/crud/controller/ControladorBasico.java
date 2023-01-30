@@ -1,8 +1,11 @@
 package com.algaworks.cadufood.core.generic.crud.controller;
 
 import com.algaworks.cadufood.core.generic.crud.controller.apiannotations.AllApiAnnotations;
+import com.algaworks.cadufood.core.generic.crud.service.ServicoGenerico;
+import com.algaworks.cadufood.core.generic.mapper.MapeadorGenerico;
 import com.algaworks.cadufood.core.generic.model.DTO;
 import com.algaworks.cadufood.core.generic.model.EntidadeGenerica;
+import com.algaworks.cadufood.core.generic.model.ObjetoGenerico;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,10 +20,14 @@ import java.util.List;
  */
 public abstract class ControladorBasico<
         DomainModel extends EntidadeGenerica,
-        InputModel extends DTO,
-        OutputModel extends DTO>
+        InputModel extends ObjetoGenerico,
+        OutputModel extends ObjetoGenerico>
         extends ControladorGenerico<DomainModel, InputModel, OutputModel>
         implements AllApiAnnotations<InputModel,OutputModel> {
+
+    public ControladorBasico(ServicoGenerico<DomainModel> servico, MapeadorGenerico<DomainModel, InputModel, OutputModel> mapper) {
+        super(servico, mapper);
+    }
 
     @Override
     public List<OutputModel> listar() {
@@ -28,8 +35,8 @@ public abstract class ControladorBasico<
     }
 
     @Override
-    public OutputModel buscar(String code) {
-        return super.buscar(code);
+    public OutputModel buscar(String codigo) {
+        return super.buscar(codigo);
     }
 
     @Override

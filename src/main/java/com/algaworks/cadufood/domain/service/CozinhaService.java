@@ -1,5 +1,6 @@
 package com.algaworks.cadufood.domain.service;
 
+import com.algaworks.cadufood.core.generic.crud.repository.RepositorioGenerico;
 import com.algaworks.cadufood.core.generic.crud.service.ServicoGenerico;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.exception.negocio.CozinhaNaoEncontradaException;
@@ -11,8 +12,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class CozinhaService extends ServicoGenerico<Cozinha> {
 
-	@Autowired
-	private CozinhaRepository cozinhaRepository;
+	public CozinhaService(CozinhaRepository repositorio) {
+		super(repositorio);
+	}
 
 	@Override
 	public Cozinha buscar(String cozinhaCodigo) {

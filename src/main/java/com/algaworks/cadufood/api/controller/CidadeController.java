@@ -4,6 +4,8 @@ import com.algaworks.cadufood.api.model.input.CidadeInput;
 import com.algaworks.cadufood.api.model.mapper.CidadeMapper;
 import com.algaworks.cadufood.api.model.output.CidadeOutput;
 import com.algaworks.cadufood.core.generic.crud.controller.ControladorExcetoGet;
+import com.algaworks.cadufood.core.generic.crud.service.ServicoGenerico;
+import com.algaworks.cadufood.core.generic.mapper.MapeadorGenerico;
 import com.algaworks.cadufood.domain.model.Cidade;
 import com.algaworks.cadufood.domain.service.CidadeService;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
@@ -22,11 +24,15 @@ import java.util.List;
 @RequestMapping(value = "/cidades")
 public class CidadeController extends ControladorExcetoGet<Cidade, CidadeInput, CidadeOutput> {
 
-    @Autowired
-    private CidadeService cidadeService;
+    private final CidadeService cidadeService;
 
-    @Autowired
-    private CidadeMapper mapper;
+    private final CidadeMapper mapper;
+
+    public CidadeController(CidadeService servico, CidadeMapper mapper) {
+        super(servico, mapper);
+        this.cidadeService = servico;
+        this.mapper = mapper;
+    }
 
     @GetMapping
     public MappingJacksonValue listar(@RequestParam(required = false) String campos) {
@@ -51,7 +57,7 @@ public class CidadeController extends ControladorExcetoGet<Cidade, CidadeInput, 
     }
 
     @Override
-    public CidadeOutput buscar(String code) {
-        return super.buscar(code);
+    public CidadeOutput buscar(String codigo) {
+        return super.buscar(codigo);
     }
 }

@@ -19,5 +19,4 @@ public class RestauranteFormaPagamentoControlador extends ControladorManyToMany<
     public RestauranteFormaPagamentoControlador() {
         super("formasPagamento");
     }
-
 }

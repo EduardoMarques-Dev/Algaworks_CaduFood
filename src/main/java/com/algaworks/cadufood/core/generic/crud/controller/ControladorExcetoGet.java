@@ -2,8 +2,12 @@ package com.algaworks.cadufood.core.generic.crud.controller;
 
 import com.algaworks.cadufood.core.generic.crud.controller.apiannotations.DeleteAnnotations;
 import com.algaworks.cadufood.core.generic.crud.controller.apiannotations.PostPutAnnotations;
+import com.algaworks.cadufood.core.generic.crud.service.ServicoGenerico;
+import com.algaworks.cadufood.core.generic.mapper.MapeadorGenerico;
 import com.algaworks.cadufood.core.generic.model.DTO;
 import com.algaworks.cadufood.core.generic.model.EntidadeGenerica;
+import com.algaworks.cadufood.core.generic.model.ObjetoGenerico;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
 
@@ -17,10 +21,15 @@ import java.util.HashMap;
  */
 public abstract class ControladorExcetoGet<
             DomainModel extends EntidadeGenerica,
-            InputModel extends DTO,
-            OutputModel extends DTO>
+            InputModel extends ObjetoGenerico,
+            OutputModel extends ObjetoGenerico>
         extends ControladorGenerico<DomainModel, InputModel, OutputModel>
         implements PostPutAnnotations<InputModel,OutputModel>, DeleteAnnotations {
+
+
+    public ControladorExcetoGet(ServicoGenerico<DomainModel> servico, MapeadorGenerico<DomainModel, InputModel, OutputModel> mapper) {
+        super(servico, mapper);
+    }
 
     @Override
     public OutputModel salvar(InputModel inputModel) {

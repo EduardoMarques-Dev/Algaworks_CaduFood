@@ -5,6 +5,7 @@ import com.algaworks.cadufood.core.generic.mapper.MapeadorGenerico;
 import com.algaworks.cadufood.core.generic.model.EntidadeGenerica;
 import com.algaworks.cadufood.core.generic.model.ObjetoGenerico;
 import com.algaworks.cadufood.domain.exception.NegocioException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -19,30 +20,29 @@ import java.util.List;
  *
  * @author Carlos Eduardo Marques Pereira
  */
+@RequiredArgsConstructor
 public abstract class ControladorGenerico<
         DomainModel extends EntidadeGenerica,
         InputModel extends ObjetoGenerico,
         OutputModel extends ObjetoGenerico> {
 
-    @Autowired
-    protected ServicoGenerico<DomainModel> service;
+    protected final ServicoGenerico<DomainModel> servico;
 
-    @Autowired
-    protected MapeadorGenerico<DomainModel, InputModel, OutputModel> mapper;
+    protected final MapeadorGenerico<DomainModel, InputModel, OutputModel> mapper;
 
     public List<OutputModel> listar() {
-        return mapper.toOutputCollection(service.listar());
+        return mapper.toOutputCollection(servico.listar());
     }
 
-    public OutputModel buscar(String code) {
-        DomainModel domainModel = service.buscar(code);
+    public OutputModel buscar(String codigo) {
+        DomainModel domainModel = servico.buscar(codigo);
         return mapper.toOutput(domainModel);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     public OutputModel salvar(InputModel inputModel) {
         DomainModel domainModel = mapper.toDomain(inputModel);
-        domainModel = service.salvar(domainModel);
+        domainModel = servico.salvar(domainModel);
         return mapper.toOutput(domainModel);
     }
 
@@ -50,9 +50,9 @@ public abstract class ControladorGenerico<
     public OutputModel atualizar(String codigo,
                                  InputModel inputModel) {
         try {
-            DomainModel domainModel = service.buscar(codigo);
+            DomainModel domainModel = servico.buscar(codigo);
             mapper.updateEntity(inputModel, domainModel);
-            return mapper.toOutput(service.recarregar(domainModel));
+            return mapper.toOutput(servico.recarregar(domainModel));
         } catch (DataIntegrityViolationException ex) {
             throw new NegocioException(ex);
         }
@@ -62,9 +62,9 @@ public abstract class ControladorGenerico<
     public OutputModel atualizarParcial(String codigo,
                                         HashMap<String,Object> fields) {
         try {
-            DomainModel domainModel = service.buscar(codigo);
+            DomainModel domainModel = servico.buscar(codigo);
             mapper.patchEntity(fields, domainModel);
-            return mapper.toOutput(service.recarregar(domainModel));
+            return mapper.toOutput(servico.recarregar(domainModel));
         } catch (DataIntegrityViolationException ex) {
             throw new NegocioException(ex);
         }
@@ -72,6 +72,6 @@ public abstract class ControladorGenerico<
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void excluir(String codigo) {
-        service.excluir(codigo);
+        servico.excluir(codigo);
     }
 }

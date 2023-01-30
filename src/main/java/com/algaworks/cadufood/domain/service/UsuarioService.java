@@ -1,5 +1,6 @@
 package com.algaworks.cadufood.domain.service;
 
+import com.algaworks.cadufood.core.generic.crud.repository.RepositorioGenerico;
 import com.algaworks.cadufood.core.generic.crud.service.ServicoGenerico;
 import com.algaworks.cadufood.domain.exception.NegocioException;
 import com.algaworks.cadufood.domain.model.Usuario;
@@ -13,8 +14,12 @@ import java.util.Optional;
 @Service
 public class UsuarioService extends ServicoGenerico<Usuario> {
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
+
+    public UsuarioService(UsuarioRepository repositorio) {
+        super(repositorio);
+        this.usuarioRepository = repositorio;
+    }
 
     @Override
     @Transactional

@@ -5,6 +5,7 @@ import com.algaworks.cadufood.core.generic.model.EntidadeGenerica;
 import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.exception.NegocioException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -17,13 +18,10 @@ import java.util.List;
  *
  * @author Carlos Eduardo Marques Pereira
  */
+@RequiredArgsConstructor
 public abstract class ServicoGenerico<DomainModel extends EntidadeGenerica> {
 
-    @Autowired
-    protected RepositorioGenerico<DomainModel, Long> repositorio;
-
-//    @Autowired
-//    protected GenericSpecification<DomainModel> genericSpecification;
+    protected final RepositorioGenerico<DomainModel, Long> repositorio;
 
     public List<DomainModel> listar() {
         return repositorio.findAll();
@@ -32,10 +30,6 @@ public abstract class ServicoGenerico<DomainModel extends EntidadeGenerica> {
     public DomainModel buscar(String domainModelCodigo) {
         return buscarOuFalhar(domainModelCodigo);
     }
-
-//    public Page<DomainModel> buscarPersonalizado(GenericFilter<DomainModel> genericFilter, Pageable pageable) {
-//        return repository.findAll(genericSpecification.usandoFiltro(genericFilter), pageable);
-//    }
 
     @Transactional
     public DomainModel salvar(DomainModel domainModel) {
@@ -59,14 +53,8 @@ public abstract class ServicoGenerico<DomainModel extends EntidadeGenerica> {
     }
 
     private DomainModel buscarOuFalhar(String domainModelCodigo) {
-        return repositorio.findByCodigo(domainModelCodigo).orElseThrow(() -> new EntidadeNaoEncontradaException(
-                domainModelCodigo
-        ));
-    }
-
-    @Transactional
-    private DomainModel salvarERecarregar(DomainModel domainModel) {
-        return recarregar(repositorio.save(domainModel));
+        return repositorio.findByCodigo(domainModelCodigo)
+                .orElseThrow(() -> new EntidadeNaoEncontradaException(domainModelCodigo));
     }
 
     @Transactional
@@ -74,5 +62,12 @@ public abstract class ServicoGenerico<DomainModel extends EntidadeGenerica> {
         repositorio.flush();
         return repositorio.refresh(domainModel);
     }
+
+    @Transactional
+    private DomainModel salvarERecarregar(DomainModel domainModel) {
+        return recarregar(repositorio.save(domainModel));
+    }
+
+
 
 }

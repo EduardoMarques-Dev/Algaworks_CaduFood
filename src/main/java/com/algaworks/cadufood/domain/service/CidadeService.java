@@ -1,5 +1,6 @@
 package com.algaworks.cadufood.domain.service;
 
+import com.algaworks.cadufood.core.generic.crud.repository.RepositorioGenerico;
 import com.algaworks.cadufood.core.generic.crud.service.ServicoGenerico;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.exception.negocio.CidadeNaoEncontradaException;
@@ -11,8 +12,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class CidadeService extends ServicoGenerico<Cidade> {
 
-	@Autowired
-	private CidadeRepository cidadeRepository;
+	public CidadeService(CidadeRepository repositorio) {
+		super(repositorio);
+	}
 
 	@Override
 	public Cidade buscar(String cidadeCodigo) {

@@ -7,11 +7,14 @@ import com.algaworks.cadufood.api.model.output.UsuarioOutput;
 import com.algaworks.cadufood.api.model.resume.UsuarioSenha;
 import com.algaworks.cadufood.api.model.resume.UsuarioUpdate;
 import com.algaworks.cadufood.core.generic.crud.controller.ControladorExcetoPostPut;
+import com.algaworks.cadufood.core.generic.crud.service.ServicoGenerico;
+import com.algaworks.cadufood.core.generic.mapper.MapeadorGenerico;
 import com.algaworks.cadufood.domain.exception.NegocioException;
 import com.algaworks.cadufood.domain.exception.SenhaIncorretaException;
 import com.algaworks.cadufood.domain.model.Usuario;
 import com.algaworks.cadufood.domain.service.UsuarioService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -23,11 +26,15 @@ import java.util.HashMap;
 @RequestMapping(value = "/usuarios")
 public class UsuarioController extends ControladorExcetoPostPut<Usuario, UsuarioInput, UsuarioOutput> {
 
-    @Autowired
-    private UsuarioService usuarioService;
+    private final UsuarioService usuarioService;
 
-    @Autowired
-    private UsuarioMapper mapper;
+    private final UsuarioMapper mapper;
+
+    public UsuarioController(UsuarioService servico, UsuarioMapper mapper) {
+        super(servico, mapper);
+        this.usuarioService = servico;
+        this.mapper = mapper;
+    }
 
     @Override
     @PostMapping
