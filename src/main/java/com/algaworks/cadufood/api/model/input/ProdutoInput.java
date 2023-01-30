@@ -20,7 +20,5 @@ public class ProdutoInput implements DataTransferObject {
     @NotNull
     @Min(1)
     private BigDecimal preco;
-    @NotNull
-    private IdResume restaurante;
 
 }

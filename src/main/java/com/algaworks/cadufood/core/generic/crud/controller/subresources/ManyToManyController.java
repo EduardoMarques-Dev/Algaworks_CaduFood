@@ -1,4 +1,4 @@
-package com.algaworks.cadufood.core.generic.crud.controller;
+package com.algaworks.cadufood.core.generic.crud.controller.subresources;
 
 import com.algaworks.cadufood.core.generic.crud.service.GenericService;
 import com.algaworks.cadufood.core.generic.mapper.GenericMapper;
@@ -15,13 +15,13 @@ import java.util.Collection;
 import java.util.List;
 
 @RequiredArgsConstructor
-public abstract class SubResourceController<
+public abstract class ManyToManyController<
         FatherModel extends FatherEntity,
         ChildModel extends GenericEntity,
         ChildInputModel extends DataTransferObject,
         ChildOutputModel extends DataTransferObject> {
 
-    final String nomeSubRecurso;
+    final String subResourceName;
 
     @Autowired
     protected GenericService<FatherModel> fatherService;
@@ -35,14 +35,14 @@ public abstract class SubResourceController<
     @GetMapping
     public List<ChildOutputModel> listarDomainModel(@PathVariable String codigo) {
         FatherModel fatherModel = fatherService.buscar(codigo);
-        return childMapper.toOutputCollection((Collection<ChildModel>) fatherModel.listarSubRecurso(nomeSubRecurso));
+        return childMapper.toOutputCollection((Collection<ChildModel>) fatherModel.listarSubRecurso(subResourceName));
     }
 
     @GetMapping("/{childCodigo}")
     public List<ChildOutputModel> buscarDomainModel(@PathVariable String codigo, @PathVariable String childCodigo) {
         FatherModel fatherModel = fatherService.buscar(codigo);
         ChildModel childModel = childService.buscar(childCodigo);
-        return childMapper.toOutputCollection((Collection<ChildModel>) fatherModel.buscarSubRecurso(nomeSubRecurso, childModel));
+        return childMapper.toOutputCollection((Collection<ChildModel>) fatherModel.buscarSubRecurso(subResourceName, childModel));
     }
 
     @PostMapping("/{childCodigo}")
@@ -51,7 +51,7 @@ public abstract class SubResourceController<
     public void associarDomainModel(@PathVariable String codigo, @PathVariable String childCodigo) {
         FatherModel fatherModel = fatherService.buscar(codigo);
         ChildModel childModel = childService.buscar(childCodigo);
-        fatherModel.associarSubRecurso(nomeSubRecurso, childModel);
+        fatherModel.associarSubRecurso(subResourceName, childModel);
     }
 
     @DeleteMapping("/{childCodigo}")
@@ -60,7 +60,7 @@ public abstract class SubResourceController<
     public void DesassociarDomainModel(@PathVariable String codigo, @PathVariable String childCodigo) {
         FatherModel fatherModel = fatherService.buscar(codigo);
         ChildModel childModel = childService.buscar(childCodigo);
-        fatherModel.desassociarSubRecurso(nomeSubRecurso, childModel);
+        fatherModel.desassociarSubRecurso(subResourceName, childModel);
     }
 
 }
