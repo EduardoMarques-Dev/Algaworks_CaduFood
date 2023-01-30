@@ -15,9 +15,9 @@ public class EstadoService extends GenericService<Estado> {
 	private EstadoRepository estadoRepository;
 
 	@Override
-	public Estado buscar(String estadoCodigo) {
+	public Estado find(String estadoCodigo) {
 		try{
-			return super.buscar(estadoCodigo);
+			return super.find(estadoCodigo);
 		}catch (EntidadeNaoEncontradaException ex){
 			throw new EstadoNaoEncontradoException(Estado.class, estadoCodigo);
 		}

@@ -34,14 +34,14 @@ public abstract class ManyToManyController<
 
     @GetMapping
     public List<ChildOutputModel> listarDomainModel(@PathVariable String codigo) {
-        FatherModel fatherModel = fatherService.buscar(codigo);
+        FatherModel fatherModel = fatherService.find(codigo);
         return childMapper.toOutputCollection((Collection<ChildModel>) fatherModel.listarSubRecurso(subResourceName));
     }
 
     @GetMapping("/{childCodigo}")
     public List<ChildOutputModel> buscarDomainModel(@PathVariable String codigo, @PathVariable String childCodigo) {
-        FatherModel fatherModel = fatherService.buscar(codigo);
-        ChildModel childModel = childService.buscar(childCodigo);
+        FatherModel fatherModel = fatherService.find(codigo);
+        ChildModel childModel = childService.find(childCodigo);
         return childMapper.toOutputCollection((Collection<ChildModel>) fatherModel.buscarSubRecurso(subResourceName, childModel));
     }
 
@@ -49,8 +49,8 @@ public abstract class ManyToManyController<
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
     public void associarDomainModel(@PathVariable String codigo, @PathVariable String childCodigo) {
-        FatherModel fatherModel = fatherService.buscar(codigo);
-        ChildModel childModel = childService.buscar(childCodigo);
+        FatherModel fatherModel = fatherService.find(codigo);
+        ChildModel childModel = childService.find(childCodigo);
         fatherModel.associarSubRecurso(subResourceName, childModel);
     }
 
@@ -58,8 +58,8 @@ public abstract class ManyToManyController<
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
     public void DesassociarDomainModel(@PathVariable String codigo, @PathVariable String childCodigo) {
-        FatherModel fatherModel = fatherService.buscar(codigo);
-        ChildModel childModel = childService.buscar(childCodigo);
+        FatherModel fatherModel = fatherService.find(codigo);
+        ChildModel childModel = childService.find(childCodigo);
         fatherModel.desassociarSubRecurso(subResourceName, childModel);
     }
 

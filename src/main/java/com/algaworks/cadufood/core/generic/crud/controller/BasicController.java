@@ -7,6 +7,13 @@ import com.algaworks.cadufood.core.generic.model.GenericEntity;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Class representing a basic REST controller.
+ * Provides a generic controller implementation,
+ * with all methods mapped.
+ *
+ * @author Carlos Eduardo Marques Pereira
+ */
 public abstract class BasicController<
         DomainModel extends GenericEntity,
         InputModel extends DataTransferObject,
@@ -15,32 +22,32 @@ public abstract class BasicController<
         implements AllApiAnnotations<InputModel,OutputModel> {
 
     @Override
-    public List<OutputModel> listar() {
-        return super.listar();
+    public List<OutputModel> list() {
+        return super.list();
     }
 
     @Override
-    public OutputModel buscar(String codigo) {
-        return super.buscar(codigo);
+    public OutputModel find(String code) {
+        return super.find(code);
     }
 
     @Override
-    public OutputModel salvar(InputModel inputModel) {
-        return super.salvar(inputModel);
+    public OutputModel save(InputModel inputModel) {
+        return super.save(inputModel);
     }
 
     @Override
-    public OutputModel atualizar(String codigo, InputModel inputModel) {
-        return super.atualizar(codigo, inputModel);
+    public OutputModel update(String codigo, InputModel inputModel) {
+        return super.update(codigo, inputModel);
     }
 
     @Override
-    public OutputModel atualizarParcial(String codigo, HashMap<String, Object> fields) {
-        return super.atualizarParcial(codigo, fields);
+    public OutputModel patch(String codigo, HashMap<String, Object> fields) {
+        return super.patch(codigo, fields);
     }
 
     @Override
-    public void excluir(String codigo) {
-        super.excluir(codigo);
+    public void delete(String codigo) {
+        super.delete(codigo);
     }
 }

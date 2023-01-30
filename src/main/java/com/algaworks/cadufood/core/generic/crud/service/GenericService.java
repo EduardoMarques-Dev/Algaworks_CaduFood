@@ -1,8 +1,6 @@
 package com.algaworks.cadufood.core.generic.crud.service;
 
 import com.algaworks.cadufood.core.generic.crud.repository.GenericRepository;
-import com.algaworks.cadufood.core.generic.filter.GenericFilter;
-import com.algaworks.cadufood.core.generic.filter.GenericSpecification;
 import com.algaworks.cadufood.core.generic.model.GenericEntity;
 import com.algaworks.cadufood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
@@ -10,44 +8,46 @@ import com.algaworks.cadufood.domain.exception.NegocioException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
+/**
+ * Class representing a generic REST service.
+ *
+ * @author Carlos Eduardo Marques Pereira
+ */
 public abstract class GenericService<DomainModel extends GenericEntity> {
 
     @Autowired
     protected GenericRepository<DomainModel, Long> repository;
 
-    @Autowired
-    protected GenericSpecification<DomainModel> genericSpecification;
+//    @Autowired
+//    protected GenericSpecification<DomainModel> genericSpecification;
 
-    public List<DomainModel> listar() {
+    public List<DomainModel> list() {
         return repository.findAll();
     }
 
-    public DomainModel buscar(String domainModelCodigo) {
-        return buscarDomainModelOuFalhar(domainModelCodigo);
+    public DomainModel find(String domainModelCodigo) {
+        return findOrFail(domainModelCodigo);
     }
 
-    public Page<DomainModel> buscarPersonalizado(GenericFilter<DomainModel> genericFilter, Pageable pageable) {
-        return repository.findAll(genericSpecification.usandoFiltro(genericFilter), pageable);
-    }
+//    public Page<DomainModel> buscarPersonalizado(GenericFilter<DomainModel> genericFilter, Pageable pageable) {
+//        return repository.findAll(genericSpecification.usandoFiltro(genericFilter), pageable);
+//    }
 
     @Transactional
-    public DomainModel salvar(DomainModel domainModel) {
+    public DomainModel save(DomainModel domainModel) {
         try {
-            return salvarERecarregar(domainModel);
+            return saveAndRefresh(domainModel);
         } catch (DataIntegrityViolationException ex){
             throw new NegocioException(ex);
         }
     }
 
     @Transactional
-    public void excluir(String domainModelCodigo) {
+    public void delete(String domainModelCodigo) {
         try{
             repository.deleteByCodigo(domainModelCodigo);
             repository.flush();
@@ -58,19 +58,19 @@ public abstract class GenericService<DomainModel extends GenericEntity> {
         }
     }
 
-    private DomainModel buscarDomainModelOuFalhar(String domainModelCodigo) {
+    private DomainModel findOrFail(String domainModelCodigo) {
         return repository.findByCodigo(domainModelCodigo).orElseThrow(() -> new EntidadeNaoEncontradaException(
                 domainModelCodigo
         ));
     }
 
     @Transactional
-    private DomainModel salvarERecarregar(DomainModel domainModel) {
-        return recarregar(repository.save(domainModel));
+    private DomainModel saveAndRefresh(DomainModel domainModel) {
+        return refresh(repository.save(domainModel));
     }
 
     @Transactional
-    public DomainModel recarregar(DomainModel domainModel) {
+    public DomainModel refresh(DomainModel domainModel) {
         repository.flush();
         return repository.refresh(domainModel);
     }

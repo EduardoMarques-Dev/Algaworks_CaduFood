@@ -15,9 +15,9 @@ public class CidadeService extends GenericService<Cidade> {
 	private CidadeRepository cidadeRepository;
 
 	@Override
-	public Cidade buscar(String cidadeCodigo) {
+	public Cidade find(String cidadeCodigo) {
 		try{
-			return super.buscar(cidadeCodigo);
+			return super.find(cidadeCodigo);
 		}catch (EntidadeNaoEncontradaException ex){
 			throw new CidadeNaoEncontradaException(Cidade.class, cidadeCodigo);
 		}

@@ -29,8 +29,8 @@ public class CidadeController extends ExceptGetController<Cidade, CidadeInput, C
     private CidadeMapper mapper;
 
     @GetMapping
-    public MappingJacksonValue listar(@RequestParam(required = false) String campos) {
-        List<CidadeOutput> outputModels = mapper.toOutputCollection(cidadeService.listar());
+    public MappingJacksonValue list(@RequestParam(required = false) String campos) {
+        List<CidadeOutput> outputModels = mapper.toOutputCollection(cidadeService.list());
 
         MappingJacksonValue outputWrapper = new MappingJacksonValue(outputModels);
         outputWrapper.setFilters(adicionarFiltros(campos));
@@ -51,7 +51,7 @@ public class CidadeController extends ExceptGetController<Cidade, CidadeInput, C
     }
 
     @Override
-    public CidadeOutput buscar(String codigo) {
-        return super.buscar(codigo);
+    public CidadeOutput find(String code) {
+        return super.find(code);
     }
 }

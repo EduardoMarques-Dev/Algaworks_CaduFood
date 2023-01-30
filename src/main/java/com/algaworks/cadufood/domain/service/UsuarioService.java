@@ -18,7 +18,7 @@ public class UsuarioService extends GenericService<Usuario> {
 
     @Override
     @Transactional
-    public Usuario salvar(Usuario usuario) {
+    public Usuario save(Usuario usuario) {
 //        usuarioRepository.detach(usuario);
 
         Optional<Usuario> usuarioExistente = usuarioRepository.findByEmail(usuario.getEmail());
@@ -30,6 +30,6 @@ public class UsuarioService extends GenericService<Usuario> {
             );
         }
 
-        return super.salvar(usuario);
+        return super.save(usuario);
     }
 }

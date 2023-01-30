@@ -7,6 +7,13 @@ import com.algaworks.cadufood.core.generic.model.GenericEntity;
 
 import java.util.HashMap;
 
+/**
+ * Class representing a custom REST controller.
+ * Provides a generic controller implementation,
+ * without GET method mapping.
+ *
+ * @author Carlos Eduardo Marques Pereira
+ */
 public abstract class ExceptGetController<
             DomainModel extends GenericEntity,
             InputModel extends DataTransferObject,
@@ -15,22 +22,22 @@ public abstract class ExceptGetController<
         implements PostPutAnnotations<InputModel,OutputModel>, DeleteAnnotations {
 
     @Override
-    public OutputModel salvar(InputModel inputModel) {
-        return super.salvar(inputModel);
+    public OutputModel save(InputModel inputModel) {
+        return super.save(inputModel);
     }
 
     @Override
-    public OutputModel atualizar(String codigo, InputModel inputModel) {
-        return super.atualizar(codigo, inputModel);
+    public OutputModel update(String codigo, InputModel inputModel) {
+        return super.update(codigo, inputModel);
     }
 
     @Override
-    public OutputModel atualizarParcial(String codigo, HashMap<String, Object> fields) {
-        return super.atualizarParcial(codigo, fields);
+    public OutputModel patch(String codigo, HashMap<String, Object> fields) {
+        return super.patch(codigo, fields);
     }
 
     @Override
-    public void excluir(String codigo) {
-        super.excluir(codigo);
+    public void delete(String codigo) {
+        super.delete(codigo);
     }
 }

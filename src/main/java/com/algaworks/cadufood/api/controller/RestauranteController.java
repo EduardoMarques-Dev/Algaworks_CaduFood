@@ -34,8 +34,8 @@ public class RestauranteController extends ExceptGetController<Restaurante, Rest
 
     @Override
     @GetMapping("/{codigo}")
-    public RestauranteOutput buscar(@PathVariable String codigo) {
-        return super.buscar(codigo);
+    public RestauranteOutput find(@PathVariable String code) {
+        return super.find(code);
     }
 
     @PutMapping("/{restauranteCodigo}/ativo")

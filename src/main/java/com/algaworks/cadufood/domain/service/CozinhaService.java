@@ -15,9 +15,9 @@ public class CozinhaService extends GenericService<Cozinha> {
 	private CozinhaRepository cozinhaRepository;
 
 	@Override
-	public Cozinha buscar(String cozinhaCodigo) {
+	public Cozinha find(String cozinhaCodigo) {
 		try {
-			return super.buscar(cozinhaCodigo);
+			return super.find(cozinhaCodigo);
 		}catch (EntidadeNaoEncontradaException ex){
 			throw new CozinhaNaoEncontradaException(Cozinha.class, cozinhaCodigo);
 		}

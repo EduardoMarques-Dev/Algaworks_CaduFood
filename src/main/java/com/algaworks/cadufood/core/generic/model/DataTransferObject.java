@@ -1,5 +1,5 @@
 package com.algaworks.cadufood.core.generic.model;
 
-public interface DataTransferObject {
+public interface DataTransferObject extends GenericObject {
 
 }

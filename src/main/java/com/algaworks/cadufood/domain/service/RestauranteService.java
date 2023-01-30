@@ -11,9 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class RestauranteService extends GenericService<Restaurante> {
 
 	@Override
-	public Restaurante buscar(String domainModelId) {
+	public Restaurante find(String domainModelId) {
 		try{
-			return super.buscar(domainModelId);
+			return super.find(domainModelId);
 		}catch (EntidadeNaoEncontradaException ex){
 			throw new RestauranteNaoEncontradoException(Restaurante.class, domainModelId);
 		}
@@ -21,13 +21,13 @@ public class RestauranteService extends GenericService<Restaurante> {
 
 	@Transactional
 	public void ativar(String restauranteCodigo){
-		Restaurante restauranteAtual = buscar(restauranteCodigo);
+		Restaurante restauranteAtual = find(restauranteCodigo);
 		restauranteAtual.ativar();
 	}
 
 	@Transactional
 	public void inativar(String restauranteCodigo){
-		Restaurante restauranteAtual = buscar(restauranteCodigo);
+		Restaurante restauranteAtual = find(restauranteCodigo);
 		restauranteAtual.inativar();
 	}
 

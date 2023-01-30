@@ -31,16 +31,16 @@ public class UsuarioController extends ExceptPostPutController<Usuario, UsuarioI
 
     @Override
     @PostMapping
-    public UsuarioOutput salvar(@RequestBody @Valid UsuarioInput usuarioInput) {
-        return super.salvar(usuarioInput);
+    public UsuarioOutput save(@RequestBody @Valid UsuarioInput usuarioInput) {
+        return super.save(usuarioInput);
     }
 
     @PutMapping("/{codigo}")
     public UsuarioOutput atualizar(@PathVariable String codigo, @RequestBody @Valid UsuarioUpdate usuarioUpdate) {
         try {
-            Usuario domainModel = usuarioService.buscar(codigo);
+            Usuario domainModel = usuarioService.find(codigo);
             mapper.updateEntity(usuarioUpdate, domainModel);
-            return mapper.toOutput(usuarioService.recarregar(domainModel));
+            return mapper.toOutput(usuarioService.refresh(domainModel));
         } catch (DataIntegrityViolationException ex) {
             throw new NegocioException(ex);
         }
@@ -49,7 +49,7 @@ public class UsuarioController extends ExceptPostPutController<Usuario, UsuarioI
     @PutMapping("/{codigo}/senha")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void atualizarSenha(@PathVariable String codigo, @RequestBody @Valid UsuarioSenha usuarioSenha) {
-            Usuario domainModel = usuarioService.buscar(codigo);
+            Usuario domainModel = usuarioService.find(codigo);
             if (domainModel.getSenha().equals(usuarioSenha.getSenhaAtual())){
                 domainModel.setSenha(usuarioSenha.getNovaSenha());
             } else {
@@ -59,11 +59,11 @@ public class UsuarioController extends ExceptPostPutController<Usuario, UsuarioI
 
     @Override
     @PatchMapping("/{codigo}")
-    public UsuarioOutput atualizarParcial(@PathVariable String codigo, @RequestBody @Valid HashMap<String, Object> fields) {
+    public UsuarioOutput patch(@PathVariable String codigo, @RequestBody @Valid HashMap<String, Object> fields) {
         if(fields.containsKey("senha")){
             throw new NegocioException("Não é permitido atualizar a senha desta maneira");
         }
-        return super.atualizarParcial(codigo, fields);
+        return super.patch(codigo, fields);
     }
 
 }
