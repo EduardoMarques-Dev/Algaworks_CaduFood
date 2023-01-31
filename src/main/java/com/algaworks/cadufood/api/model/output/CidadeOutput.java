@@ -1,7 +1,6 @@
 package com.algaworks.cadufood.api.model.output;
 
 import com.algaworks.cadufood.core.generic.model.DTO;
-import com.fasterxml.jackson.annotation.JsonFilter;
 import lombok.Getter;
 import lombok.Setter;
 

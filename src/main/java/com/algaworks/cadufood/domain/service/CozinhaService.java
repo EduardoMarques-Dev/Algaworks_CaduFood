@@ -1,12 +1,10 @@
 package com.algaworks.cadufood.domain.service;
 
-import com.algaworks.cadufood.core.generic.crud.repository.RepositorioGenerico;
 import com.algaworks.cadufood.core.generic.crud.service.ServicoGenerico;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.exception.negocio.CozinhaNaoEncontradaException;
 import com.algaworks.cadufood.domain.model.Cozinha;
 import com.algaworks.cadufood.domain.repository.CozinhaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service

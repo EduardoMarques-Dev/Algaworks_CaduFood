@@ -3,7 +3,6 @@ package com.algaworks.cadufood.core.generic.crud.controller;
 import com.algaworks.cadufood.core.generic.crud.controller.apiannotations.AllApiAnnotations;
 import com.algaworks.cadufood.core.generic.crud.service.ServicoGenerico;
 import com.algaworks.cadufood.core.generic.mapper.MapeadorGenerico;
-import com.algaworks.cadufood.core.generic.model.DTO;
 import com.algaworks.cadufood.core.generic.model.EntidadeGenerica;
 import com.algaworks.cadufood.core.generic.model.ObjetoGenerico;
 

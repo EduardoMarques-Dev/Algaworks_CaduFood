@@ -2,7 +2,6 @@ package com.algaworks.cadufood.core.generic.model;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Interface que representa uma entidade REST pai.
@@ -11,7 +10,9 @@ import java.util.Objects;
  *
  * @author Carlos Eduardo Marques Pereira
  */
-public interface EntidadePai extends EntidadeGenerica {
+public interface EntidadePai extends EntidadeGenerica{
+
+    void setSubRecursos();
 
     Map<String, Collection<EntidadeGenerica>> getSubRecursos();
 

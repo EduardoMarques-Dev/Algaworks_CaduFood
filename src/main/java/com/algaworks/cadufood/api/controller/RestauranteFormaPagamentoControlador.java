@@ -5,8 +5,6 @@ import com.algaworks.cadufood.api.model.output.FormaPagamentoOutput;
 import com.algaworks.cadufood.core.generic.crud.controller.subresources.ControladorManyToMany;
 import com.algaworks.cadufood.domain.model.FormaPagamento;
 import com.algaworks.cadufood.domain.model.Restaurante;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

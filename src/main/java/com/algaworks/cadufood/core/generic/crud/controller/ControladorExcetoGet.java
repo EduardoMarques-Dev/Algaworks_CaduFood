@@ -4,10 +4,8 @@ import com.algaworks.cadufood.core.generic.crud.controller.apiannotations.Delete
 import com.algaworks.cadufood.core.generic.crud.controller.apiannotations.PostPutAnnotations;
 import com.algaworks.cadufood.core.generic.crud.service.ServicoGenerico;
 import com.algaworks.cadufood.core.generic.mapper.MapeadorGenerico;
-import com.algaworks.cadufood.core.generic.model.DTO;
 import com.algaworks.cadufood.core.generic.model.EntidadeGenerica;
 import com.algaworks.cadufood.core.generic.model.ObjetoGenerico;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
 

@@ -1,8 +1,6 @@
 package com.algaworks.cadufood.domain.service;
 
-import com.algaworks.cadufood.core.generic.crud.repository.RepositorioGenerico;
 import com.algaworks.cadufood.core.generic.crud.service.ServicoConsultasAvancadas;
-import com.algaworks.cadufood.core.generic.crud.service.ServicoGenerico;
 import com.algaworks.cadufood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.cadufood.domain.exception.negocio.RestauranteNaoEncontradoException;
 import com.algaworks.cadufood.domain.model.Restaurante;

@@ -78,13 +78,15 @@ public class Restaurante implements EntidadePai, EntidadeAtivavel {
 	private EntidadePaiImpl entidadePai = new EntidadePaiImpl(Restaurante.this);
 
 
+	@Override
+	public void setSubRecursos() {
+		entidadePai.adicionarSubrecurso("formasPagamento", getFormasPagamento());
+		entidadePai.adicionarSubrecurso("produto", getProduto());
+	}
 
 	@Override
-	public Map<String, Collection<EntidadeGenerica>> getSubRecursos(){
-		Map<String, Collection<EntidadeGenerica>> subRecursos = new HashMap<>();
-		entidadePai.adicionar(subRecursos, "formasPagamento", getFormasPagamento());
-		entidadePai.adicionar(subRecursos, "produto", getProduto());
-		return subRecursos;
+	public Map<String, Collection<EntidadeGenerica>> getSubRecursos() {
+		return entidadePai.getSubRecursos();
 	}
 
 	@Override

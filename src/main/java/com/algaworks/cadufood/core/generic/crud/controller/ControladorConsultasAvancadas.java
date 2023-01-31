@@ -1,6 +1,5 @@
 package com.algaworks.cadufood.core.generic.crud.controller;
 
-import com.algaworks.cadufood.api.model.output.RestauranteOutput;
 import com.algaworks.cadufood.core.generic.crud.service.ServicoConsultasAvancadas;
 import com.algaworks.cadufood.core.generic.filter.FiltroGenerico;
 import com.algaworks.cadufood.core.generic.mapper.MapeadorGenerico;

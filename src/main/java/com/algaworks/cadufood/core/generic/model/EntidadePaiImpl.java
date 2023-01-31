@@ -2,7 +2,10 @@ package com.algaworks.cadufood.core.generic.model;
 
 import lombok.RequiredArgsConstructor;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Classe que representa uma entidade REST pai.
@@ -12,12 +15,28 @@ import java.util.*;
  * @author Carlos Eduardo Marques Pereira
  */
 @RequiredArgsConstructor
-public class EntidadePaiImpl{
+public class EntidadePaiImpl implements ObjetoGenerico{
 
-    final EntidadePai fatherEntity;
+    private final EntidadePai fatherEntity;
 
-    protected Map<String, Collection<EntidadeGenerica>> getSubRecursos(){
-        return fatherEntity.getSubRecursos();
+    private final Map<String, Collection<EntidadeGenerica>> subRecursos = new HashMap<>();
+
+
+
+    public void adicionarSubrecurso(String chave, Collection<?> subrecurso){
+        subRecursos.put(chave, subrecurso.stream().map(item -> (EntidadeGenerica) item)
+                .toList());
+    }
+
+    public void setSubRecursos() {
+        fatherEntity.setSubRecursos();
+    }
+
+    public Map<String, Collection<EntidadeGenerica>> getSubRecursos(){
+        if (subRecursos.isEmpty()){
+            setSubRecursos();
+        }
+        return subRecursos;
     }
 
     public Collection<?> listarSubRecurso(String chave){
@@ -48,10 +67,5 @@ public class EntidadePaiImpl{
         if (subRecursos.containsKey(chave)){
             subRecursos.get(chave).remove(subRecurso);
         }
-    }
-
-    public void adicionar(Map<String, Collection<EntidadeGenerica>> lista, String chave, Collection<?> subrecurso){
-        lista.put(chave, subrecurso.stream().map(item -> (EntidadeGenerica) item)
-                .toList());
     }
 }

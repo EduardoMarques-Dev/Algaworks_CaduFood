@@ -5,7 +5,6 @@ import com.algaworks.cadufood.core.generic.mapper.MapeadorGenerico;
 import com.algaworks.cadufood.core.generic.model.DTO;
 import com.algaworks.cadufood.core.generic.model.EntidadeGenerica;
 import com.algaworks.cadufood.core.generic.model.EntidadePai;
-import com.algaworks.cadufood.core.generic.model.EntidadePaiImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

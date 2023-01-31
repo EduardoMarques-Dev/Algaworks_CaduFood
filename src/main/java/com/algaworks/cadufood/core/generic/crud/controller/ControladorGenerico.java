@@ -6,7 +6,6 @@ import com.algaworks.cadufood.core.generic.model.EntidadeGenerica;
 import com.algaworks.cadufood.core.generic.model.ObjetoGenerico;
 import com.algaworks.cadufood.domain.exception.NegocioException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
