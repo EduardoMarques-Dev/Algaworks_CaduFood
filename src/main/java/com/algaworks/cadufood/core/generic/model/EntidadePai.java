@@ -1,8 +1,8 @@
 package com.algaworks.cadufood.core.generic.model;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Interface que representa uma entidade REST pai.
@@ -13,36 +13,13 @@ import java.util.Map;
  */
 public interface EntidadePai extends EntidadeGenerica {
 
-    Map<String, Collection> getSubRecursos();
+    Map<String, Collection<EntidadeGenerica>> getSubRecursos();
 
-    default Collection<?> listarSubRecurso(String chave){
-        var subRecursos = getSubRecursos();
-        return subRecursos.containsKey(chave) ?
-                subRecursos.get(chave).stream().toList() : new ArrayList<>();
-    }
+    Collection<?> listarSubRecurso(String chave);
 
-    default Collection<?> buscarSubRecurso(String chave, EntidadeGenerica subRecurso) {
-        var subRecursos = getSubRecursos();
-        if (subRecursos.containsKey(chave)){
-            return subRecursos.get(chave).stream().filter(
-                    x -> x.equals(subRecurso)
-            ).toList();
-        }
-        return new ArrayList<>();
-    }
+    Collection<?> buscarSubRecurso(String chave, EntidadeGenerica subRecurso);
 
-    default void associarSubRecurso(String chave, EntidadeGenerica subRecurso) {
-        var subRecursos = getSubRecursos();
-        if (subRecursos.containsKey(chave)){
-            subRecursos.get(chave).add(subRecurso);
-        }
-    }
+    void associarSubRecurso(String chave, EntidadeGenerica subRecurso);
 
-    default void desassociarSubRecurso(String chave, EntidadeGenerica subRecurso) {
-        var subRecursos = getSubRecursos();
-        if (subRecursos.containsKey(chave)){
-            subRecursos.get(chave).remove(subRecurso);
-        }
-    }
-
+    void desassociarSubRecurso(String chave, EntidadeGenerica subRecurso);
 }

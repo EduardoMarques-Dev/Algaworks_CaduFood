@@ -1,7 +1,9 @@
 package com.algaworks.cadufood.domain.model;
 
 import com.algaworks.cadufood.core.generic.model.EntidadeAtivavel;
+import com.algaworks.cadufood.core.generic.model.EntidadeGenerica;
 import com.algaworks.cadufood.core.generic.model.EntidadePai;
+import com.algaworks.cadufood.core.generic.model.EntidadePaiImpl;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -72,17 +74,42 @@ public class Restaurante implements EntidadePai, EntidadeAtivavel {
 	@ToString.Exclude
 	private Set<FormaPagamento> formasPagamento = new HashSet<>();
 
-	@PrePersist
-	public void gerarCodigo() {
-		setCodigo(UUID.randomUUID().toString());
+	@Transient
+	private EntidadePaiImpl entidadePai = new EntidadePaiImpl(Restaurante.this);
+
+
+
+	@Override
+	public Map<String, Collection<EntidadeGenerica>> getSubRecursos(){
+		Map<String, Collection<EntidadeGenerica>> subRecursos = new HashMap<>();
+		entidadePai.adicionar(subRecursos, "formasPagamento", getFormasPagamento());
+		entidadePai.adicionar(subRecursos, "produto", getProduto());
+		return subRecursos;
 	}
 
 	@Override
-	public Map<String, Collection> getSubRecursos(){
-		Map<String, Collection> subRecursos = new HashMap<>();
-		subRecursos.put("formasPagamento", getFormasPagamento());
-		subRecursos.put("produto", getProduto());
-		return subRecursos;
+	public Collection<?> listarSubRecurso(String chave) {
+		return entidadePai.listarSubRecurso(chave);
+	}
+
+	@Override
+	public Collection<?> buscarSubRecurso(String chave, EntidadeGenerica subRecurso) {
+		return entidadePai.buscarSubRecurso(chave, subRecurso);
+	}
+
+	@Override
+	public void associarSubRecurso(String chave, EntidadeGenerica subRecurso) {
+		entidadePai.associarSubRecurso(chave, subRecurso);
+	}
+
+	@Override
+	public void desassociarSubRecurso(String chave, EntidadeGenerica subRecurso) {
+		entidadePai.desassociarSubRecurso(chave, subRecurso);
+	}
+
+	@PrePersist
+	public void gerarCodigo() {
+		setCodigo(UUID.randomUUID().toString());
 	}
 
 	@Override
@@ -94,6 +121,8 @@ public class Restaurante implements EntidadePai, EntidadeAtivavel {
 	public void inativar() {
 		setAtivo(false);
 	}
+
+
 
 	@Override
 	public boolean equals(Object o) {
