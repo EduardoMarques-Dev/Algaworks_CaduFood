@@ -8,9 +8,9 @@ import java.util.List;
 public interface GetAnnotations<OutputModel>{
 
     @GetMapping
-    public List<OutputModel> listar();
+    List<OutputModel> listar();
 
     @GetMapping("/{codigo}")
-    public OutputModel buscar(@PathVariable String codigo);
+    OutputModel buscar(@PathVariable String codigo);
 
 }

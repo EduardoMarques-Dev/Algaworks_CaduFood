@@ -4,9 +4,6 @@ import com.algaworks.cadufood.api.model.input.RestauranteInput;
 import com.algaworks.cadufood.api.model.mapper.RestauranteMapper;
 import com.algaworks.cadufood.api.model.output.RestauranteOutput;
 import com.algaworks.cadufood.core.generic.crud.controller.ControladorConsultasAvancadas;
-import com.algaworks.cadufood.core.generic.crud.controller.ControladorExcetoGet;
-import com.algaworks.cadufood.core.generic.crud.service.ServicoConsultasAvancadas;
-import com.algaworks.cadufood.core.generic.mapper.MapeadorGenerico;
 import com.algaworks.cadufood.domain.model.Restaurante;
 import com.algaworks.cadufood.domain.repository.util.filter.RestauranteFiltros;
 import com.algaworks.cadufood.domain.service.RestauranteService;
@@ -20,15 +17,10 @@ public class RestauranteController extends ControladorConsultasAvancadas<Restaur
 
     private final RestauranteService restauranteService;
 
+    @Autowired
     public RestauranteController(RestauranteService servico, RestauranteMapper mapper) {
         super(servico, mapper);
         this.restauranteService = servico;
-    }
-
-    @Override
-    @GetMapping("/{codigo}")
-    public RestauranteOutput buscar(@PathVariable String codigo) {
-        return super.buscar(codigo);
     }
 
     @PutMapping("/{restauranteCodigo}/ativo")
@@ -42,6 +34,5 @@ public class RestauranteController extends ControladorConsultasAvancadas<Restaur
     public void inativar(@PathVariable String restauranteCodigo){
         restauranteService.inativar(restauranteCodigo);
     }
-
 }
 

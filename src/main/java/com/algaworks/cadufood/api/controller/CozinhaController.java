@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/cozinhas")
 public class CozinhaController extends ControladorBasico<Cozinha, CozinhaInput, CozinhaOutput> {
 
+    @Autowired
     public CozinhaController(CozinhaService servico, CozinhaMapper mapper) {
         super(servico, mapper);
     }

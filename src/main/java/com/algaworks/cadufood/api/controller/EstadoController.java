@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/estados")
 public class EstadoController extends ControladorBasico<Estado, EstadoInput, EstadoOutput> {
 
+    @Autowired
     public EstadoController(EstadoService servico, EstadoMapper mapper) {
         super(servico, mapper);
     }

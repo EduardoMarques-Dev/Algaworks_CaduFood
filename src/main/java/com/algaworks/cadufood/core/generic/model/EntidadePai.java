@@ -7,8 +7,7 @@ import java.util.Map;
 /**
  * Interface que representa uma entidade REST pai.
  *
- * Interface criada para as entidades que possuem
- * subEntidades.
+ * Corresponde às entidades que possuem subEntidades.
  *
  * @author Carlos Eduardo Marques Pereira
  */

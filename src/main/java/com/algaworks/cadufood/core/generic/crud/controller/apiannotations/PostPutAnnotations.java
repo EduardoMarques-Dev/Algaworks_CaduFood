@@ -8,12 +8,12 @@ import java.util.HashMap;
 public interface PostPutAnnotations<InputModel, OutputModel> {
 
     @PostMapping
-    public OutputModel salvar(@RequestBody @Valid InputModel inputModel);
+    OutputModel salvar(@RequestBody @Valid InputModel inputModel);
 
     @PutMapping("/{codigo}")
-    public OutputModel atualizar(@PathVariable String codigo, @RequestBody @Valid InputModel inputModel);
+    OutputModel atualizar(@PathVariable String codigo, @RequestBody @Valid InputModel inputModel);
 
     @PatchMapping("/{codigo}")
-    public OutputModel atualizarParcial(@PathVariable String codigo, @RequestBody HashMap<String, Object> fields);
+    OutputModel atualizarParcial(@PathVariable String codigo, @RequestBody HashMap<String, Object> fields);
 
 }

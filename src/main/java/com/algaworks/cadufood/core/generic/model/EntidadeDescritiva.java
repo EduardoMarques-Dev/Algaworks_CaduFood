@@ -3,9 +3,9 @@ package com.algaworks.cadufood.core.generic.model;
 /**
  * Interface que representa uma entidade REST descritiva.
  *
- * Como algumas entidades não possuem o atributo 'nome',
- * esta interface cria uma abstração conferindo ao 'nome'
- * o atributo 'descricao'.
+ * Corresponde às entidades que não possuem o atributo 'nome',
+ * criando então uma abstração que confere ao 'nome'
+ * o atributo 'descricao'.v
  *
  * @author Carlos Eduardo Marques Pereira
  */

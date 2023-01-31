@@ -4,8 +4,6 @@ import com.algaworks.cadufood.api.model.input.CidadeInput;
 import com.algaworks.cadufood.api.model.mapper.CidadeMapper;
 import com.algaworks.cadufood.api.model.output.CidadeOutput;
 import com.algaworks.cadufood.core.generic.crud.controller.ControladorExcetoGet;
-import com.algaworks.cadufood.core.generic.crud.service.ServicoGenerico;
-import com.algaworks.cadufood.core.generic.mapper.MapeadorGenerico;
 import com.algaworks.cadufood.domain.model.Cidade;
 import com.algaworks.cadufood.domain.service.CidadeService;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
@@ -13,10 +11,7 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJacksonValue;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,6 +23,7 @@ public class CidadeController extends ControladorExcetoGet<Cidade, CidadeInput, 
 
     private final CidadeMapper mapper;
 
+    @Autowired
     public CidadeController(CidadeService servico, CidadeMapper mapper) {
         super(servico, mapper);
         this.cidadeService = servico;
@@ -44,6 +40,12 @@ public class CidadeController extends ControladorExcetoGet<Cidade, CidadeInput, 
         return outputWrapper;
     }
 
+    @Override
+    @GetMapping("/{codigo}")
+    public CidadeOutput buscar(@PathVariable String codigo) {
+        return super.buscar(codigo);
+    }
+
     private static SimpleFilterProvider adicionarFiltros(String campos) {
         SimpleFilterProvider filterProvider = new SimpleFilterProvider();
 
@@ -54,10 +56,5 @@ public class CidadeController extends ControladorExcetoGet<Cidade, CidadeInput, 
         }
 
         return filterProvider;
-    }
-
-    @Override
-    public CidadeOutput buscar(String codigo) {
-        return super.buscar(codigo);
     }
 }

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 import lombok.Getter;
 import lombok.Setter;
 
-@JsonFilter("CidadeOutput")
+//@JsonFilter("CidadeOutput")
 @Getter
 @Setter
 public class CidadeOutput implements DTO {

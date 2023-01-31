@@ -17,9 +17,9 @@ public interface EntidadeGenerica extends ObjetoGenerico {
 
     /**
      * Método responsável por gerar o código da entidade.
-     * Ao implementar, anote com @Prepersist para que o
-     * método seja chamado automaticamente antes de
-     * persistir a entidade.
+     * Ao implementar deve anota-lo com @Prepersist para
+     * que o método seja chamado automaticamente antes
+     * de persistir a entidade.
      */
     void gerarCodigo();
 

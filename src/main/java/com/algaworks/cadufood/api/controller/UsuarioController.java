@@ -30,6 +30,7 @@ public class UsuarioController extends ControladorExcetoPostPut<Usuario, Usuario
 
     private final UsuarioMapper mapper;
 
+    @Autowired
     public UsuarioController(UsuarioService servico, UsuarioMapper mapper) {
         super(servico, mapper);
         this.usuarioService = servico;
